@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}chess{% endblock %}
+{% block head %}
+<head>
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='start_style.css') }}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great Vibes">
+</head>
+{% endblock %}
+
+{% block content %}
+<div class='pop' id='notLogged'>
+    <button class='x' onclick="closeDialog()"><div class='printx'>&#10005;</div></button>
+  <button class='but'>Sign in</button>
+  <button class='but' onclick="ifPrivate()">Play as Guest</button>
+</div>
+
+{% endblock %}

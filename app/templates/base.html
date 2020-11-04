@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>{% block title %}{% endblock %} Hardware Quiz</title>
+  {% endblock %}
+</head>
+<body>
+  <div id='cover'></div>
+    <div class='pop' id='sign'>
+      <button class='x' onclick="closeDialog()"><div class='printx'>&#10005;</div></button>
+      <div class="popInput">
+        <label for="userName">User Name</label>
+			  <input type="text" name="userName">
+        <div class='errorMsg'>{{userMsg}}</div>
+      </div>
+      <div class="popInput">
+        <label for='password'>Password</label>
+			  <input type="password" name="password">
+        <div class='errorMsg'>{{passwordMsg}}</div>
+      </div>
+      <div class="popInput">
+        <button class="but">Register</button>
+      </div>
+    </div>
+    {% if user %}
+    <div class='menuHolder' onclick="openSlide()">
+      <div id='User'>{{ user }}</div>
+    </div>
+    <div id='sideBar'>
+      <div class='slide'>
+        <div class='sideBut'>
+          <div class="sideTop"></div>
+          <button>Log out</button>
+          <button>My Profile</button>
+          <button>Settings</button>
+          <button>Contact us</button>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class='menuHolder' onclick="openSlide()">
+      <div class="menu"></div>
+    </div>
+    <div id='sideBar'>
+      <div class='slide'>
+        <div class='sideBut'>
+          <div class="sideTop"></div>
+          <button onclick="SignIn()">Sign in</button>
+          <button>Contact us</button>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  </div>
+  <div id='brand'>Hardware Quiz</div>
+  <div id="content">{% block content %}{% endblock %}</div>
+  <div id="footer">
+    {% block footer %}
+      &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+    {% endblock %}
+  </div>
+  <div id='profilePic'>
+    <img src="/static/pics/baby.svg" alt="Pic">
+  </div>
+  <script src="{{ url_for('static', filename='base.js') }}"></script>
+</body>
+</html>
