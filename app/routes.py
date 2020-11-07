@@ -8,4 +8,8 @@ import json
 
 @app.route('/')
 def hello_world():
-		return 'hello_world'
+	return 'hello_world'
+
+@app.route('/quiz')
+def quiz():
+	return render_template('quiz.html')
