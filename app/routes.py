@@ -13,3 +13,7 @@ def hello_world():
 @app.route('/quiz')
 def quiz():
 	return render_template('quiz.html')
+
+@app.route('/add_question')
+def add_question():
+	return render_template('add_question.html')

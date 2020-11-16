@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}chess{% endblock %}
+{% block head %}
+<head>
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='start_style.css') }}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great Vibes">
+</head>
+{% endblock %}
+
+{% block content %}
+<h2> Please Submmit a Question</h2>
+<div id='idea'>  
+  <label for="question_type"></label>
+  <select name='question_type' id='question_type'>
+    <option value='question'>Question</option>
+    <option value="match">Find Match</option>
+    <option value="positional">Positional</option>
+  </select>
+  <input  id='question' placeholder="Question">
+  <input id='answer' plaseholder='Answer'>
+  <button onclick="addQuestion()">Add</button>
+  <input id='pictureUrl' placeholder="Picture URL">
+  <button onclick="submmit()">Subbmit</button>
+</div>
+<script src="{{ url_for('static', filename='add_question.js') }}"></script>
+
+{% endblock %}
