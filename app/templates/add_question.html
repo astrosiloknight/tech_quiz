@@ -4,7 +4,7 @@
 {% block head %}
 <head>
   {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='start_style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='add_question.css') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great Vibes">
 </head>
 {% endblock %}
@@ -12,17 +12,25 @@
 {% block content %}
 <h2> Please Submmit a Question</h2>
 <div id='idea'>  
-  <label for="question_type"></label>
-  <select name='question_type' id='question_type'>
+  <label for="questionType"> Question Type</label>
+  <select name='questionType' id='questionType'>
     <option value='question'>Question</option>
     <option value="match">Find Match</option>
     <option value="positional">Positional</option>
   </select>
-  <input  id='question' placeholder="Question">
-  <input id='answer' plaseholder='Answer'>
-  <button onclick="addQuestion()">Add</button>
+  <label for="question"> Question </label>
+  <textarea id='question'></textarea>
+  <label for="answer"> Answer</label>
+  <textarea id='answer'></textarea>
+  <label for="score">Correct Answer?</label>
+  <select id='score'>
+    <option value='true'>True</option>
+    <option value='false'>False</option>
+  </select>
+  <button onclick="addAnswer()">Add</button>
+  <div id="answerDisplay"></div>
   <input id='pictureUrl' placeholder="Picture URL">
-  <button onclick="submmit()">Subbmit</button>
+  <button onclick="submit()">Submit</button>
 </div>
 <script src="{{ url_for('static', filename='add_question.js') }}"></script>
 

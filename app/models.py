@@ -63,7 +63,7 @@ class Question(db.Model):
   question_type = db.Column(db.String(20), default='question')
   description = db.Column(db.String(200))
   pic = db.Column(db.String(50))
-  problem = db.Column(db.JSON, nullable=False)
+  answers = db.Column(db.JSON, nullable=False)
 
   def insert(self):
     db.session.add(self)

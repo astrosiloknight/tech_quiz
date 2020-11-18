@@ -1,0 +1,35 @@
+
+#idea {
+	
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#pictureUrl {
+	visibility: hidden;
+}
+
+select, input, textarea, button {
+	margin: auto;
+	margin-bottom: 1em;
+}
+
+select {
+	font-size: 1.2em;
+	width: 6em;	
+}
+
+input {
+	width: 3em;
+}
+
+textarea {
+	width: 25em;
+	height: 3em;
+}
+
+button {
+	width: 5em;
+	font-size: 1.2em;
+}
