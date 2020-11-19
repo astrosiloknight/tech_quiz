@@ -33,7 +33,7 @@ class Quiz(db.Model):
   score = db.Column(db.Integer)
   finished = db.Column(db.Boolean, default=False)
   answers = db.Column(db.JSON)
-  duration = db.column(db.Integer)
+  duration = db.Column(db.Integer)
 
   def insert(self):
     db.session.add(self)
