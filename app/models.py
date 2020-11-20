@@ -31,7 +31,7 @@ class Quiz(db.Model):
   date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   participant = db.Column(db.String(60))
   score = db.Column(db.Integer)
-  finished = db.Column(db.Boolean, default=False)
+  finished = db.Column(db.Boolean, default=False) 
   answers = db.Column(db.JSON)
   duration = db.Column(db.Integer)
 

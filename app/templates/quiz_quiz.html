@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}chess{% endblock %}
+{% block head %}
+<head>
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='quiz_quiz.css') }}">
+</head>
+{% endblock %}
+
+{% block content %}
+<h2>participant: {{name}}  time: {{time}}</h2>
+<div id="exercise">
+  <div id="question"></div>
+  <div id="answers"></div>
+  <div id='controls'>
+    <button onclick="back()">Back</button>
+    <button onclick="next()">Next</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var exercises = {{exercises| safe}}
+</script>
+<script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
+
+{% endblock %}

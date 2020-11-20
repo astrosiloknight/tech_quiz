@@ -1,0 +1,18 @@
+
+
+#exercise {
+	background: white;
+	margin: 4em;
+	margin-left: 9em;
+	margin-right: 9em;
+}
+
+#question {
+	font-size: 1.4em;
+}
+
+.ans {
+	margin: 1em;
+	border: solid;
+	border-width: 1px;
+}
