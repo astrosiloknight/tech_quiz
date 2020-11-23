@@ -3,6 +3,8 @@ var gamePrivacy;
 var globHour = 1;
 var globMin = 0;
 
+console.log('time', Date.parse)
+
 function refresh(){
   fetch('/chess/lobby').then(response => response.json()).then(function(response){
     if(response.game.id){

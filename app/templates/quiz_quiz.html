@@ -11,16 +11,21 @@
 {% block content %}
 <h2>participant: {{name}}  time: {{time}}</h2>
 <div id="exercise">
+  <div id="timer">00:00</div>
   <div id="question"></div>
-  <div id="answers"></div>
-  <div id='controls'>
-    <button onclick="back()">Back</button>
-    <button onclick="next()">Next</button>
+  <div id="answers">
+    <table></table>
   </div>
+  <div id='controls'>
+    <button class="but" id='back' onclick="back()">&#8810 Back</button>
+    <button class='but' id='next' onclick="next()">Next &#8811</button>
+  </div>
+  <div id="ruller"></div>
 </div>
 
 <script type="text/javascript">
-  var exercises = {{exercises| safe}}
+  var exercises = {{exercises| safe}};
+  var time = '{{time}}';
 </script>
 <script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
 

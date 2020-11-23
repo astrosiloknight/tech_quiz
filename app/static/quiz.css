@@ -1,0 +1,40 @@
+
+#quoute {
+  display: inline-block;
+  font-family: 'Great Vibes', serif;
+  font-size: 2.3em;
+  background: rgb(255,255,255,0.3);
+}
+
+#start {
+  position: fixed;
+  z-index: 20;
+  top: 60%;
+  left: 50%;
+  margin-top: -10em;
+  margin-left: -17.5em;
+  width: 40em;
+  height: 16em;
+  text-align: center;
+  background: rgba(220, 240, 216, 0.5);
+}
+
+#head {
+  font-size: 1.8em;
+  background: rgba(143, 40, 40, 0.6);
+}
+
+#head2 {
+  font-size: 1.2em;
+  background: rgba(143, 40, 40, 0.4);
+}
+
+.startInput {
+  background-color: rgba(90, 127, 145);
+	margin: auto;
+  font-size: 1.3em;
+	height: 1.5em;
+  width: 7em;
+  margin-top: 5em;
+  margin-left: 2em;
+}

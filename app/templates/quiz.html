@@ -4,27 +4,27 @@
 {% block head %}
 <head>
   {{ super() }}
-  <link rel="stylesheet" href="{{ url_for('static', filename='start_style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='quiz.css') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great Vibes">
 </head>
 {% endblock %}
 
 {% block content %}
-<div class='pop' id='getName'>
-  <button class='x' onclick="closeName()"><div class='printx'>&#10005;</div></button>
-  <h2> Please Enter Your Full Name</h2>
-  <input class='popInput' id="fullName" placeholder="Name Surname">
+<div id='start'>
+  <div id="head"> Hardware Technician Quiz</div>
+  <div id="head2"> Do you have what it takes to become Hardware Jedy &#x2694?</div>
+  <div>
+    <input class='startInput' id="name" placeholder="Name">
+    <input class='startInput' id="surname" placeholder="Surname">
+  </div>
   <div class="butHolder">
-    <button class='sub' onclick="startGame()">Submit</button>
-    <button class='back' onclick="closeName()">Cancel</button>
+    <button class='sub' onclick="startGame()">Start Quiz</button>
   </div>
 </div>
 <div id="slogan">
-  <h2>Some shit... Some more shit...</h2>
-  <h2>Something else</h2>
+  <div id="quoute">"Waste of resources is a mortal sin at IKEA." - Ingvar Kamprad</div>
 </div>
 
-<button id='start' onclick="openName()">Start Quiz</button>
 <script src="{{ url_for('static', filename='quiz.js') }}"></script>
 
 {% endblock %}

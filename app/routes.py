@@ -10,7 +10,7 @@ from app.quiz_maker import make_quiz, get_quiz
 
 @app.route('/')
 def hello_world():
-	return 'hello_world'
+	return redirect('quiz');
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():

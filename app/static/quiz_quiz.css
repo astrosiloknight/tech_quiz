@@ -1,18 +1,109 @@
 
 
+#timer {
+  position: absolute;
+  right: 0;
+  top: -1.2em;
+}
+
 #exercise {
-	background: white;
-	margin: 4em;
-	margin-left: 9em;
-	margin-right: 9em;
+  display: inline-block;
+  font-size: 1.2em;
+  top: 7em;
+  position: relative;
+	background: rgb(255, 255, 255, 0.9);
+	margin: auto;
+	width: 55em;
+  height: 22em;
+  text-align: center;
+}
+
+table {
+  margin: auto;
 }
 
 #question {
-	font-size: 1.4em;
+	font-size: 1.5em;
+  padding: 1.3em;
+}
+
+tr {
+  height: 1.5em;
+}
+
+
+td {
+  padding-left: 1em;
+  padding-right: 1em;
+  
 }
 
 .ans {
-	margin: 1em;
-	border: solid;
-	border-width: 1px;
+  border-bottom: 1px dotted #ccc;
+}
+
+hr {
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+.checkbox {
+  margin-left: 2em;
+  margin-right: 2em;
+  float: right;
+}
+
+#back, #next {
+  position: absolute;
+  width: 4.5em;
+  height: 1.8em;
+}
+
+#back {
+  left: 6em;
+  bottom: 1.5em;
+}
+
+#back:hover {
+  left: 5.6em;
+  bottom: 1.2em;
+}
+
+#next {
+  right: 6em;
+  bottom: 1.5em;
+}
+
+#next:hover {
+  right: 5.6em;
+  bottom: 1.2em;
+}
+
+#ruller {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 0.8em;
+  flex-direction: row;
+  bottom: 0;
+}
+
+.bar {
+  flex-grow: 1;
+  background: rgb(255, 217, 179);
+  border-style:solid;
+  border-color: rgb(199, 198, 198);
+  border-width: 1px;
+}
+
+.bar:hover {
+  background: rgba(90, 127, 165)
+}
+
+.done {
+  background: rgba(90, 127, 125);
+}
+
+.doing {
+  background: rgb(235, 141, 87);
 }

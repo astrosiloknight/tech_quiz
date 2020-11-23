@@ -1,4 +1,7 @@
 
+:root {
+  --butt-bac-color: rgba(90, 127, 125);
+}
 
 body {
   -webkit-touch-callout: none;
@@ -7,8 +10,9 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background: #757D75; 
   text-align: center;
+  background-image: url("/static/blue.jpg");
+  background-size: 120%;
 }
 
 
@@ -37,7 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background: rgba(112, 145, 121);
+  background: rgba(112, 145, 121, 0.8);
 }
 
 #duration {
@@ -114,7 +118,6 @@ body {
   width: 5em;
   height: 1.8em;
   border-style: solid;
-  background: rgba(90, 127, 145);
 }
 
 .back {
@@ -206,6 +209,15 @@ body {
   background: rgba(90, 127, 125);
 }
 
+.slide button a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.slide button a:hover {
+  cursor: inherit;
+}
+
 .slide button:hover {
   color: white;
   background: rgba(90, 127, 165);
@@ -254,9 +266,6 @@ body {
   color: white;
 }
 
-#copy{
-
-}
 
 #footer {
   position: absolute;

@@ -1,18 +1,10 @@
 
 
-function openName(){
-	document.getElementById('getName').style.visibility = 'visible';
-}
-
-function closeName(){
-	document.getElementById('getName').style.visibility = 'hidden';
-}
-
 function startGame(){
-	var name = document.getElementById('fullName').value;
-	console.log('name', name);
+	var name = document.getElementById('name').value;
+  var surname = document.getElementById('surname').value;
 	if(name){
-		fetchPost('/quiz', {'name': name}).then(function(response){
+		fetchPost('/quiz', {'name': name + ' ' + surname}).then(function(response){
 			console.log('response', response);
 			if(response.quizId){
 				window.location.href = '/quiz/' + response.quizId;
