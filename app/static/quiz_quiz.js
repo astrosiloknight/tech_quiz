@@ -1,10 +1,12 @@
 
 var num = 0;
 var len = exercises.length;
-var selected = {};
 var doing;
 var diff;
+var prevSelected = {};
 
+console.log('selected', selected);
+console.log('quiz', quizId);
 
 function timer() {
   console.log('timekeeping');
@@ -42,7 +44,7 @@ function display_exercise(){
     doing.classList.remove("doing");
   }
 	document.getElementById('question').innerText = exercises[num][0];
-  document.getElementById('answers').innerHTML = '';
+  document.getElementById('tbl').innerHTML = '';
   doing = document.getElementById('bar' + num.toString());
   doing.classList.add("doing");
   var i = 1;
@@ -59,7 +61,7 @@ function display_exercise(){
     let ins = document.createElement('td');
     ins.append(checkBox);
     row.append(ins);
-    document.getElementById('answers').append(row);
+    document.getElementById('tbl').append(row);
      i++;
 	}
   if(selected[num]){
@@ -93,6 +95,11 @@ function next(){
     num = 0;
   } 
   display_exercise();
+  if(prevSelected != selected){
+  	fetchPost('/update', {'selected': selected, 'quizId': quizId}).then(function(response){
+  		console.log(response);
+  	})
+  }
 }
 
 function back(){
@@ -132,3 +139,19 @@ function timePrinter(time) {
 timeKeeper();
 makeRuller();
 display_exercise();
+
+function fetchPost(address, message){
+	console.log('message', message);
+  return fetch(address,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(message)
+  }).then(response => response.json()).then(function(response){
+    return response;
+  }).catch(function(error){
+  	console.log(error);
+  })
+}

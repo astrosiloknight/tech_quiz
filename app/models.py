@@ -32,6 +32,7 @@ class Quiz(db.Model):
   participant = db.Column(db.String(60))
   score = db.Column(db.Integer)
   finished = db.Column(db.Boolean, default=False) 
+  questions = db.Column(db.JSON)
   answers = db.Column(db.JSON)
   duration = db.Column(db.Integer)
 
@@ -53,6 +54,7 @@ class Quiz(db.Model):
       'participant': self.participant,
       'score': self.score,
       'finished': self.finished,
+      'questions': self.questions,
       'answers': self.answers,
       'duration': self.duration
     }
@@ -61,7 +63,7 @@ class Question(db.Model):
   __tablename__ = 'questions'
   id = db.Column(db.Integer, primary_key=True)
   question_type = db.Column(db.String(20), default='question')
-  description = db.Column(db.String(200))
+  description = db.Column(db.String(1000))
   pic = db.Column(db.String(50))
   answers = db.Column(db.JSON, nullable=False)
 

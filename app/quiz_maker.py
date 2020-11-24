@@ -30,7 +30,7 @@ def make_quiz(name):
 		app.logger.info(sys.exc_info())
 	if not error:
 		try:
-			quiz = Quiz(participant=name, answers=bulk)
+			quiz = Quiz(participant=name, questions=bulk, answers={})
 			Quiz.insert(quiz)
 			quiz_id = quiz.id
 		except:
@@ -46,13 +46,33 @@ def get_quiz(quiz_id):
 	try:
 		quiz = Quiz.query.filter_by(id=quiz_id).first()
 		nice_obj = quiz.format()
-		answers = quiz.answers
-		for answer in answers:
-			for ans in answer[1]:
+		questions = quiz.questions
+		for question in questions:
+			for ans in question[1]:
 				del ans[1]
 	except:
 		error = True
 		app.logger.info(sys.exc_info())
 	finally:
 		db.session.close()
-	return {'name': nice_obj['participant'], 'time': nice_obj['date'], 'answers': answers}
+	if error:
+		return {'success': False}
+	else:
+		return {'name': nice_obj['participant'], 'time': nice_obj['date'], 'questions': questions, 'answers':nice_obj['answers']}
+
+def update_quiz(quiz_id, answers):
+	error = False
+	try:
+		quiz = Quiz.query.filter_by(id=quiz_id).first()
+		quiz_time = str(quiz.date)
+		quiz.answers = answers
+		quiz.update()
+	except:
+		error = True
+		app.logger.info(sys.exc_info())
+	finally:
+		db.session.close()
+	if error:
+		return json.dumps({'success': False})
+	else:
+		return json.dumps({'success': True, 'quiz_time': quiz_time})

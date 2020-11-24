@@ -14,7 +14,7 @@
   <div id="timer">00:00</div>
   <div id="question"></div>
   <div id="answers">
-    <table></table>
+    <table id="tbl"></table>
   </div>
   <div id='controls'>
     <button class="but" id='back' onclick="back()">&#8810 Back</button>
@@ -26,6 +26,8 @@
 <script type="text/javascript">
   var exercises = {{exercises| safe}};
   var time = '{{time}}';
+  var selected = {{answers| safe}};
+  var quizId = '{{quiz_id}}'
 </script>
 <script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
 
