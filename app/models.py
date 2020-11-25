@@ -35,6 +35,7 @@ class Quiz(db.Model):
   questions = db.Column(db.JSON)
   answers = db.Column(db.JSON)
   duration = db.Column(db.Integer)
+  state = db.Column(db.Integer, default=0)
 
   def insert(self):
     db.session.add(self)
@@ -56,7 +57,8 @@ class Quiz(db.Model):
       'finished': self.finished,
       'questions': self.questions,
       'answers': self.answers,
-      'duration': self.duration
+      'duration': self.duration,
+      'state':self.state
     }
 
 class Question(db.Model):
