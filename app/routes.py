@@ -5,8 +5,8 @@ from flask import render_template
 import sys
 import json
 
-from app.models import db, Quiz, Question
-from app.quiz_maker import make_quiz, get_quiz, update_quiz
+from app.models import db, Question
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz
 
 @app.route('/')
 def hello_world():
@@ -37,6 +37,17 @@ def quiz_instance(quiz_id):
 	obj = get_quiz(quiz_id)
 	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
 		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id) 
+
+@app.route('/submit', methods=['POST'])
+def submit():
+  app.logger.info('submitting')
+  content = json.loads(request.data)
+  quiz_id = content.get('quizId', None)
+  answers = content.get('selected', None)
+  if quiz_id and answers:
+    return submit_quiz(quiz_id, answers)
+  else:
+    return json.dumps({'success in submit': False})
 
 @app.route('/add_question', methods=['POST', 'GET'])
 def add_question():

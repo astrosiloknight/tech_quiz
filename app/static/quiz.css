@@ -38,3 +38,8 @@
   margin-top: 5em;
   margin-left: 2em;
 }
+
+#noName {
+  visibility: hidden;
+  color: red;
+}

@@ -81,6 +81,9 @@ function check(boxChecked) {
       }
     }
   })
+  if(num == len -1){
+    introduceSubmit();
+  }
 }
 
 function getQuestion(i){
@@ -91,9 +94,7 @@ function getQuestion(i){
 function next(){
   if(num < len-1){
     num++;
-  } else{
-    num = 0;
-  } 
+  }
   display_exercise();
   if(prevSelected != selected){
   	fetchPost('/update', {'selected': selected, 'quizId': quizId}).then(function(response){
@@ -109,6 +110,19 @@ function back(){
     num--;
   } 
   display_exercise();
+}
+
+function introduceSubmit(){
+  //document.getElementById('next').style.right = '14em';
+  document.getElementById('next').classList.remove('next');
+  document.getElementById('next').classList.add('nextMoved');
+  document.getElementById('finish').style.visibility = 'visible';
+}
+
+function finish(){
+  fetchPost('/submit', {'selected': selected, 'quizId': quizId}).then(function(response){
+  		console.log(response);
+  })
 }
 
 function timePrinter(time) {
@@ -135,6 +149,7 @@ function timePrinter(time) {
     return smin + ':' + ssec;
   }
 }
+
 
 timeKeeper();
 makeRuller();

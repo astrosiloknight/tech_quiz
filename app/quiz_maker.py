@@ -7,8 +7,6 @@ import json
 
 from app.models import db, Quiz, Question
 
-
-
 def make_quiz(name):
 	bulk = []
 	error = False
@@ -64,7 +62,6 @@ def update_quiz(quiz_id, answers):
 	error = False
 	try:
 		quiz = Quiz.query.filter_by(id=quiz_id).first()
-		quiz_time = str(quiz.date)
 		quiz.answers = answers
 		quiz.update()
 	except:
@@ -75,4 +72,30 @@ def update_quiz(quiz_id, answers):
 	if error:
 		return json.dumps({'success': False})
 	else:
-		return json.dumps({'success': True, 'quiz_time': quiz_time})
+		return json.dumps({'success': True})
+
+def submit_quiz(quiz_id, answers):
+  error = False
+  try:
+    quiz = Quiz.query.filter_by(id=quiz_id).first()
+    quiz.answers = answers
+    quiz.finished = True
+    points = 0
+    for i in range(len(quiz.questions)):
+      chosen_answer =  answers[str(i)]
+      app.logger.info(' %s chosen_answer' % chosen_answer)
+      app.logger.info(' %s quiz.questions[1][chosen_answer][1]' % quiz.questions[1][chosen_answer][1])
+      if quiz.questions[1][chosen_answer][1] == True:
+        points += 1
+    app.logger.info(' %s points' % points)
+    quiz.score = points
+    quiz.update()
+  except:
+    error = True
+    app.logger.info(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    return json.dumps({'success': False})
+  else:
+    return json.dumps({'success': True})

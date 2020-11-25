@@ -54,7 +54,7 @@ hr {
   float: right;
 }
 
-#back, #next {
+#back, .next, .nextMoved, #finish {
   position: absolute;
   width: 4.5em;
   height: 1.8em;
@@ -70,13 +70,29 @@ hr {
   bottom: 1.2em;
 }
 
-#next {
+.next {
   right: 6em;
   bottom: 1.5em;
 }
 
-#next:hover {
+.next:hover, #finish:hover {
   right: 5.6em;
+  bottom: 1.2em;
+}
+
+#finish {
+  visibility: hidden;
+  right: 6em;
+  bottom: 1.5em;
+}
+
+.nextMoved{
+  right: 14em;
+  bottom: 1.5em;
+}
+
+.nextMoved:hover {
+  right: 13.6em;
   bottom: 1.2em;
 }
 
