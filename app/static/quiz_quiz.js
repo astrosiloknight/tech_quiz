@@ -100,6 +100,7 @@ function next(){
   	fetchPost('/update', {'selected': selected, 'quizId': quizId}).then(function(response){
   		console.log(response);
   	})
+    prevSelected = selected;
   }
 }
 

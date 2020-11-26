@@ -1,0 +1,38 @@
+
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='ranking.css') }}">
+</head>
+{% endblock %}
+
+{% block content %}
+<h1> Power Ranking</h1>
+
+
+<table>
+  <tr>
+    <th>Rank</th>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Score</th>
+  </tr>
+  {% set i = 1 %}
+  {% for item in ranking %}
+  <tr>
+    <td>{{i}}</td>
+    <td>{{item['participant']}}</td>
+    <td>{{item['date']}}</td>
+    <td>{{item['duration']}}</td>
+    <td>{{item['score']}}</td>
+  </tr>
+  {% set i = i + 1 %}
+  {% endfor %}
+</table>
+
+<script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
+
+{% endblock %}

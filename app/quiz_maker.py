@@ -99,3 +99,23 @@ def submit_quiz(quiz_id, answers):
     return json.dumps({'success': False})
   else:
     return json.dumps({'success': True})
+
+def ranking():
+  error = False
+  try:
+    ranks = Quiz.query.filter_by(finished = True).order_by('score').all()
+    if ranks:
+      power = []
+      for rank in ranks:
+        power.append(rank.format())
+    else:
+      error = 'no ranks'
+  except:
+    error = True
+    app.logger.info(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    return json.dumps({'success': False, 'error': error})
+  else:
+    return power

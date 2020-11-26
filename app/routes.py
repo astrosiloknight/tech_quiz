@@ -6,7 +6,7 @@ import sys
 import json
 
 from app.models import db, Question
-from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking
 
 @app.route('/')
 def hello_world():
@@ -48,6 +48,11 @@ def submit():
     return submit_quiz(quiz_id, answers)
   else:
     return json.dumps({'success in submit': False})
+
+@app.route('/power_ranking')
+def power_ranking():
+  power = ranking()
+  return render_template('ranking.html', ranking=power)
 
 @app.route('/add_question', methods=['POST', 'GET'])
 def add_question():
