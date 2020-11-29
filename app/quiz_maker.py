@@ -56,13 +56,15 @@ def get_quiz(quiz_id):
   if error:
     return {'success': False}
   else:
-    return {'name': nice_obj['participant'], 'time': nice_obj['date'], 'questions': questions, 'answers':nice_obj['answers']}
+    return {'name': nice_obj['participant'], 'time': nice_obj['date'], 'questions': questions, 'answers':nice_obj['answers'], 
+    'state': nice_obj['state']}
 
-def update_quiz(quiz_id, answers):
+def update_quiz(quiz_id, answers, state):
   error = False
   try:
     quiz = Quiz.query.filter_by(id=quiz_id).first()
     quiz.answers = answers
+    quiz.state = state
     quiz.update()
   except:
     error = True

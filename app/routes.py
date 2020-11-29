@@ -17,8 +17,9 @@ def update():
 	content = json.loads(request.data)
 	quiz_id = content.get('quizId', None)
 	answers = content.get('selected', None)
-	if quiz_id and answers:
-		return update_quiz(quiz_id, answers)
+	state = content.get('state', None)
+	if quiz_id and answers and state:
+		return update_quiz(quiz_id, answers, state)
 	else:
 		return json.dumps({'success': False, 'error': 'routes/update'})
 
@@ -36,7 +37,7 @@ def quiz():
 def quiz_instance(quiz_id):
 	obj = get_quiz(quiz_id)
 	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
-		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id) 
+		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
 
 @app.route('/submit', methods=['POST'])
 def submit():

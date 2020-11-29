@@ -1,11 +1,11 @@
 
-var num = 0;
+var num = parseInt(state);
 var len = exercises.length;
 var doing;
 var diff;
 var prevSelected = {};
 
-console.log('selected', selected);
+console.log('state', state);
 console.log('quiz', quizId);
 
 function timer() {
@@ -97,7 +97,7 @@ function next(){
   }
   display_exercise();
   if(prevSelected != selected){
-  	fetchPost('/update', {'selected': selected, 'quizId': quizId}).then(function(response){
+  	fetchPost('/update', {'selected': selected, 'quizId': quizId, 'state': num}).then(function(response){
   		console.log(response);
   	})
     prevSelected = selected;

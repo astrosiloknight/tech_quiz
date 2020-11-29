@@ -266,10 +266,18 @@ body {
   color: white;
 }
 
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content{
+  padding-bottom: 3em;
+}
 
 #footer {
   position: absolute;
   bottom: 0;
-  width: 98%;
-  height: 2.5rem;            /* Footer height */
+  width: 100%;
+  height: 2em;
 }
