@@ -12,6 +12,7 @@
 <h1> Power Ranking</h1>
 
 
+{% if ranking %}
 <table>
   <tr>
     <th>Rank</th>
@@ -32,7 +33,10 @@
   {% set i = i + 1 %}
   {% endfor %}
 </table>
+{% else %}
+<div id='nothingToShow'>Nothing to show here yet.</div>
+{% endif %}
 
-<script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
+<script src="{{ url_for('static', filename='ranking.js') }}"></script>
 
 {% endblock %}

@@ -45,6 +45,7 @@ def get_quiz(quiz_id):
   try:
     quiz = Quiz.query.filter_by(id=quiz_id).first()
     nice_obj = quiz.format()
+    date = quiz.date
     questions = quiz.questions
     for question in questions:
       for ans in question[1]:
@@ -57,7 +58,7 @@ def get_quiz(quiz_id):
   if error:
     return {'success': False, 'error': sys.exc_info()}
   else:
-    return {'name': nice_obj['participant'], 'time': nice_obj['date'], 'questions': questions, 'answers':nice_obj['answers'], 
+    return {'name': nice_obj['participant'], 'time': date, 'questions': questions, 'answers':nice_obj['answers'], 
     'state': nice_obj['state']}
 
 def update_quiz(quiz_id, answers, state):
@@ -87,16 +88,15 @@ def submit_quiz(quiz_id, answers):
     points = 0
     for i in range(len(quiz.questions)):
       chosen_answer = answers[str(i)] -1
-      app.logger.info(' %s chosen_answer' % chosen_answer)
-      app.logger.info(' %s quiz.questions[1][chosen_answer]' % quiz.questions[i][1])
       if quiz.questions[i][1][chosen_answer][1] == "true":
         points += 1
-    app.logger.info(' %s points' % points)
     quiz.score = points
-    quiz.duration = now - quiz.date
+    app.logger.info(' %s now' % now)
+    quiz.duration = (now - quiz.date).total_seconds()
+    app.logger.info(' %s duration' % quiz.duration)
     quiz.update()
   except:
-    error = True
+    error = sys.exc_info()
     app.logger.info(sys.exc_info())
   finally:
     db.session.close()
@@ -107,8 +107,9 @@ def submit_quiz(quiz_id, answers):
 
 def ranking():
   error = False
+  power = False
   try:
-    ranks = Quiz.query.filter_by(finished = True).order_by('score').all()
+    ranks = Quiz.query.filter_by(finished = True).order_by(Quiz.score.desc(), Quiz.duration.asc()).all()
     if ranks:
       power = []
       for rank in ranks:
@@ -120,7 +121,5 @@ def ranking():
     app.logger.info(sys.exc_info())
   finally:
     db.session.close()
-  if error:
-    return json.dumps({'success': False, 'error': error})
-  else:
+  if power:
     return power

@@ -36,6 +36,7 @@ def quiz():
 @app.route('/quiz/<int:quiz_id>')
 def quiz_instance(quiz_id):
 	obj = get_quiz(quiz_id)
+	app.logger.info(' %s obj' % obj)
 	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
 		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
 
@@ -63,6 +64,7 @@ def add_question():
 		question = content.get('question', None)
 		answers = content.get('answers', None)
 		question_type = content.get('questionType', None)
+		app.logger.info(' %s question type' % question_type)
 		if(question and answers and question_type):
 			try:
 				exercise = Question(description=question, answers=answers, question_type=question_type)

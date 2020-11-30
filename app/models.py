@@ -24,6 +24,28 @@ from datetime import datetime
 
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fwkpnotv:1wvhldt6f766_VfD2ighEipij_Q9xQJL@rogue.db.elephantsql.com:5432/fwkpnotv'
 
+def time_printer(tot_sec):
+  hours = False
+  if tot_sec:
+    sec = tot_sec % 60
+    minutes = (tot_sec - sec)/ 60
+    strsec = str(sec)
+    if len(strsec) == 1:
+      strsec = '0' + strsec
+    if minutes > 60:
+      temp_min = minutes % 60
+      hours = (minutes - temp_min)/ 60
+      minutes = temp_min
+    strmin = str(round(minutes))
+    if len(strmin) == 1:
+      strmin = '0' + strmin
+    if hours:
+      return str(round(hours)) + ':' + strmin + ':' + strsec
+    else:
+      return strmin + ':' + strsec
+  else:
+    return tot_sec
+
 
 class Quiz(db.Model):
   __tablename__ = 'quizes'
@@ -57,7 +79,7 @@ class Quiz(db.Model):
       'finished': self.finished,
       'questions': self.questions,
       'answers': self.answers,
-      'duration': self.duration,
+      'duration': time_printer(self.duration),
       'state':self.state
     }
 

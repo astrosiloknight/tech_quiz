@@ -6,7 +6,7 @@ var diff;
 var prevSelected = {};
 
 console.log('state', state);
-console.log('quiz', quizId);
+console.log('time', time);
 
 function timer() {
   console.log('timekeeping');
