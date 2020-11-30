@@ -123,6 +123,9 @@ function introduceSubmit(){
 function finish(){
   fetchPost('/submit', {'selected': selected, 'quizId': quizId}).then(function(response){
   		console.log(response);
+      if(response.success){
+        window.location.href = '/power_ranking';
+      }
   })
 }
 

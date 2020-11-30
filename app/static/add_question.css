@@ -1,6 +1,10 @@
 
+
+body {
+  background: white;
+}
+
 #idea {
-	
   display: flex;
   flex-direction: column;
   text-align: center;

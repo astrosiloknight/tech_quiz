@@ -51,7 +51,7 @@ class Quiz(db.Model):
   def format(self):
     return {
       'id': self.id,
-      'date': str(self.date),
+      'date': str(self.date.date()),
       'participant': self.participant,
       'score': self.score,
       'finished': self.finished,

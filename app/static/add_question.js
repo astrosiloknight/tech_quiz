@@ -8,15 +8,15 @@ var score = document.getElementById('score');
 
 
 function addAnswer(){
-	if(answer.value && score.value) {
-		answers.push([answer.value, score.value]);
-		console.log(answers);
-		let ans = document.createElement('div');
-		ans.innerText = answer.value + ' - ' + score.value;
-		document.getElementById('answerDisplay').append(ans);
-		answer.value = '';
-		score.value = '';
-	}
+  if(answer.value && (document.getElementById('score').value or document.getElementById('posScore').value)) {
+    answers.push([answer.value, score.value]);
+    console.log(answers);
+    let ans = document.createElement('div');
+    ans.innerText = answer.value + ' - ' + score.value;
+    document.getElementById('answerDisplay').append(ans);
+    answer.value = '';
+    score.value = '';
+  }
 }
 
 function submit(){
@@ -40,4 +40,17 @@ function fetchPost(address, message){
   }).catch(function(error){
   	console.log(error);
   })
+}
+
+function changeType(){
+  console.log('changing');
+  console.log(document.getElementById('questionType').value);
+  if(document.getElementById('questionType').value == 'positional'){
+    console.log('positional');
+    document.getElementById('scoreLabel').innerText = 'Answer Position';
+    newIn = document.createElement('input');
+    newIn.id = 'posScore';
+    document.getElementById('idea').insertBefore(newIn, document.getElementById('score'));
+    document.getElementById('score').remove();
+  }
 }

@@ -13,7 +13,7 @@
 <h2> Please Submmit a Question</h2>
 <div id='idea'>  
   <label for="questionType"> Question Type</label>
-  <select name='questionType' id='questionType'>
+  <select name='questionType' id='questionType' onchange="changeType()">
     <option value='question'>Question</option>
     <option value="match">Find Match</option>
     <option value="positional">Positional</option>
@@ -22,12 +22,12 @@
   <textarea id='question'></textarea>
   <label for="answer"> Answer</label>
   <textarea id='answer'></textarea>
-  <label for="score">Correct Answer?</label>
+  <label for="score" id="scoreLabel">Correct Answer?</label>
   <select id='score'>
     <option value='true'>True</option>
     <option value='false'>False</option>
   </select>
-  <button onclick="addAnswer()">Add</button>
+  <button id='addButton' onclick="addAnswer()">Add</button>
   <div id="answerDisplay"></div>
   <input id='pictureUrl' placeholder="Picture URL">
   <button onclick="submit()">Submit</button>

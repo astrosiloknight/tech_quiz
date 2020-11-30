@@ -4,14 +4,24 @@ body {
 }
 
 table {
+  margin: auto;
 	border-collapse: collapse;
+  font-size: 1.3em;
+  margin-top: 3em;
 }
 
 th {
+  color: rgb(136, 27, 27);
   border-bottom: 2px solid black;
 }
 
 tr {
   border-bottom: 1px solid black;
   border-collapse: collapse;
+}
+
+td {
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1em;
 }

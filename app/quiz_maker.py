@@ -1,6 +1,7 @@
 
 from app import app
 
+import datetime
 import random
 import sys
 import json
@@ -54,7 +55,7 @@ def get_quiz(quiz_id):
   finally:
     db.session.close()
   if error:
-    return {'success': False}
+    return {'success': False, 'error': sys.exc_info()}
   else:
     return {'name': nice_obj['participant'], 'time': nice_obj['date'], 'questions': questions, 'answers':nice_obj['answers'], 
     'state': nice_obj['state']}
@@ -78,6 +79,7 @@ def update_quiz(quiz_id, answers, state):
 
 def submit_quiz(quiz_id, answers):
   error = False
+  now = datetime.datetime.now()
   try:
     quiz = Quiz.query.filter_by(id=quiz_id).first()
     quiz.answers = answers
@@ -91,6 +93,7 @@ def submit_quiz(quiz_id, answers):
         points += 1
     app.logger.info(' %s points' % points)
     quiz.score = points
+    quiz.duration = now - quiz.date
     quiz.update()
   except:
     error = True
