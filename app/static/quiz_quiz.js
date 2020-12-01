@@ -4,9 +4,15 @@ var len = exercises.length;
 var doing;
 var diff;
 var prevSelected = {};
+var isDraging = false;
+
+
+var rect = document.getElementById('exercise').getBoundingClientRect();
+console.log(rect.top, rect.right, rect.bottom, rect.left);
 
 console.log('state', state);
 console.log('time', time);
+console.log('exerciseTop', document.getElementById('exercise').offsetTop);
 
 function timer() {
   console.log('timekeeping');
@@ -54,15 +60,20 @@ function display_exercise(){
     ans.classList.add("ans");
     ans.innerText = answer;
     row.append(ans);
-    let checkBox = document.createElement('input');
-    checkBox.type = 'checkbox';
-    checkBox.id = i.toString();
-    checkBox.setAttribute("onchange","check(" + i + ");");
-    let ins = document.createElement('td');
-    ins.append(checkBox);
-    row.append(ins);
+    if(exercises[num][2] == 'question'){
+    	let checkBox = document.createElement('input');
+	    checkBox.type = 'checkbox';
+	    checkBox.id = i.toString();
+	    checkBox.setAttribute("onchange","check(" + i + ");");
+	    let ins = document.createElement('td');
+	    ins.append(checkBox);
+	    row.append(ins);
+    } else if(exercises[num][2] == 'positional'){
+    	ans.classList.add('movable');
+    	grab();
+    }
     document.getElementById('tbl').append(row);
-     i++;
+    i++;
 	}
   if(selected[num]){
     document.getElementById(selected[num]).checked = true;
@@ -153,6 +164,66 @@ function timePrinter(time) {
     return smin + ':' + ssec;
   }
 }
+
+
+function calculatePos(elem){
+  var rect = elem.getBoundingClientRect();
+  var win = elem.ownerDocument.defaultView;
+
+  return {
+      top: rect.top + win.pageYOffset,
+      left: rect.left + win.pageXOffset
+  };
+}
+
+console.log(calculatePos(document.getElementById('exercise')));
+
+window.addEventListener('mouseup', e => {
+	if (isDraging === true) {
+		if (onTheMove) {
+			console.log('dropped');
+	 //      if(color == 'black'){
+	 //        //var move = {x: -Math.round((startx - e.x)/60), y: -Math.round((starty - e.y)/60)};
+	 //        var move = {x: -Math.round((startx - e.pageX)/60), y: -Math.round((starty - e.pageY)/60)};
+	 //      } else{
+	 //        //var move = {x: Math.round((startx - e.x)/60), y:Math.round((starty - e.y)/60)};
+	 //        var move = {x: Math.round((startx - e.pageX)/60), y: Math.round((starty - e.pageY)/60)};
+	 //      }
+		// ifAllowed(onTheMove.id, move);
+		}
+		isDraging = false;
+	}
+});
+var starty, startx, currentPos
+
+function grab() {
+  var moving = document.querySelectorAll('.movable');
+  moving.forEach(function(move) {
+    move.addEventListener('mousedown', e => {
+      e.preventDefault();
+      console.log('e', e);
+      startx = e.pageX;
+      starty = e.pageY;
+      isDraging = true;
+      onTheMove = e.target;
+      console.log('elem pos', calculatePos(onTheMove));
+      onTheMove.style.position = 'relative';
+      currentPos = calculatePos(onTheMove)
+      onTheMove.style.left = '0px'; //currentPos.left.toString() + 'px';//e.pageX.toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
+      onTheMove.style.top = '0px'; //currentPos.top.toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
+    });
+  });
+}
+
+window.addEventListener('mousemove', e => {
+	if (isDraging === true) {
+		e.preventDefault();
+		//onTheMove.style.left = (0 - (startx - e.pageX)).toString() + 'px';//(e.pageX).toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
+		onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
+    console.log('starty', starty, 'e.pageY', e.pageY);
+    console.log('kur', onTheMove.style.top);
+	}
+});
 
 
 timeKeeper();
