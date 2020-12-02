@@ -19,6 +19,7 @@ def update():
 	answers = content.get('selected', None)
 	state = content.get('state', None)
 	if quiz_id and answers and state:
+		app.logger.info('updated')
 		return update_quiz(quiz_id, answers, state)
 	else:
 		return json.dumps({'success': False, 'error': 'routes/update'})
@@ -36,7 +37,7 @@ def quiz():
 @app.route('/quiz/<int:quiz_id>')
 def quiz_instance(quiz_id):
 	obj = get_quiz(quiz_id)
-	app.logger.info(' %s obj' % obj)
+	#app.logger.info(' %s obj' % obj)
 	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
 		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
 

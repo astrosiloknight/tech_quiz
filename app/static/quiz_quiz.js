@@ -1,9 +1,10 @@
 
 var num = parseInt(state);
 var len = exercises.length;
-var doing;
+var doing, height;
 var diff;
-var prevSelected = {};
+var sorted = {};
+var prevSelected;
 var isDraging = false;
 
 
@@ -70,13 +71,16 @@ function display_exercise(){
 	    row.append(ins);
     } else if(exercises[num][2] == 'positional'){
     	ans.classList.add('movable');
-    	grab();
     }
     document.getElementById('tbl').append(row);
     i++;
 	}
-  if(selected[num]){
-    document.getElementById(selected[num]).checked = true;
+  if(exercises[num][2] == 'question'){
+    if(selected[num]){
+      document.getElementById(selected[num]).checked = true;
+    }
+  } else if(exercises[num][2] == 'positional'){
+    grab();
   }
 }
 
@@ -107,11 +111,12 @@ function next(){
     num++;
   }
   display_exercise();
-  if(prevSelected != selected){
+  if(prevSelected != JSON.stringify(selected)){
+    console.log('attempting update');
   	fetchPost('/update', {'selected': selected, 'quizId': quizId, 'state': num}).then(function(response){
   		console.log(response);
   	})
-    prevSelected = selected;
+    prevSelected = JSON.stringify(selected);
   }
 }
 
@@ -125,7 +130,6 @@ function back(){
 }
 
 function introduceSubmit(){
-  //document.getElementById('next').style.right = '14em';
   document.getElementById('next').classList.remove('next');
   document.getElementById('next').classList.add('nextMoved');
   document.getElementById('finish').style.visibility = 'visible';
@@ -176,7 +180,23 @@ function calculatePos(elem){
   };
 }
 
-console.log(calculatePos(document.getElementById('exercise')));
+//console.log(calculatePos(document.getElementById('exercise')));
+
+function sortTrs() {
+  console.log('sorting');
+  var trs = document.querySelectorAll('.ans');
+  console.log(trs);
+  console.log('trs length', trs.length);
+  for (i=0;i<trs.length;i++){
+    console.log('i', i);
+    trs[i].id = i;
+    sorted[i] = trs[i].innerText;
+  }
+  height = document.getElementById('1').parentElement.scrollHeight;
+  console.log('sorted', sorted);
+}
+
+
 
 window.addEventListener('mouseup', e => {
 	if (isDraging === true) {
@@ -198,15 +218,16 @@ var starty, startx, currentPos
 
 function grab() {
   var moving = document.querySelectorAll('.movable');
+  console.log('moving', moving);
   moving.forEach(function(move) {
     move.addEventListener('mousedown', e => {
       e.preventDefault();
-      console.log('e', e);
+      //console.log('e', e);
       startx = e.pageX;
       starty = e.pageY;
       isDraging = true;
       onTheMove = e.target;
-      console.log('elem pos', calculatePos(onTheMove));
+      //console.log('elem pos', calculatePos(onTheMove));
       onTheMove.style.position = 'relative';
       currentPos = calculatePos(onTheMove)
       onTheMove.style.left = '0px'; //currentPos.left.toString() + 'px';//e.pageX.toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
@@ -218,10 +239,14 @@ function grab() {
 window.addEventListener('mousemove', e => {
 	if (isDraging === true) {
 		e.preventDefault();
-		//onTheMove.style.left = (0 - (startx - e.pageX)).toString() + 'px';//(e.pageX).toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
-		onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
-    console.log('starty', starty, 'e.pageY', e.pageY);
-    console.log('kur', onTheMove.style.top);
+    if(exercises[num][2] == 'positional'){
+      //onTheMove.style.left = (0 - (startx - e.pageX)).toString() + 'px';//(e.pageX).toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
+
+      onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
+      console.log('height', height, 'top', onTheMove.style.top);
+      //console.log('starty', starty, 'e.pageY', e.pageY);
+      //console.log('kur', onTheMove.style.top);
+    }
 	}
 });
 
@@ -229,6 +254,7 @@ window.addEventListener('mousemove', e => {
 timeKeeper();
 makeRuller();
 display_exercise();
+sortTrs();
 
 function fetchPost(address, message){
 	console.log('message', message);
