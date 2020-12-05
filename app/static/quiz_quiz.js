@@ -1,22 +1,17 @@
 
 var num = parseInt(state);
 var len = exercises.length;
-var doing, height;
+var doing;
 var diff;
-var sorted = {};
+var sorted = [];
 var prevSelected;
 var isDraging = false;
-
-
-var rect = document.getElementById('exercise').getBoundingClientRect();
-console.log(rect.top, rect.right, rect.bottom, rect.left);
+var trslen, height; 
 
 console.log('state', state);
 console.log('time', time);
-console.log('exerciseTop', document.getElementById('exercise').offsetTop);
 
 function timer() {
-  console.log('timekeeping');
   diff++;
   document.getElementById('timer').innerText = timePrinter(diff);
 }
@@ -80,6 +75,7 @@ function display_exercise(){
       document.getElementById(selected[num]).checked = true;
     }
   } else if(exercises[num][2] == 'positional'){
+    console.log('should only happen with positional question');
     grab();
   }
 }
@@ -183,17 +179,54 @@ function calculatePos(elem){
 //console.log(calculatePos(document.getElementById('exercise')));
 
 function sortTrs() {
-  console.log('sorting');
   var trs = document.querySelectorAll('.ans');
+  trslen = trs.length;
   console.log(trs);
   console.log('trs length', trs.length);
-  for (i=0;i<trs.length;i++){
+  for (i=0;i<trslen;i++){
     console.log('i', i);
-    trs[i].id = i;
-    sorted[i] = trs[i].innerText;
+    trs[i].id = i.toString();
+    trs[i].parentElement.id = 'tr' + i.toString();
+    sorted.push(trs[i].innerText);
   }
-  height = document.getElementById('1').parentElement.scrollHeight;
   console.log('sorted', sorted);
+  height = document.getElementById('1').parentElement.scrollHeight + 1;
+}
+
+function flip(eid, dir){
+  console.log('eid', eid);
+  var numeid = parseInt(eid);
+  if(dir == 'up'){
+    var tosvap = numeid - 1;
+    [sorted[numeid], sorted[numeid - 1]] = [sorted[numeid - 1], sorted[numeid]];
+  } else if(dir == 'down'){
+    var tosvap = numeid + 1;
+    [sorted[numeid], sorted[numeid + 1]] = [sorted[numeid + 1], sorted[numeid]];
+  }
+  document.getElementById('tr' + eid).append(document.getElementById(tosvap.toString()));
+  document.getElementById(tosvap.toString()).id = 'temp';
+  document.getElementById('tr' + tosvap.toString()).append(document.getElementById(eid));
+  document.getElementById(eid).id = tosvap.toString();
+  document.getElementById('temp').id = eid;
+  return;
+}
+
+function boundaries(e){
+  if(parseInt(e.target.id) > 0 && (starty - e.pageY) > 0){
+    console.log('tempy + e.pageY', starty - e.pageY);
+    if((starty - e.pageY) >= height){
+      flip(e.target.id, 'up');
+      starty = e.pageY;
+    }
+    return true;
+  } else if(parseInt(e.target.id) < trslen - 1 && (starty - e.pageY) < 0){
+    if((starty + e.pageY) >= height){
+      flip(e.target.id, 'down');
+      starty = e.pageY;
+    }
+    return true;
+  }
+  return false;
 }
 
 
@@ -214,7 +247,7 @@ window.addEventListener('mouseup', e => {
 		isDraging = false;
 	}
 });
-var starty, startx, currentPos
+var starty, startx, currentPos;
 
 function grab() {
   var moving = document.querySelectorAll('.movable');
@@ -234,6 +267,7 @@ function grab() {
       onTheMove.style.top = '0px'; //currentPos.top.toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
     });
   });
+  sortTrs();
 }
 
 window.addEventListener('mousemove', e => {
@@ -241,11 +275,9 @@ window.addEventListener('mousemove', e => {
 		e.preventDefault();
     if(exercises[num][2] == 'positional'){
       //onTheMove.style.left = (0 - (startx - e.pageX)).toString() + 'px';//(e.pageX).toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
-
-      onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
-      console.log('height', height, 'top', onTheMove.style.top);
-      //console.log('starty', starty, 'e.pageY', e.pageY);
-      //console.log('kur', onTheMove.style.top);
+      if(boundaries(e)){
+        onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';
+      }
     }
 	}
 });
@@ -254,7 +286,6 @@ window.addEventListener('mousemove', e => {
 timeKeeper();
 makeRuller();
 display_exercise();
-sortTrs();
 
 function fetchPost(address, message){
 	console.log('message', message);
