@@ -9,8 +9,9 @@
 {% endblock %}
 
 {% block content %}
-<h2>participant: {{name}}  time: {{time}}</h2>
+
 <div id="exercise">
+  <div id='name'>{{name}}</div>
   <div id="timer">00:00</div>
   <div id="question"></div>
   <div id="answers">
@@ -28,8 +29,8 @@
   var exercises = {{exercises| safe}};
   var time = '{{time}}';
   var selected = {{answers| safe}};
-  var quizId = '{{quiz_id}}'
-  var state = '{{state}}'
+  var quizId = '{{quiz_id}}';
+  var state = '{{state}}';
 </script>
 <script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
 

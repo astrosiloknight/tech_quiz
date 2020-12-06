@@ -88,8 +88,17 @@ def submit_quiz(quiz_id, answers):
     points = 0
     for i in range(len(quiz.questions)):
       chosen_answer = answers[str(i)] -1
-      if quiz.questions[i][1][chosen_answer][1] == "true":
-        points += 1
+      if quiz.questions[i][2] == 'question':
+        if quiz.questions[i][1][chosen_answer][1] == "true":
+          points += 1
+      elif quiz.questions[i][2] == 'positional':
+        order = answers[str(i)] -1
+        point = True
+        for n in range(len(quiz.questions[i][1])):
+          if order[n] != quiz.questions[i][1][n][0]:
+            point = False;
+        if point:
+          points += 1
     quiz.score = points
     app.logger.info(' %s now' % now)
     quiz.duration = (now - quiz.date).total_seconds()
@@ -101,12 +110,11 @@ def submit_quiz(quiz_id, answers):
   finally:
     db.session.close()
   if error:
-    return json.dumps({'success': False})
+    return json.dumps({'success': False, 'error': str(error)})
   else:
     return json.dumps({'success': True})
 
 def ranking():
-  error = False
   power = False
   try:
     ranks = Quiz.query.filter_by(finished = True).order_by(Quiz.score.desc(), Quiz.duration.asc()).all()
@@ -114,10 +122,7 @@ def ranking():
       power = []
       for rank in ranks:
         power.append(rank.format())
-    else:
-      error = 'no ranks'
   except:
-    error = True
     app.logger.info(sys.exc_info())
   finally:
     db.session.close()

@@ -78,6 +78,9 @@ function display_exercise(){
     console.log('should only happen with positional question');
     grab();
   }
+  if(num == len -1){
+    introduceSubmit();
+  }
 }
 
 function check(boxChecked) {
@@ -92,9 +95,6 @@ function check(boxChecked) {
       }
     }
   })
-  if(num == len -1){
-    introduceSubmit();
-  }
 }
 
 function getQuestion(i){
@@ -109,6 +109,7 @@ function next(){
   display_exercise();
   if(prevSelected != JSON.stringify(selected)){
     console.log('attempting update');
+    console.log('selected', selected);
   	fetchPost('/update', {'selected': selected, 'quizId': quizId, 'state': num}).then(function(response){
   		console.log(response);
   	})
@@ -131,13 +132,17 @@ function introduceSubmit(){
   document.getElementById('finish').style.visibility = 'visible';
 }
 
+function yes(){
+
+}
+
 function finish(){
   fetchPost('/submit', {'selected': selected, 'quizId': quizId}).then(function(response){
-  		console.log(response);
-      if(response.success){
-        window.location.href = '/power_ranking';
-      }
-  })
+    console.log(response);
+    if(response.success){
+      window.location.href = '/power_ranking';
+    }
+  }) 
 }
 
 function timePrinter(time) {
@@ -165,26 +170,12 @@ function timePrinter(time) {
   }
 }
 
-
-function calculatePos(elem){
-  var rect = elem.getBoundingClientRect();
-  var win = elem.ownerDocument.defaultView;
-
-  return {
-      top: rect.top + win.pageYOffset,
-      left: rect.left + win.pageXOffset
-  };
-}
-
-//console.log(calculatePos(document.getElementById('exercise')));
-
 function sortTrs() {
   var trs = document.querySelectorAll('.ans');
   trslen = trs.length;
   console.log(trs);
   console.log('trs length', trs.length);
   for (i=0;i<trslen;i++){
-    console.log('i', i);
     trs[i].id = i.toString();
     trs[i].parentElement.id = 'tr' + i.toString();
     sorted.push(trs[i].innerText);
@@ -194,7 +185,6 @@ function sortTrs() {
 }
 
 function flip(eid, dir){
-  console.log('eid', eid);
   var numeid = parseInt(eid);
   if(dir == 'up'){
     var tosvap = numeid - 1;
@@ -208,19 +198,19 @@ function flip(eid, dir){
   document.getElementById('tr' + tosvap.toString()).append(document.getElementById(eid));
   document.getElementById(eid).id = tosvap.toString();
   document.getElementById('temp').id = eid;
+  selected[num] = sorted;
   return;
 }
 
 function boundaries(e){
   if(parseInt(e.target.id) > 0 && (starty - e.pageY) > 0){
-    console.log('tempy + e.pageY', starty - e.pageY);
     if((starty - e.pageY) >= height){
       flip(e.target.id, 'up');
       starty = e.pageY;
     }
     return true;
   } else if(parseInt(e.target.id) < trslen - 1 && (starty - e.pageY) < 0){
-    if((starty + e.pageY) >= height){
+    if(-(starty - e.pageY) >= height){
       flip(e.target.id, 'down');
       starty = e.pageY;
     }
@@ -234,15 +224,9 @@ function boundaries(e){
 window.addEventListener('mouseup', e => {
 	if (isDraging === true) {
 		if (onTheMove) {
-			console.log('dropped');
-	 //      if(color == 'black'){
-	 //        //var move = {x: -Math.round((startx - e.x)/60), y: -Math.round((starty - e.y)/60)};
-	 //        var move = {x: -Math.round((startx - e.pageX)/60), y: -Math.round((starty - e.pageY)/60)};
-	 //      } else{
-	 //        //var move = {x: Math.round((startx - e.x)/60), y:Math.round((starty - e.y)/60)};
-	 //        var move = {x: Math.round((startx - e.pageX)/60), y: Math.round((starty - e.pageY)/60)};
-	 //      }
-		// ifAllowed(onTheMove.id, move);
+      onTheMove.style.top = '0px';
+      onTheMove.style.position = 'static';
+      onTheMove.style.backgroundColor =  "rgb(255, 255, 255)";
 		}
 		isDraging = false;
 	}
@@ -260,14 +244,15 @@ function grab() {
       starty = e.pageY;
       isDraging = true;
       onTheMove = e.target;
-      //console.log('elem pos', calculatePos(onTheMove));
       onTheMove.style.position = 'relative';
-      currentPos = calculatePos(onTheMove)
+      onTheMove.style.backgroundColor = "rgb(238, 240, 240)";
       onTheMove.style.left = '0px'; //currentPos.left.toString() + 'px';//e.pageX.toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
       onTheMove.style.top = '0px'; //currentPos.top.toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
     });
   });
   sortTrs();
+  selected[num] = sorted;
+  document.getElementById('bar' + num.toString()).classList.add("done");
 }
 
 window.addEventListener('mousemove', e => {

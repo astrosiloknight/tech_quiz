@@ -72,12 +72,12 @@ def add_question():
 				Question.insert(exercise)
 				question_id = exercise.id
 			except:
-				error = True
+				error = sys.exc_info()
 				app.logger.info(sys.exc_info())
 			finally:
 				db.session.close()
 		if error:
-			return json.dumps({'success': False})
+			return json.dumps({'success': False, 'error': str(error)})
 		return json.dumps({'success': True, 'questionId': question_id})
 	else:
 		return render_template('add_question.html')

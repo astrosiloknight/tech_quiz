@@ -18,10 +18,21 @@ function addAnswer(){
   }
 }
 
+function success() {
+  console.log('success');
+  document.getElementById('success').style.visibility = 'hidden';
+}
+
 function submit(){
 	var message = {'questionType': document.getElementById('questionType').value, 
 	'question': document.getElementById('question').value, 'answers': answers}
 	fetchPost('/add_question', message).then(function(response){
+    if(response.success){
+      document.getElementById('question').value = '';
+      document.getElementById('answerDisplay').innerHTML = '';
+      document.getElementById('success').style.visibility = 'visible';
+      setTimeout(success, 2000);
+    }
 		console.log(response);
 	})
 }

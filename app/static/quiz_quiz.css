@@ -2,8 +2,16 @@
 
 #timer {
   position: absolute;
+  font-size: 1.2em;
   right: 0;
-  top: -1.2em;
+  top: -1.3em;
+}
+
+#name {
+  position: absolute;
+  font-size: 1.2em;
+  left: 0;
+  top: -1.3em;
 }
 
 #exercise {
@@ -17,6 +25,11 @@
 	width: 55em;
   height: 22em;
   text-align: center;
+  padding-bottom: 3em;
+}
+
+#answers {
+  padding-bottom: 3em;
 }
 
 table {
@@ -94,7 +107,7 @@ hr {
 }
 
 .nextMoved:hover {
-  right: 13.6em;
+  right: 13.3em;
   bottom: 1.2em;
 }
 
