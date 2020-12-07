@@ -42,6 +42,7 @@ function makeRuller() {
 console.log(exercises);
 
 function display_exercise(){
+  sorted = [];
   if(doing){
     doing.classList.remove("doing");
   }
@@ -132,15 +133,11 @@ function introduceSubmit(){
   document.getElementById('finish').style.visibility = 'visible';
 }
 
-function yes(){
-
-}
-
 function finish(){
   fetchPost('/submit', {'selected': selected, 'quizId': quizId}).then(function(response){
     console.log(response);
     if(response.success){
-      window.location.href = '/power_ranking';
+      //window.location.href = '/power_ranking';
     }
   }) 
 }
@@ -193,12 +190,13 @@ function flip(eid, dir){
     var tosvap = numeid + 1;
     [sorted[numeid], sorted[numeid + 1]] = [sorted[numeid + 1], sorted[numeid]];
   }
+  console.log('sorted after flip', sorted);
   document.getElementById('tr' + eid).append(document.getElementById(tosvap.toString()));
   document.getElementById(tosvap.toString()).id = 'temp';
   document.getElementById('tr' + tosvap.toString()).append(document.getElementById(eid));
   document.getElementById(eid).id = tosvap.toString();
   document.getElementById('temp').id = eid;
-  selected[num] = sorted;
+  console.log('select[num] after saving', selected[num]);
   return;
 }
 
@@ -228,6 +226,7 @@ window.addEventListener('mouseup', e => {
       onTheMove.style.position = 'static';
       onTheMove.style.backgroundColor =  "rgb(255, 255, 255)";
 		}
+    selected[num] = [...sorted];
 		isDraging = false;
 	}
 });

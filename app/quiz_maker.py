@@ -87,18 +87,27 @@ def submit_quiz(quiz_id, answers):
     quiz.finished = True
     points = 0
     for i in range(len(quiz.questions)):
-      chosen_answer = answers[str(i)] -1
-      if quiz.questions[i][2] == 'question':
-        if quiz.questions[i][1][chosen_answer][1] == "true":
-          points += 1
-      elif quiz.questions[i][2] == 'positional':
-        order = answers[str(i)] -1
-        point = True
-        for n in range(len(quiz.questions[i][1])):
-          if order[n] != quiz.questions[i][1][n][0]:
-            point = False;
-        if point:
-          points += 1
+      if str(i) in answers.keys():
+        app.logger.info(' %s answers[str(i)]' % answers[str(i)])
+        app.logger.info(' %s quiz.questions[i][1]' % quiz.questions[i][1])
+        if quiz.questions[i][2] == 'question':
+          chosen_answer = answers[str(i)] - 1
+          app.logger.info(' %s chosen_answer' % chosen_answer)
+          if quiz.questions[i][1][chosen_answer][1] == "true":
+            points += 1
+        elif quiz.questions[i][2] == 'positional':
+          order = answers[str(i)]
+          app.logger.info(' %s order' % order)
+          point = True
+          for n in range(len(quiz.questions[i][1])):
+            app.logger.info(' %s [order[n], str(n)]' % [order[n], str(n)])
+            app.logger.info(' %s quiz.questions[i][1]' % quiz.questions[i][1])
+            app.logger.info(' %s [order[n], str(n+1)] not in quiz.questions[i][1]' % [order[n] + ' ', str(n+1)] not in quiz.questions[i][1])
+            if [order[n] + ' ', str(n+1)] not in quiz.questions[i][1]:
+              point = False;
+          if point:
+            points += 1
+            app.logger.info('Point given')
     quiz.score = points
     app.logger.info(' %s now' % now)
     quiz.duration = (now - quiz.date).total_seconds()
