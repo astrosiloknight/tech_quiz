@@ -1,5 +1,6 @@
 
 #quoute {
+  margin-top: 2em;
   display: inline-block;
   font-family: 'Great Vibes', serif;
   font-size: 2.3em;
@@ -12,7 +13,7 @@
   top: 60%;
   left: 50%;
   margin-top: -10em;
-  margin-left: -17.5em;
+  margin-left: -20em;
   width: 40em;
   height: 16em;
   text-align: center;
