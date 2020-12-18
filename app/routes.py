@@ -65,10 +65,11 @@ def add_question():
 		question = content.get('question', None)
 		answers = content.get('answers', None)
 		question_type = content.get('questionType', None)
+		url = content.get('url', None)
 		app.logger.info(' %s question type' % question_type)
 		if(question and answers and question_type):
 			try:
-				exercise = Question(description=question, answers=answers, question_type=question_type)
+				exercise = Question(description=question, answers=answers, question_type=question_type, pic=url)
 				Question.insert(exercise)
 				question_id = exercise.id
 			except:

@@ -12,6 +12,13 @@ body {
 
 #pictureUrl {
 	visibility: hidden;
+	display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+#pictureUrl input {
+	width: 12em;
 }
 
 select, input, textarea, button {

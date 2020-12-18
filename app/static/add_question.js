@@ -24,8 +24,13 @@ function success() {
 }
 
 function submit(){
-	var message = {'questionType': document.getElementById('questionType').value, 
-	'question': document.getElementById('question').value, 'answers': answers}
+	if(document.getElementById('questionType').value == 'match'){
+		var message = {'questionType': document.getElementById('questionType').value, 
+		'question': document.getElementById('question').value, 'url': document.getElementById('picUrl').value, 'answers': answers}
+	} else{
+		var message = {'questionType': document.getElementById('questionType').value, 
+		'question': document.getElementById('question').value, 'answers': answers}
+	}
 	fetchPost('/add_question', message).then(function(response){
     if(response.success){
       document.getElementById('question').value = '';
@@ -60,7 +65,12 @@ function changeType(){
   	document.getElementById('scoreLabel').innerText = 'Answer Position';
   	newIn = document.createElement('input');
   	newIn.id = 'score';
-  } else if(document.getElementById('questionType').value == 'question'){
+  } else if(document.getElementById('questionType').value == 'match'){
+		document.getElementById('scoreLabel').innerText = 'Answer Coordinates';
+  	newIn = document.createElement('input');
+  	newIn.id = 'score';
+  	document.getElementById('pictureUrl').style.visibility = 'visible';
+	} else if(document.getElementById('questionType').value == 'question'){
 		document.getElementById('scoreLabel').innerText = 'Correct Answer?';
   	newIn = document.createElement('select');
   	newIn.id = 'score';

@@ -23,6 +23,11 @@
   </select>
   <label for="question"> Question </label>
   <textarea id='question'></textarea>
+  <div id='pictureUrl'>
+    <label for='picUrl'>Picture Url</label>
+    <input id='picUrl' placeholder="Picture URL">
+  </div>
+  
   <label for="answer"> Answer</label>
   <textarea id='answer'></textarea>
   <label for="score" id="scoreLabel">Correct Answer?</label>
@@ -32,7 +37,6 @@
   </select>
   <button id='addButton' onclick="addAnswer()">Add</button>
   <div id="answerDisplay"></div>
-  <input id='pictureUrl' placeholder="Picture URL">
   <button onclick="submit()">Submit</button>
 </div>
 <script src="{{ url_for('static', filename='add_question.js') }}"></script>
