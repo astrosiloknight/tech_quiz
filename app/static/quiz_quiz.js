@@ -7,6 +7,9 @@ var sorted = [];
 var prevSelected;
 var isDraging = false;
 var trslen, height; 
+var picPosition;
+var topNo = 4;
+var botNo = 5;
 
 console.log('state', state);
 console.log('time', time);
@@ -43,39 +46,85 @@ console.log(exercises);
 
 function display_exercise(){
   sorted = [];
+  document.getElementById('answers').classList.remove('matchAns');
   if(doing){
     doing.classList.remove("doing");
+  }
+  if(document.getElementById('picHold')){
+    console.log('Removing');
+    document.getElementById('picHold').remove();
   }
 	document.getElementById('question').innerText = exercises[num][0];
   document.getElementById('tbl').innerHTML = '';
   doing = document.getElementById('bar' + num.toString());
   doing.classList.add("doing");
   var i = 1;
-	for (answer of exercises[num][1]){
-    let row = document.createElement('tr');
-    let ans = document.createElement('td');
-    ans.classList.add("ans");
-    ans.innerText = answer;
-    row.append(ans);
-    if(exercises[num][2] == 'question'){
-    	let checkBox = document.createElement('input');
-	    checkBox.type = 'checkbox';
-	    checkBox.id = i.toString();
-	    checkBox.setAttribute("onchange","check(" + i + ");");
-	    let ins = document.createElement('td');
-	    ins.append(checkBox);
-	    row.append(ins);
-    } else if(exercises[num][2] == 'positional'){
-    	ans.classList.add('movable');
+  if(exercises[num][2] == 'match'){
+    var picHold = document.createElement('div');
+    picHold.id = 'picHold';
+    var pic = document.createElement('img');
+    pic.classList.add('picture');
+    pic.src = '/' + exercises[num][3];
+    picHold.append(pic);
+    document.getElementById('exercise').insertBefore(picHold, document.getElementById('question'));
+    let topDiv = document.createElement('div');
+    topDiv.id = 'topDiv';
+    for(i=0;i<topNo;i++){
+      let d = document.createElement('div');
+      d.id = 'top' + i.toString();
+      d.classList.add('answerDiv');
     }
-    document.getElementById('tbl').append(row);
-    i++;
+    let botDiv = document.createElement('div');
+    botDiv.id = 'botDiv';
+    let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); //document.createElement('svg');
+    svg.setAttribute('xmlns', "http://www.w3.org/2000/svg");
+    svg.setAttribute('viewBox', "0 0 200 200");
+    // rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    // rect.setAttribute("x", "3");
+    // rect.setAttribute("y", "3");
+    // rect.setAttribute("width", "100");
+    // rect.setAttribute("height", "100");
+    // svg.append(rect);
+    let pol = document.createElementNS('http://www.w3.org/2000/svg', 'polygon'); //document.createElement('polygon');
+    pol.setAttribute("points", "22,42 119,42 119,63 22,63");
+    svg.append(pol);
+    picHold.append(svg);
+  }
+  for (answer of exercises[num][1]){
+    if(exercises[num][2] == 'match'){
+      let ans = document.createElement('div');
+      ans.innerText = answer[0];
+      document.getElementById('answers').append(ans);
+      document.getElementById('answers').classList.add('matchAns');
+      ans.classList.add('matchAn');
+      ans.classList.add('movable');
+    } else{
+      let row = document.createElement('tr');
+      let ans = document.createElement('td');
+      ans.classList.add("ans");
+      ans.innerText = answer;
+      row.append(ans);
+      if(exercises[num][2] == 'question'){
+        let checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
+        checkBox.id = i.toString();
+        checkBox.setAttribute("onchange","check(" + i + ");");
+        let ins = document.createElement('td');
+        ins.append(checkBox);
+        row.append(ins);
+      } else if(exercises[num][2] == 'positional'){
+        ans.classList.add('movable');
+      }
+      document.getElementById('tbl').append(row);
+      i++;
+    }
+    
 	}
   if(exercises[num][2] == 'question'){
     if(selected[num]){
       document.getElementById(selected[num]).checked = true;
     }
-  } else if(exercises[num][2] == 'positional'){
+  } else {
     console.log('should only happen with positional question');
     grab();
   }
@@ -221,6 +270,9 @@ function boundaries(e){
 
 window.addEventListener('mouseup', e => {
 	if (isDraging === true) {
+    if(exercises[num][2] == 'match'){
+      console.log('dropped', e);
+    }
 		if (onTheMove) {
       onTheMove.style.top = '0px';
       onTheMove.style.position = 'static';
@@ -238,7 +290,7 @@ function grab() {
   moving.forEach(function(move) {
     move.addEventListener('mousedown', e => {
       e.preventDefault();
-      //console.log('e', e);
+      console.log('e', e);
       startx = e.pageX;
       starty = e.pageY;
       isDraging = true;
@@ -249,9 +301,11 @@ function grab() {
       onTheMove.style.top = '0px'; //currentPos.top.toString() + 'px';//(e.pageY - 145).toString() + 'px';//(e.pageY - (height/2.5)).toString() + 'px';
     });
   });
-  sortTrs();
-  selected[num] = sorted;
-  document.getElementById('bar' + num.toString()).classList.add("done");
+  if(exercises[num][2] == 'positional'){
+    sortTrs();
+    selected[num] = sorted;
+    document.getElementById('bar' + num.toString()).classList.add("done");
+  }
 }
 
 window.addEventListener('mousemove', e => {
@@ -262,6 +316,9 @@ window.addEventListener('mousemove', e => {
       if(boundaries(e)){
         onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';
       }
+    } else{
+      onTheMove.style.left = (0 - (startx - e.pageX)).toString() + 'px';//(e.pageX).toString() + 'px';//(e.pageX - (height/2.5)).toString() + 'px';
+      onTheMove.style.top = (0 - (starty - e.pageY)).toString() + 'px';
     }
 	}
 });

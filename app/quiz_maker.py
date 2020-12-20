@@ -21,6 +21,8 @@ def make_quiz(name):
       random.shuffle(temp_answers)
       temp.append(temp_answers)
       temp.append(question.question_type)
+      if question.question_type == 'match':
+        temp.append(question.pic)
       bulk.append(temp)
     random.shuffle(bulk)
     app.logger.info(sys.exc_info())
@@ -48,8 +50,9 @@ def get_quiz(quiz_id):
     date = quiz.date
     questions = quiz.questions
     for question in questions:
-      for ans in question[1]:
-        del ans[1]
+      if question[2] != 'match':
+        for ans in question[1]:
+          del ans[1]
   except:
     error = True
     app.logger.info(sys.exc_info())

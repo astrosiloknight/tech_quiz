@@ -23,13 +23,46 @@
 	margin: auto;
   margin-top: 10%;
 	width: 55em;
-  height: 22em;
+  min-height: 22em;
   text-align: center;
   padding-bottom: 3em;
 }
 
+svg {
+  position: absolute;
+  z-index: 2;
+}
+
+polygon{
+  fill: none;
+  stroke: burlywood;
+  stroke-width: 1.5;
+}
+
+#picHold {
+  position: relative;
+  display: inline-flex;
+  margin: auto;
+}
+
+.picture {
+  max-width: 25em;
+  height: auto;
+}
+
 #answers {
   padding-bottom: 3em;
+}
+
+.matchAns {
+  display: flex;
+  flex-wrap: wrap;
+}
+.matchAn {
+  border-style: solid;
+  border-width: 1px;
+  margin: 0.8em;
+  padding: 0.1em;
 }
 
 table {
@@ -138,4 +171,27 @@ hr {
 
 .doing {
   background: rgb(235, 141, 87);
+}
+
+:not(svg) {
+  transform-origin: 0px 0px;
+}
+
+#topDiv, #botDiv {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  top: 0;
+  width: 100%;
+  height: 2em;
+}
+
+#botDiv {
+  bottom: 0;
+}
+
+.answerDiv {
+  width: 5em;
+  border-style: solid;
+  margin: 1em;
 }
