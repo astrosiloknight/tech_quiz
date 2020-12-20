@@ -39,6 +39,11 @@ polygon{
   stroke-width: 1.5;
 }
 
+line {
+  stroke: burlywood;
+  stroke-width: 1.5;
+}
+
 #picHold {
   position: relative;
   display: inline-flex;
@@ -46,7 +51,7 @@ polygon{
 }
 
 .picture {
-  max-width: 25em;
+  max-width: 20em;
   height: auto;
 }
 
@@ -183,7 +188,7 @@ hr {
   flex-wrap: wrap;
   top: 0;
   width: 100%;
-  height: 2em;
+  height: 1.2em;
 }
 
 #botDiv {
@@ -191,7 +196,10 @@ hr {
 }
 
 .answerDiv {
-  width: 5em;
+  flex: auto;
+  width: 4em;
   border-style: solid;
-  margin: 1em;
+  border-color: burlywood;
+  margin-right: 0.2em;
+  margin-left: 0.2em;
 }

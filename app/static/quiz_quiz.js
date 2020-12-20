@@ -73,22 +73,28 @@ function display_exercise(){
       let d = document.createElement('div');
       d.id = 'top' + i.toString();
       d.classList.add('answerDiv');
+      topDiv.append(d);
     }
     let botDiv = document.createElement('div');
     botDiv.id = 'botDiv';
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"); //document.createElement('svg');
     svg.setAttribute('xmlns', "http://www.w3.org/2000/svg");
     svg.setAttribute('viewBox', "0 0 200 200");
-    // rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    // rect.setAttribute("x", "3");
-    // rect.setAttribute("y", "3");
-    // rect.setAttribute("width", "100");
-    // rect.setAttribute("height", "100");
-    // svg.append(rect);
+    let l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    l.setAttribute("x1", "70");
+    l.setAttribute("y1", "42");
+    l.setAttribute("x2", "20");
+    l.setAttribute("y2", "8.5");
+    svg.append(l);
     let pol = document.createElementNS('http://www.w3.org/2000/svg', 'polygon'); //document.createElement('polygon');
     pol.setAttribute("points", "22,42 119,42 119,63 22,63");
     svg.append(pol);
+    let pol1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    pol1.setAttribute("points", "75,22 100,22 100,32 75,32");
+    svg.append(pol1);
     picHold.append(svg);
+    picHold.append(topDiv);
+    picHold.append(botDiv);
   }
   for (answer of exercises[num][1]){
     if(exercises[num][2] == 'match'){
