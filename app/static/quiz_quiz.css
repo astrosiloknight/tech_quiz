@@ -36,12 +36,12 @@ svg {
 polygon{
   fill: none;
   stroke: burlywood;
-  stroke-width: 1.5;
+  stroke-width: 1.2;
 }
 
 line {
   stroke: burlywood;
-  stroke-width: 1.5;
+  stroke-width: 1.2;
 }
 
 #picHold {
@@ -51,7 +51,7 @@ line {
 }
 
 .picture {
-  max-width: 20em;
+  max-width: 25em;
   height: auto;
 }
 

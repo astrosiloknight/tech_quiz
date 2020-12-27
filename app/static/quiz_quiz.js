@@ -90,8 +90,11 @@ function display_exercise(){
     pol.setAttribute("points", "22,42 119,42 119,63 22,63");
     svg.append(pol);
     let pol1 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    pol1.setAttribute("points", "75,22 100,22 100,32 75,32");
+    pol1.setAttribute("points", "76,33 112,33 112,42 76,42");
     svg.append(pol1);
+    let pol2 = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    pol2.setAttribute("points", "138,47 163,47 163,73 138,73");
+    svg.append(pol2);
     picHold.append(svg);
     picHold.append(topDiv);
     picHold.append(botDiv);
