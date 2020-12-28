@@ -280,16 +280,37 @@ function boundaries(e){
 
 window.addEventListener('mouseup', e => {
 	if (isDraging === true) {
+    console.log('class list', e);
     if(exercises[num][2] == 'match'){
-      if(e.target.classList.contains('answerDiv')){
+      if(e.target.classList.contains('movable') && e.target.parentNode.classList.contains('answerDiv') && e.target != onTheMove){
+        console.log('on top');
+        e.target.parentNode.append(onTheMove);
+        if(!onTheMove.classList.contains('answered')){
+          onTheMove.classList.add('answered');
+        }
+        document.getElementById('answers').append(e.target);
+        if(e.target.classList.contains('answered')){
+          e.target.classList.remove('answered');
+        }
+      } else if(!e.target.classList.contains('answerDiv') && e.target != onTheMove){
+        console.log('miss!');
+        console.log('target', e.target);
+        document.getElementById('answers').append(onTheMove);
+        if(onTheMove.classList.contains('answered')){
+          onTheMove.classList.remove('answered');
+        }
+      } else if(e.target.classList.contains('answerDiv')){
         console.log('bingo!!!!');
         e.target.append(onTheMove);
+        if(!onTheMove.classList.contains('answered')){
+          onTheMove.classList.add('answered');
+        }
       }
     }
 		if(onTheMove) {
       onTheMove.style.top = '0px';
       onTheMove.style.position = 'static';
-      onTheMove.style.backgroundColor =  "rgb(255, 255, 255)";
+      onTheMove.style.backgroundColor =  "rgb(255, 255, 255, .01)";
 		}
     selected[num] = [...sorted];
 		isDraging = false;
