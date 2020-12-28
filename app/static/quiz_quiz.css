@@ -189,6 +189,7 @@ hr {
   top: 0;
   width: 100%;
   height: 1.2em;
+
 }
 
 #botDiv {
@@ -202,4 +203,5 @@ hr {
   border-color: burlywood;
   margin-right: 0.2em;
   margin-left: 0.2em;
+  z-index: 5;
 }

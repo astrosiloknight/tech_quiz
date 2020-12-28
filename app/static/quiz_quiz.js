@@ -73,6 +73,7 @@ function display_exercise(){
       let d = document.createElement('div');
       d.id = 'top' + i.toString();
       d.classList.add('answerDiv');
+
       topDiv.append(d);
     }
     let botDiv = document.createElement('div');
@@ -280,9 +281,12 @@ function boundaries(e){
 window.addEventListener('mouseup', e => {
 	if (isDraging === true) {
     if(exercises[num][2] == 'match'){
-      console.log('dropped', e);
+      if(e.target.classList.contains('answerDiv')){
+        console.log('bingo!!!!');
+        e.target.append(onTheMove);
+      }
     }
-		if (onTheMove) {
+		if(onTheMove) {
       onTheMove.style.top = '0px';
       onTheMove.style.position = 'static';
       onTheMove.style.backgroundColor =  "rgb(255, 255, 255)";
