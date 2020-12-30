@@ -73,7 +73,21 @@ function display_exercise(){
       let d = document.createElement('div');
       d.id = 'top' + i.toString();
       d.classList.add('answerDiv');
-
+      d.ondrop = function(event){
+        event.preventDefault();
+        event.preventDefault();
+        // Get the id of the target and add the moved element to the target's DOM
+        const data = event.dataTransfer.getData("text");
+        console.log('data', data);
+        event.target.appendChild(document.getElementById(data));
+        console.log('dropped on me', event);
+      }
+      d.ondragover = function(event){
+        event.preventDefault();
+      };
+      d.addEventListener("mouseup", function(){
+        console.log('mouseuped on me');
+      });
       topDiv.append(d);
     }
     let botDiv = document.createElement('div');
@@ -100,6 +114,7 @@ function display_exercise(){
     picHold.append(topDiv);
     picHold.append(botDiv);
   }
+  var idNum = 0
   for (answer of exercises[num][1]){
     if(exercises[num][2] == 'match'){
       let ans = document.createElement('div');
@@ -107,7 +122,17 @@ function display_exercise(){
       document.getElementById('answers').append(ans);
       document.getElementById('answers').classList.add('matchAns');
       ans.classList.add('matchAn');
-      ans.classList.add('movable');
+      ans.id = 'matid' + idNum.toString();
+      idNum++;
+      //ans.classList.add('movable');
+      ans.setAttribute('draggable', "true");
+      ans.ondragstart = function(event){
+        console.log('setting id', event.target.id)
+        event.dataTransfer.setData("text/plain", event.target.id);
+        event.dataTransfer.dropEffect = "move";
+        //event.target.style.opacity=1;
+        //event.target.style.backgroundColor='blue';
+      };
     } else{
       let row = document.createElement('tr');
       let ans = document.createElement('td');
