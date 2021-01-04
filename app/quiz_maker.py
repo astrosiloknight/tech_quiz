@@ -104,7 +104,7 @@ def submit_quiz(quiz_id, answers):
           app.logger.info(' %s order' % order)
           point = True
           for n in range(len(quiz.questions[i][1])):
-            if [order[n] + ' ', str(n+1)] not in quiz.questions[i][1]:
+            if [order[n], str(n+1)] not in quiz.questions[i][1]: # + '' -- Fix not needed any more
               point = False;
           if point:
             points += 1
