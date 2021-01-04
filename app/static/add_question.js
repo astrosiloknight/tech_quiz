@@ -2,16 +2,22 @@
 
 var answers = [];
 
-console.log('element', document.getElementById('addButton'));
-
 
 function addAnswer(){
   if(document.getElementById('answer').value && document.getElementById('score').value) {
   	console.log('score value', document.getElementById('score').value);
-    answers.push([document.getElementById('answer').value, document.getElementById('score').value]);
+    if(document.getElementById('questionType').value == 'match'){
+      answers.push([document.getElementById('answer').value, document.getElementById('score').value, document.getElementById('newSel').value]);
+    } else{
+      answers.push([document.getElementById('answer').value, document.getElementById('score').value]);
+    }
     console.log(answers);
     let ans = document.createElement('div');
-    ans.innerText = document.getElementById('answer').value + ' - ' + document.getElementById('score').value;
+    if(document.getElementById('questionType').value == 'match'){
+      ans.innerText = document.getElementById('answer').value + ' - ' + document.getElementById('newSel').value + ' - ' + document.getElementById('score').value;
+    } else{
+      ans.innerText = document.getElementById('answer').value + ' - ' + document.getElementById('score').value;
+    }
     document.getElementById('answerDisplay').append(ans);
     document.getElementById('answer').value = '';
     document.getElementById('score').value = '';
@@ -61,16 +67,39 @@ function fetchPost(address, message){
 function changeType(){
 	document.getElementById('answerDisplay').innerText = '';
   document.getElementById('score').remove();
+  if(document.getElementById('newSel')){
+    document.getElementById('newSel').remove();
+  }
+  document.getElementById('pictureUrl').style.visibility = 'hidden';
   if(document.getElementById('questionType').value == 'positional'){
   	document.getElementById('scoreLabel').innerText = 'Answer Position';
   	newIn = document.createElement('input');
   	newIn.id = 'score';
   } else if(document.getElementById('questionType').value == 'match'){
-		document.getElementById('scoreLabel').innerText = 'Answer Coordinates';
+		document.getElementById('scoreLabel').innerText = 'Answer Location';
   	newIn = document.createElement('input');
   	newIn.id = 'score';
+    newSel = document.createElement('select');
+    newSel.id = 'newSel';
+    left = document.createElement('option');
+    left.innerText = 'left';
+    left.value = 'left';
+    right = document.createElement('option');
+    right.innerText = 'right';
+    right.value = 'right';
+    to = document.createElement('option');
+    to.innerText = 'top';
+    to.value = 'top';
+    bottom = document.createElement('option');
+    bottom.innerText = 'bottom';
+    bottom.value = 'bottom';
+    newSel.append(left);
+    newSel.append(right);
+    newSel.append(top);
+    newSel.append(bottom);
   	document.getElementById('pictureUrl').style.visibility = 'visible';
-	} else if(document.getElementById('questionType').value == 'question'){
+    document.getElementById('idea').insertBefore(newSel, document.getElementById('addButton'));
+	} else if(document.getElementById('questionType').value == 'question'){ 
 		document.getElementById('scoreLabel').innerText = 'Correct Answer?';
   	newIn = document.createElement('select');
   	newIn.id = 'score';

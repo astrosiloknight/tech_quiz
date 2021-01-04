@@ -18,7 +18,8 @@ def make_quiz(name):
       temp = []
       temp.append(question.description)
       temp_answers = question.answers
-      random.shuffle(temp_answers)
+      if question.question_type != 'match':
+        random.shuffle(temp_answers)
       temp.append(temp_answers)
       temp.append(question.question_type)
       if question.question_type == 'match':
@@ -105,6 +106,13 @@ def submit_quiz(quiz_id, answers):
           for n in range(len(quiz.questions[i][1])):
             if [order[n] + ' ', str(n+1)] not in quiz.questions[i][1]:
               point = False;
+          if point:
+            points += 1
+        elif quiz.questions[i][2] == 'match':
+          point = True
+          for key, value in answers[str(i)].items():
+            if key != value.split('-')[1]:
+              point = False
           if point:
             points += 1
     quiz.score = points
