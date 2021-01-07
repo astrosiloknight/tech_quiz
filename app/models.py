@@ -52,7 +52,7 @@ class Quiz(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
   participant = db.Column(db.String(60))
-  score = db.Column(db.Integer)
+  score = db.Column(db.Float)
   finished = db.Column(db.Boolean, default=False) 
   questions = db.Column(db.JSON)
   answers = db.Column(db.JSON)

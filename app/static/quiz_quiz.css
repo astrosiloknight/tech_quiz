@@ -124,25 +124,19 @@ hr {
   bottom: 1.5em;
 }
 
-.next:hover, #finish:hover {
+.next:hover {
   right: 5.6em;
   bottom: 1.2em;
 }
 
 #finish {
-  visibility: hidden;
-  right: 6em;
-  bottom: 1.5em;
+  right: 3em;
+  bottom: -3em;
 }
 
-.nextMoved{
-  right: 14em;
-  bottom: 1.5em;
-}
-
-.nextMoved:hover {
-  right: 13.3em;
-  bottom: 1.2em;
+#finish:hover {
+  right: 2.6em;
+  bottom: -2.7em;
 }
 
 #ruller {

@@ -104,17 +104,22 @@ def submit_quiz(quiz_id, answers):
           app.logger.info(' %s order' % order)
           point = True
           for n in range(len(quiz.questions[i][1])):
-            if [order[n], str(n+1)] not in quiz.questions[i][1]: # + '' -- Fix not needed any more
-              point = False;
+            if [order[n], str(n+1)] not in quiz.questions[i][1]:
+              point == False;
           if point:
             points += 1
         elif quiz.questions[i][2] == 'match':
-          point = True
+          match_point = True
+          match_points = 0
           for key, value in answers[str(i)].items():
-            if key != value.split('-')[1]:
-              point = False
-          if point:
+            if key == value.split('-')[1]:
+              match_points += 0.1;
+            else:
+              match_point = False
+          if match_point:
             points += 1
+          else:
+            points += match_points
     quiz.score = points
     quiz.duration = (now - quiz.date).total_seconds()
     quiz.update()

@@ -21,16 +21,14 @@
     <th>Time</th>
     <th>Score</th>
   </tr>
-  {% set i = 1 %}
   {% for item in ranking %}
   <tr>
-    <td>{{i}}</td>
+    <td class='standing'></td>
     <td>{{item['participant']}}</td>
     <td>{{item['date']}}</td>
     <td>{{item['duration']}}</td>
     <td>{{item['score']}}</td>
   </tr>
-  {% set i = i + 1 %}
   {% endfor %}
 </table>
 {% else %}

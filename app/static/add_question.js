@@ -43,6 +43,7 @@ function submit(){
       document.getElementById('answerDisplay').innerHTML = '';
       document.getElementById('success').style.visibility = 'visible';
       setTimeout(success, 2000);
+      answers = [];
     }
 		console.log(response);
 	})
@@ -95,7 +96,7 @@ function changeType(){
     bottom.value = 'bottom';
     newSel.append(left);
     newSel.append(right);
-    newSel.append(top);
+    newSel.append(to);
     newSel.append(bottom);
   	document.getElementById('pictureUrl').style.visibility = 'visible';
     document.getElementById('idea').insertBefore(newSel, document.getElementById('addButton'));

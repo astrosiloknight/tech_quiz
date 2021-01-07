@@ -235,12 +235,6 @@ function back(){
   display_exercise();
 }
 
-function introduceSubmit(){
-  document.getElementById('next').classList.remove('next');
-  document.getElementById('next').classList.add('nextMoved');
-  document.getElementById('finish').style.visibility = 'visible';
-}
-
 function finish(){
   fetchPost('/submit', {'selected': selected, 'quizId': quizId}).then(function(response){
     console.log(response);
