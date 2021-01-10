@@ -67,7 +67,7 @@ function display_exercise(){
       event.preventDefault();
       const data = event.dataTransfer.getData("text");
       this.appendChild(document.getElementById(data));
-      delete selected[num][data];
+      selected[num][data] = 'empty';
       console.log('after getting back', selected[num]);
       document.getElementById(data).classList.remove('answered');
     }
@@ -100,7 +100,6 @@ function display_exercise(){
         const data = event.dataTransfer.getData("text");
         if(this.hasChildNodes()){
           this.firstChild.classList.remove('answered');
-          delete selected[num][this.firstChild.id];
           console.log('selected', selected);
           document.getElementById('matchAns').append(this.firstChild);
         }
@@ -138,6 +137,7 @@ function display_exercise(){
       ans.innerText = answer[0];
       ans.classList.add('matchAn');
       ans.id = answer[2] + ':' + answer[1];
+      selected[num][ans.id] = 'empty-empty';
       if(Math.random() < 0.5){
         matchAnswers.append(ans);
       } else {
@@ -180,8 +180,11 @@ function display_exercise(){
   } else{
     document.getElementById('answers').append(matchAnswers);
     for (const [key, value] of Object.entries(selected[num])){
-      document.getElementById(key).classList.add('answered');
-      document.getElementById(value).append(document.getElementById(key));
+      if(value != 'empty-empty'){
+        console.log('key, value', key, value);
+        document.getElementById(key).classList.add('answered');
+        document.getElementById(value).append(document.getElementById(key));
+      }
     }
   }
   if(num == len -1){

@@ -21,7 +21,7 @@
   position: relative;
 	background: rgb(255, 255, 255, 0.9);
 	margin: auto;
-  margin-top: 10%;
+  margin-top: 5%;
 	width: 55em;
   min-height: 22em;
   text-align: center;
@@ -29,14 +29,15 @@
 }
 
 #picHold {
+  max-width: 55%;
   position: relative;
   display: inline-flex;
   margin: auto;
 }
 
 .picture {
-  max-width: 25em;
   height: auto;
+  max-width: 100%;
 }
 
 #answers {
@@ -199,13 +200,13 @@ hr {
 }
 
 #leftDiv {
-  padding-top: 0.87em;
-  left: -6.5em;
+  padding-top: 0.5em;
+  left: -2em;
 }
 
 #rightDiv {
-  padding-top: 1.4em;
-  right: -6.5em;
+  padding-top: 0.8em;
+  right: -2em;
 }
 
 .answerDiv {
@@ -223,4 +224,9 @@ hr {
 
 .answerDiv:hover {
   background:rgba(90, 127, 125);
+}
+
+#confirm {
+  position: absolute;
+  visibility: hidden;
 }

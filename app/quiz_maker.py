@@ -96,18 +96,19 @@ def submit_quiz(quiz_id, answers):
         app.logger.info(' %s quiz.questions[i][1]' % quiz.questions[i][1])
         if quiz.questions[i][2] == 'question':
           chosen_answer = answers[str(i)] - 1
-          app.logger.info(' %s chosen_answer' % chosen_answer)
           if quiz.questions[i][1][chosen_answer][1] == "true":
             points += 1
+            app.logger.info(' %s point added' % quiz.questions[i])
         elif quiz.questions[i][2] == 'positional':
           order = answers[str(i)]
           app.logger.info(' %s order' % order)
           point = True
           for n in range(len(quiz.questions[i][1])):
             if [order[n], str(n+1)] not in quiz.questions[i][1]:
-              point == False;
+              point = False;
           if point:
             points += 1
+            app.logger.info(' %s point added' % quiz.questions[i])
         elif quiz.questions[i][2] == 'match':
           match_point = True
           match_points = 0
@@ -116,8 +117,13 @@ def submit_quiz(quiz_id, answers):
               match_points += 0.1;
             else:
               match_point = False
+            app.logger.info(' %s match_point' % match_point)
+            app.logger.info(' %s match_points' % match_points)
+          app.logger.info(' %s match_point after for' % match_point)
+          app.logger.info(' %s match_points after for' % match_points)
           if match_point:
             points += 1
+            app.logger.info(' %s point added' % quiz.questions[i])
           else:
             points += match_points
     quiz.score = points
