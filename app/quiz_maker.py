@@ -92,10 +92,13 @@ def submit_quiz(quiz_id, answers):
     points = 0
     for i in range(len(quiz.questions)):
       if str(i) in answers.keys():
-        app.logger.info(' %s answers[str(i)]' % answers[str(i)])
         app.logger.info(' %s quiz.questions[i][1]' % quiz.questions[i][1])
         if quiz.questions[i][2] == 'question':
-          chosen_answer = answers[str(i)] - 1
+          s = answers[str(i)]
+          app.logger.info(' %s type(answers[str(i)])' % type(int(s)))
+          chosen_answer = int(answers[str(i)]) - 1
+          app.logger.info(' %s chosen_answer' % chosen_answer)
+          app.logger.info(' %s quiz.questions[i][1][chosen_answer][1]' % quiz.questions[i][1][chosen_answer][1])
           if quiz.questions[i][1][chosen_answer][1] == "true":
             points += 1
             app.logger.info(' %s point added' % quiz.questions[i])
