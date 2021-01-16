@@ -137,7 +137,9 @@ function display_exercise(){
       ans.innerText = answer[0];
       ans.classList.add('matchAn');
       ans.id = answer[2] + ':' + answer[1];
-      selected[num][ans.id] = 'empty-empty';
+      if(!selected[num][ans.id]){
+        selected[num][ans.id] = 'empty-empty';
+      }
       if(Math.random() < 0.5){
         matchAnswers.append(ans);
       } else {
@@ -160,9 +162,23 @@ function display_exercise(){
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
         checkBox.id = i.toString();
+        let checker = document.createElement('span');
+        checker.classList.add('checker');
+        row.id = 'row-' + checkBox.id;
+        row.addEventListener("click", function(e) {
+          let look = this.id.split('-')[1];
+          if(document.getElementById(look).checked){
+            document.getElementById(look).checked = false;
+            check(look);
+          } else{
+            document.getElementById(look).checked = true;
+            check(look);
+          }
+        });
         checkBox.setAttribute("onchange","check(" + i + ");");
         let ins = document.createElement('td');
         ins.append(checkBox);
+        ins.append(checker);
         row.append(ins);
       } else if(exercises[num][2] == 'positional'){
         ans.classList.add('movable');
@@ -187,9 +203,6 @@ function display_exercise(){
       }
     }
   }
-  if(num == len -1){
-    introduceSubmit();
-  }
 }
 
 function check(boxChecked) {
@@ -200,7 +213,12 @@ function check(boxChecked) {
     if(box.checked){
       if(box.id != boxChecked){
         box.checked = false;
+        document.getElementById('row-' + box.id).classList.remove('rowCh');
+      } else {
+        document.getElementById('row-' + box.id).classList.add('rowCh');
       }
+    } else {
+      document.getElementById('row-' + box.id).classList.remove('rowCh');
     }
   })
 }
@@ -322,7 +340,7 @@ window.addEventListener('mouseup', e => {
 		if(onTheMove) {
       onTheMove.style.top = '0px';
       onTheMove.style.position = 'static';
-      onTheMove.style.backgroundColor =  "rgb(255, 255, 255, .01)";
+      onTheMove.style.color =  "black";
 		}
     selected[num] = [...sorted];
 		isDraging = false;
@@ -342,7 +360,7 @@ function grab() {
       isDraging = true;
       onTheMove = e.target;
       onTheMove.style.position = 'relative';
-      onTheMove.style.backgroundColor = "rgb(238, 240, 240)";
+      onTheMove.style.color = "#22b573";
       onTheMove.style.left = '0px';
       onTheMove.style.top = '0px';
     });

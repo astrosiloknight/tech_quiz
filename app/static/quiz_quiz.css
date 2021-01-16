@@ -1,5 +1,48 @@
 
 
+.checker{
+  position: absolute;
+  width: 0.6em;
+  height: 0.6em;
+  border: 2px solid #555;
+  border-radius: 100%;
+  transition: all ease-out 200ms;
+  text-indent: 4em;
+  font: normal normal 1.5em/3em "Helvetica";
+  white-space: nowrap;
+  color: #555;
+  user-select: none;
+}
+
+.checker:after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 0px;
+  height: 0.2em;
+  border-bottom: 2px solid #22b573;
+  border-left: 2px solid #22b573;
+  transform-origin: bottom left;
+  transform: rotate(-45deg);
+  opacity: 0;
+  transition: all ease-out 200ms;
+}
+
+
+input[type=checkbox]:checked ~ .checker{
+  border: 2px solid #22b573;
+}
+  
+input[type=checkbox]:checked ~ .checker:after {
+  opacity: 1;
+  width: 0.7em;
+}
+
+input[type=checkbox] {
+  opacity: 0;
+}
+
 #timer {
   position: absolute;
   font-size: 1.2em;
@@ -11,7 +54,17 @@
   position: absolute;
   font-size: 1.2em;
   left: 0;
-  top: -1.3em;
+  top: -1.5em;
+}
+
+#darth {
+  position: absolute;
+  right: -2.6em;
+  top: -0.5em;
+}
+
+#darth img {
+  height: 2em;
 }
 
 #exercise {
@@ -82,6 +135,17 @@ tr {
   height: 1.5em;
 }
 
+tr:hover {
+  cursor: pointer;
+}
+
+.movable:hover, .matchAn:hover {
+  cursor: grab;
+}
+
+.rowCh {
+  color:#22b573;
+}
 
 td {
   padding-left: 1em;
@@ -167,10 +231,6 @@ hr {
 
 .doing {
   background: rgb(235, 141, 87);
-}
-
-:not(svg) {
-  transform-origin: 0px 0px;
 }
 
 #topDiv, #botDiv {
