@@ -1,4 +1,13 @@
 
+@font-face {
+  font-family: 'bungee';
+  src: url('/static/Bungee.ttf')  format('truetype')
+}
+
+@font-face {
+  font-family: 'bangers';
+  src: url('/static/bangers.ttf')  format('truetype')
+}
 
 .checker{
   position: absolute;
@@ -46,13 +55,15 @@ input[type=checkbox] {
 #timer {
   position: absolute;
   font-size: 1.2em;
+  font-family: 'bungee', cursive;
   right: 0;
-  top: -1.3em;
+  top: -2.2em;
 }
 
 #name {
   position: absolute;
   font-size: 1.2em;
+  font-family: 'bangers', cursive;
   left: 0;
   top: -1.5em;
 }
@@ -64,7 +75,7 @@ input[type=checkbox] {
 }
 
 #darth img {
-  height: 2em;
+  height: 1.7em;
 }
 
 #exercise {
@@ -289,4 +300,11 @@ hr {
 #confirm {
   position: absolute;
   visibility: hidden;
+}
+
+
+@media only screen and (min-height: 60em) {
+  #exercise {
+    margin-top: 12%;
+  }
 }

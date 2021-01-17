@@ -17,7 +17,11 @@ function startGame(){
   }
 }
 
-
+document.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    startGame();
+  }
+});
 
 function fetchPost(address, message){
   return fetch(address,{

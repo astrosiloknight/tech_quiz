@@ -22,7 +22,7 @@
   </div>
   <div id="noName">Please provide your full name</div>
   <div class="butHolder">
-    <button class='sub' onclick="startGame()">Start Quiz</button>
+    <button class='sub' id="startGame" onclick="startGame()">Start Quiz</button>
   </div>
   <div id='yoda'><img src='/static/yoda.png'></div>
   <div id='t-left'><img src='/static/t-left.jpg'></div>
@@ -33,5 +33,7 @@
 </div>
 
 <script src="{{ url_for('static', filename='quiz.js') }}"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
 {% endblock %}

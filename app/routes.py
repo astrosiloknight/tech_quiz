@@ -37,7 +37,6 @@ def quiz():
 @app.route('/quiz/<int:quiz_id>')
 def quiz_instance(quiz_id):
 	obj = get_quiz(quiz_id)
-	#app.logger.info(' %s obj' % obj)
 	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
 		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
 
@@ -56,6 +55,11 @@ def submit():
 def power_ranking():
   power = ranking()
   return render_template('ranking.html', ranking=power)
+
+@app.route('/power_ranking/<int:rank_id>')
+def power_ranking_one(rank_id):
+  power = ranking()
+  return render_template('ranking.html', ranking=power, rank_id=rank_id)
 
 @app.route('/add_question', methods=['POST', 'GET'])
 def add_question():

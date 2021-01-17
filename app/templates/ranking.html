@@ -22,7 +22,7 @@
     <th>Score</th>
   </tr>
   {% for item in ranking %}
-  <tr>
+  <tr class='rankTr' id={{item['id']}}>
     <td class='standing'></td>
     <td>{{item['participant']}}</td>
     <td>{{item['date']}}</td>
@@ -35,6 +35,9 @@
 <div id='nothingToShow'>Nothing to show here yet.</div>
 {% endif %}
 
+<script>
+  var rankId = {{rank_id}};
+</script>
 <script src="{{ url_for('static', filename='ranking.js') }}"></script>
 
 {% endblock %}

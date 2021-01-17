@@ -29,11 +29,12 @@
 }
 
 #head2 {
-  font-size: 1.4em;
+  font-size: 1.05em;
+  font-family: 'Potta One', cursive;
   background: rgba(143, 40, 40, 0.4);
   height: 2em;
   text-align: left;
-  vertical-align: middle;
+  vertical-align: bottom;
 }
 
 #yoda {
