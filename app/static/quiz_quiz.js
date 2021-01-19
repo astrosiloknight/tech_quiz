@@ -87,7 +87,10 @@ function display_exercise(){
     let rightDiv = document.createElement('div');
     rightDiv.id = 'rightDiv';
     picHold.append(topDiv, botDiv, rightDiv, leftDiv);
-  }
+  }  else if(exercises[num][2] == 'positional' && selected[num]){
+    console.log('bingo');
+    exercises[num][1] = selected[num];
+  } 
   for (answer of exercises[num][1]){
     if(exercises[num][2] == 'match'){
       let ans = document.createElement('div');
