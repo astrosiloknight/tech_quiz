@@ -111,3 +111,30 @@ class Question(db.Model):
       'problem': self.problem
     }
 
+class Account(db.Model):
+  __tablename__ = 'accounts'
+  id = db.Column(db.Integer, primary_key=True)
+  name = db.Column(db.String(50))
+  secret = db.Column(db.String(50))
+  token = db.Column(db.String(50))
+
+    def insert(self):
+    db.session.add(self)
+    db.session.commit()
+  
+  def update(self):
+    db.session.commit()
+
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
+  def format(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'secret': self.secret,
+      'token': self.token
+    }
+
+

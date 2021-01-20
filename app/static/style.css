@@ -24,15 +24,15 @@ body {
   z-index: 10;
 }
 
-.pop {
+.pop2 {
   padding: 2em;
-  visibility: hidden;
+/*  visibility: hidden;*/
   position: fixed;
-  z-index: 20;
-  top: 50%;
-  left: 50%;
-  margin-top: - 8em;
-  margin-left: - 15em;
+  z-index: 25;
+  top: 30%;
+  left: auto;
+/*  top: -8em;
+  left: -15em;*/
   background: #42c934;
   width: 30em;
   height: 16em;
@@ -237,7 +237,6 @@ body {
 
 #sign {
   display: hidden;
-  z-index: 20;
 }
 
 .popInput {

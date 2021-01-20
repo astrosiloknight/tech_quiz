@@ -9,15 +9,14 @@
 <body>
   <div id="page-container">
     <div id='cover'></div>
-      <div class='pop' id='sign'>
+      <div class='pop2' id='manage'>
         <button class='x' onclick="closeDialog()"><div class='printx'>&#10005;</div></button>
         <div class="popInput">
           <label for='password'>Password</label>
-  			  <input type="password" name="password">
+  			  <input type="password" id="password">
           <div class='errorMsg'>{{passwordMsg}}</div>
         </div>
-        <div class="popInput">
-          <button class="but">Enter</button>
+          <button class="but"  onclick="manage()">Enter</button>
         </div>
       </div>
       {% if user %}
