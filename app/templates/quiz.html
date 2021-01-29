@@ -10,6 +10,9 @@
 {% endblock %}
 
 {% block content %}
+<div id="slogan">
+  <div id="quoute">"Waste of resources is a mortal sin at IKEA." - Ingvar Kamprad</div>
+</div>
 <div id='start'>
   <div id="head"> Hardware Technician Quiz</div>
   <div id="head2">Do you have what it takes to become Hardware Jedy Knight?</div>
@@ -25,12 +28,7 @@
   <div id='t-left'><img src='/static/t-left.jpg'></div>
   <div id='t-right'><img src='/static/t-right.jpg'></div>
 </div>
-<div id="slogan">
-  <div id="quoute">"Waste of resources is a mortal sin at IKEA." - Ingvar Kamprad</div>
-</div>
 
 <script src="{{ url_for('static', filename='quiz.js') }}"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Potta+One&display=swap" rel="stylesheet">
 
 {% endblock %}

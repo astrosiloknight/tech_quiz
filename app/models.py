@@ -118,7 +118,7 @@ class Account(db.Model):
   secret = db.Column(db.String(50))
   token = db.Column(db.String(50))
 
-    def insert(self):
+  def insert(self):
     db.session.add(self)
     db.session.commit()
   

@@ -27,12 +27,12 @@ body {
 .pop2 {
   padding: 2em;
 /*  visibility: hidden;*/
-  position: fixed;
+  position: absolute;
   z-index: 25;
-  top: 30%;
-  left: auto;
-/*  top: -8em;
-  left: -15em;*/
+  top: 50%;
+  left: 50%;
+  margin-top: -8em;
+  margin-left: -15em;
   background: #42c934;
   width: 30em;
   height: 16em;
@@ -41,6 +41,10 @@ body {
   flex-direction: column;
   justify-content: space-around;
   background: rgba(112, 145, 121);
+}
+
+#manage {
+/*  visibility: hidden;*/
 }
 
 #duration {

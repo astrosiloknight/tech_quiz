@@ -9,16 +9,6 @@
 <body>
   <div id="page-container">
     <div id='cover'></div>
-      <div class='pop2' id='manage'>
-        <button class='x' onclick="closeDialog()"><div class='printx'>&#10005;</div></button>
-        <div class="popInput">
-          <label for='password'>Password</label>
-  			  <input type="password" id="password">
-          <div class='errorMsg'>{{passwordMsg}}</div>
-        </div>
-          <button class="but"  onclick="manage()">Enter</button>
-        </div>
-      </div>
       {% if user %}
       <div class='menuHolder' onclick="openSlide()">
         <div id='User'>{{ user }}</div>
@@ -51,6 +41,8 @@
     {% endif %}
     <div id='brand'>Hardware Quiz</div>
     <div id="content">{% block content %}{% endblock %}</div>
+    {% include "pops.html" ignore missing %}
+    <div id="pops">{% include "pops.html" %}</div>
     <div id="footer">
       {% block footer %}
         <div id="copy">&copy; Copyright 2020 by <a href="http://domain.invalid/">Hardware Tech Team UK 269</a>.</div>
