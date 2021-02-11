@@ -93,6 +93,7 @@ function display_exercise(){
   } 
   for (answer of exercises[num][1]){
     if(exercises[num][2] == 'match'){
+      console.log(exercises[num][1]);
       let ans = document.createElement('div');
       let d = document.createElement('div');
       d.classList.add('answerDiv');
@@ -107,6 +108,7 @@ function display_exercise(){
           document.getElementById('matchAns').append(this.firstChild);
         }
         this.appendChild(document.getElementById(data));
+        console.log('this', 'data', this, data);
         selected[num][data] = this.id;
         console.log('selected', selected);
         document.getElementById(data).classList.add('answered');
@@ -159,7 +161,7 @@ function display_exercise(){
       let row = document.createElement('tr');
       let ans = document.createElement('td');
       ans.classList.add("ans");
-      ans.innerText = answer;
+      ans.innerText = answer[0];
       row.append(ans);
       if(exercises[num][2] == 'question'){
         let checkBox = document.createElement('input');
@@ -240,13 +242,13 @@ function getQuestion(i){
 function next(){
   if(num < len-1){
     num++;
-  }
-  display_exercise();
-  if(prevSelected != JSON.stringify(selected)){
-  	fetchPost('/update', {'selected': selected, 'quizId': quizId, 'state': num}).then(function(response){
-  		console.log(response);
-  	})
-    prevSelected = JSON.stringify(selected);
+    display_exercise();
+    if(prevSelected != JSON.stringify(selected)){
+      fetchPost('/update', {'selected': selected, 'quizId': quizId, 'state': num}).then(function(response){
+        console.log(response);
+      })
+      prevSelected = JSON.stringify(selected);
+    }
   }
 }
 
@@ -299,7 +301,7 @@ function sortTrs() {
   for (i=0;i<trslen;i++){
     trs[i].id = i.toString();
     trs[i].parentElement.id = 'tr' + i.toString();
-    sorted.push(trs[i].innerText);
+    sorted.push([trs[i].innerText, (i+1).toString()]);
   }
   height = document.getElementById('1').parentElement.scrollHeight + 1;
 }
@@ -308,11 +310,12 @@ function flip(eid, dir){
   var numeid = parseInt(eid);
   if(dir == 'up'){
     var tosvap = numeid - 1;
-    [sorted[numeid], sorted[numeid - 1]] = [sorted[numeid - 1], sorted[numeid]];
+    [sorted[numeid][0], sorted[numeid - 1][0]] = [sorted[numeid - 1][0], sorted[numeid][0]];
   } else if(dir == 'down'){
     var tosvap = numeid + 1;
-    [sorted[numeid], sorted[numeid + 1]] = [sorted[numeid + 1], sorted[numeid]];
+    [sorted[numeid][0], sorted[numeid + 1][0]] = [sorted[numeid + 1][0], sorted[numeid][0]];
   }
+  console.log('sorted', sorted);
   document.getElementById('tr' + eid).append(document.getElementById(tosvap.toString()));
   document.getElementById(tosvap.toString()).id = 'temp';
   document.getElementById('tr' + tosvap.toString()).append(document.getElementById(eid));

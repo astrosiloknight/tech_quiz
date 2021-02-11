@@ -6,20 +6,44 @@ import sys
 import json
 import secrets
 import hashlib
+import string
 
-from app.models import db, Question
-from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking
+from app.models import db, Question, Account
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view
 
 salt = 'to_be_changed'
 
+def Random(n):
+  res = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(n))
+  return res
+
 @app.route('/login', methods=['POST'])
 def login():
+	error = False
 	content = json.loads(request.data)
 	password = content.get('password')
 	pa = password.encode()
 	sa = salt.encode()
 	h = hashlib.sha256(pa + sa).hexdigest()
-	return json.dumps({'success': True, 'password': h})
+	try:
+		manager = Account.query.filter_by(name='manager').first()
+		if manager.so_secret == h:
+			random = Random(10)
+			manager.token = random
+			db.session.commit()
+			session['user'] = 'manager'
+			session['info'] = random
+		else:
+			error = True
+	except:
+		error = True
+		app.logger.info(sys.exc_info())
+	finally:
+		db.session.close()
+	if error:
+		return json.dumps({'success': False, 'error': error})
+	else:
+		return json.dumps({'success': True})
 
 @app.route('/')
 def hello_world():
@@ -53,6 +77,14 @@ def quiz_instance(quiz_id):
 	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
 		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
 
+@app.route('/view/<int:quiz_id>')
+def view(quiz_id):
+	if session['user'] == 'manager':
+		manage = True
+	obj = get_quiz_view(quiz_id)
+	return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), 
+		answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=obj['state'])
+
 @app.route('/submit', methods=['POST'])
 def submit():
 	app.logger.info('submitting')
@@ -66,8 +98,12 @@ def submit():
 
 @app.route('/power_ranking')
 def power_ranking():
+	manage = False
 	power = ranking()
-	return render_template('ranking.html', ranking=power)
+	if 'user' in session:
+		if session['user'] == 'manager':
+			manage = True
+	return render_template('ranking.html', ranking=power, manage=manage)
 
 @app.route('/power_ranking/<int:rank_id>')
 def power_ranking_one(rank_id):

@@ -4,7 +4,7 @@ function startGame(){
 	var name = document.getElementById('name').value;
   var surname = document.getElementById('surname').value;
 	if(name && surname){
-    document.getElementById('animation').visibility = 'visible';
+    //document.getElementById('animation').visibility = 'visible';
 		fetchPost('/quiz', {'name': name + ' ' + surname}).then(function(response){
 			console.log('response', response);
 			if(response.quizId){

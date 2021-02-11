@@ -90,6 +90,7 @@ input[type=checkbox] {
   min-height: 22em;
   text-align: center;
   padding-bottom: 3em;
+  margin-bottom: 3em;
 }
 
 #picHold {
@@ -302,6 +303,13 @@ hr {
   visibility: hidden;
 }
 
+.wrong {
+  background: rgb(255, 173, 153);
+}
+
+.right {
+  background: rgb(153, 255, 153);
+}
 
 @media only screen and (min-height: 60em) {
   #exercise {

@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<h1> Power Ranking</h1>
+<h1>Power Ranking</h1>
 
 
 {% if ranking %}
@@ -28,6 +28,9 @@
     <td>{{item['date']}}</td>
     <td>{{item['duration']}}</td>
     <td>{{item['score']}}</td>
+    {% if manage %}
+    <td><button class="but" id="viewBut" onclick="view(this)">view</button></td>
+    {% endif %}
   </tr>
   {% endfor %}
 </table>
@@ -36,7 +39,7 @@
 {% endif %}
 
 <script>
-  var rankId = {{rank_id}};
+  var rankId = '{{rank_id}}';
 </script>
 <script src="{{ url_for('static', filename='ranking.js') }}"></script>
 

@@ -1,6 +1,19 @@
 
 var slideOpen = false;
 
+function first(e){
+  e.stopImmediatePropagation();
+  this.removeEventListener("click", first);
+}
+
+function second(e) {
+  document.querySelector('.slide').classList.remove('open');
+  document.querySelector('.menuHolder').classList.remove("menuHolderOpen");
+  e.stopImmediatePropagation();
+  this.removeEventListener("click", second);
+  slideOpen = false;
+}
+
 function openSlide() {
   if(slideOpen){
   	document.querySelector('.slide').classList.remove("open");
@@ -35,8 +48,12 @@ function manage() {
   let pass = document.getElementById('password').value;
   fetchPost('/login', {'password': pass}).then(function(res){
     console.log('response', res);
+    if(res.success){
+      window.location.href = "/power_ranking";
+    }
   })
 }
+
 
 
 function fetchPost(address, message){

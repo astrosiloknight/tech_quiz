@@ -5,6 +5,7 @@ table {
 	border-collapse: collapse;
   font-size: 1.3em;
   margin-top: 3em;
+  margin-bottom: 3em;
 }
 
 th {
@@ -27,6 +28,13 @@ td {
   animation: 8000ms ease-in-out color-change;
 }
 
+.but, .but:hover {
+  height:1.2em;
+  width: 4.5em;
+  font-size: 1em;
+}
+
+
 @keyframes color-change {
   0% {
     background-color: rgba(255, 187, 0, 0.795);
@@ -38,4 +46,6 @@ td {
     background-color: white;
   }
 }
+
+
 

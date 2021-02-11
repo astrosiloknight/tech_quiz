@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}chess{% endblock %}
+{% block head %}
+<head>
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='quiz_quiz.css') }}">
+</head>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="exercise">
+  <div id='name'>{{name}}<div id='darth'><img src='/static/darth.png'></div></div>
+  <div id="timer">00:00</div>
+  <div id="question"></div>
+  <div id="answers">
+    <table id="tbl"></table>
+  </div>
+  <div id='controls'>
+    <button class="but" id='back' onclick="back()">&#8810 Back</button>
+    <button class='but next' id='next' onclick="next()">Next &#8811</button>
+    <button class='but' id='finish' onclick="finish()">Submit</button>
+    <div id='confirm'>
+      <div>Submitt quiz without answering all questions?</div>
+      <button class='conf-but' id='cencel'>cencel</button>
+      <button class='conf-but' id='submit'>submit</button>
+    </div>
+  </div>
+  <div id="ruller"></div>
+</div>
+
+<script type="text/javascript">
+  var exercises = {{exercises| safe}};
+  var time = '{{time}}';
+  var selected = {{answers| safe}};
+  var quizId = '{{quiz_id}}';
+  var state = '{{state}}';
+</script>
+<script src="{{ url_for('static', filename='view.js') }}"></script>
+
+{% endblock %}

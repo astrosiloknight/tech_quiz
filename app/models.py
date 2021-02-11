@@ -115,8 +115,9 @@ class Account(db.Model):
   __tablename__ = 'accounts'
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(50))
-  secret = db.Column(db.String(50))
+  so_secret = db.Column(db.String(150))
   token = db.Column(db.String(50))
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
   def insert(self):
     db.session.add(self)

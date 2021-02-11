@@ -92,13 +92,10 @@ def submit_quiz(quiz_id, answers):
     points = 0
     for i in range(len(quiz.questions)):
       if str(i) in answers.keys():
-        app.logger.info(' %s quiz.questions[i][1]' % quiz.questions[i][1])
         if quiz.questions[i][2] == 'question':
           s = answers[str(i)]
           app.logger.info(' %s type(answers[str(i)])' % type(int(s)))
           chosen_answer = int(answers[str(i)]) - 1
-          app.logger.info(' %s chosen_answer' % chosen_answer)
-          app.logger.info(' %s quiz.questions[i][1][chosen_answer][1]' % quiz.questions[i][1][chosen_answer][1])
           if quiz.questions[i][1][chosen_answer][1] == "true":
             points += 1
             app.logger.info(' %s point added' % quiz.questions[i])
@@ -106,12 +103,19 @@ def submit_quiz(quiz_id, answers):
           order = answers[str(i)]
           app.logger.info(' %s order' % order)
           point = True
+          positional_points = 0
           for n in range(len(quiz.questions[i][1])):
-            if [order[n], str(n+1)] not in quiz.questions[i][1]:
-              point = False;
+            if order[n] not in quiz.questions[i][1]:
+              point = False
+              order[n].append('false')
+            else:
+              positional_points += 0.1
+              order[n].append('true')
           if point:
             points += 1
             app.logger.info(' %s point added' % quiz.questions[i])
+          else:
+            points += positional_points
         elif quiz.questions[i][2] == 'match':
           match_point = True
           match_points = 0
@@ -120,18 +124,15 @@ def submit_quiz(quiz_id, answers):
               match_points += 0.1;
             else:
               match_point = False
-            app.logger.info(' %s match_point' % match_point)
-            app.logger.info(' %s match_points' % match_points)
-          app.logger.info(' %s match_point after for' % match_point)
-          app.logger.info(' %s match_points after for' % match_points)
           if match_point:
             points += 1
             app.logger.info(' %s point added' % quiz.questions[i])
           else:
             points += match_points
-    quiz.score = points
+    quiz.score = round(points, 1)
     quiz.duration = (now - quiz.date).total_seconds()
     quiz.update()
+    app.logger.info(' %s quiz format' % quiz.format())
   except:
     error = sys.exc_info()
     app.logger.info(sys.exc_info())
@@ -156,3 +157,22 @@ def ranking():
     db.session.close()
   if power:
     return power
+
+
+def get_quiz_view(quiz_id):
+  error = False
+  try:
+    quiz = Quiz.query.filter_by(id=quiz_id).first()
+    nice_obj = quiz.format()
+    date = quiz.date
+    duration = quiz.duration
+  except:
+    error = True
+    app.logger.info(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    return {'success': False, 'error': sys.exc_info()}
+  else:
+    return {'name': nice_obj['participant'], 'time': duration, 'questions': nice_obj['questions'], 'answers':nice_obj['answers'], 
+    'state': nice_obj['state']}

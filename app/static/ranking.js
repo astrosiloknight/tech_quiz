@@ -8,4 +8,12 @@ Array.from(ranks).forEach(function(rank){
   rank.childNodes[1].innerText = i.toString();
 })
 
-document.getElementById(rankId).classList.add('fading');
+
+if(rankId){
+	document.getElementById(rankId).classList.add('fading');
+}
+
+function view(inp){
+	console.log('this', inp.parentNode.parentNode.id);
+	window.location.href = "/view/" + inp.parentNode.parentNode.id;
+}
