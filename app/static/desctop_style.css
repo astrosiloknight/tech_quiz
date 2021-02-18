@@ -1,0 +1,36 @@
+
+
+#slogan {
+	order: 1;
+	margin-bottom: 5em;
+}
+
+#t-left {
+	order: 2;
+}
+
+#start {
+	order: 3;
+	width: 50%;
+}
+
+#t-right {
+	order: 4;
+}
+
+#t-left, #t-right {
+	width: 25%;
+	margin: 0;
+}
+
+/*#start {
+  position: relative;
+  z-index: 20;
+  margin: auto;
+  border-radius: 0.3em;
+  margin-top: 5em;
+  
+  height: 16em;
+  text-align: center;
+  background: rgba(220, 240, 216, 0.5);
+}*/

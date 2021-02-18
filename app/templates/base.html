@@ -3,7 +3,9 @@
 <head>
   {% block head %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{% endblock %} Hardware Quiz</title>
+  <link rel="stylesheet" media='screen and (min-width:426px)' href="{{ url_for('static', filename='mid_style.css') }}">
   {% endblock %}
 </head>
 <body>

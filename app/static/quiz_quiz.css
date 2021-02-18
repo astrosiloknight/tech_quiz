@@ -52,61 +52,57 @@ input[type=checkbox] {
   opacity: 0;
 }
 
-#timer {
-  position: absolute;
-  font-size: 1.2em;
-  font-family: 'bungee', cursive;
-  right: 0;
-  top: -2.2em;
-}
-
-#name {
-  position: absolute;
-  font-size: 1.2em;
-  font-family: 'bangers', cursive;
-  left: 0;
-  top: -1.5em;
-}
-
-#darth {
-  position: absolute;
-  right: -2.6em;
-  top: -0.5em;
-}
-
-#darth img {
-  height: 1.7em;
-}
-
 #exercise {
-  display: inline-block;
-  font-size: 1.2em;
-  
-  position: relative;
-	background: rgb(255, 255, 255, 0.9);
-	margin: auto;
-  margin-top: 5%;
-	width: 55em;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1em;
+  margin: auto;
+  margin-top: 2em;
+  width: 100%;
   min-height: 22em;
   text-align: center;
   padding-bottom: 3em;
+  padding-right: 0.7em;
   margin-bottom: 3em;
+  max-width: 900px;
 }
 
-#picHold {
-  max-width: 55%;
-  position: relative;
-  display: inline-flex;
-  margin: auto;
+#exNav {
+  width: 100%;
+  margin-bottom: 1em;
 }
 
-.picture {
-  height: auto;
-  max-width: 100%;
+#timer, #name, #darth {
+  display: inline-block;
+}
+
+#timer {
+  float: right;
+  font-size: 1.2em;
+  font-family: 'bungee', cursive;
+}
+
+#name {
+  float: left;
+  font-size: 1.2em;
+  font-family: 'bangers', cursive;
+}
+
+#darth {
+  margin-left: 0.6em;
+}
+
+#darth img {
+  height: 1.2em;
 }
 
 #answers {
+  width: 100%;
   padding-bottom: 3em;
+}
+
+.nontouch {
+  touch-action: none;
 }
 
 #matchAns {
@@ -118,7 +114,6 @@ input[type=checkbox] {
   border-width: 1px;
   margin: 0.8em;
   padding: 0.1em;
-  /*z-index: 6;*/
 }
 
 .answered {
@@ -134,24 +129,30 @@ input[type=checkbox] {
 
 table {
   position: relative;
+  border-collapse: collapse;
 	width: 100%;
   margin: auto;
 }
 
 #question {
-	font-size: 1.5em;
-  padding: 1.3em;
+  width: 100%;
+	font-size: 1.3em;
+  padding-bottom: 1em;
+  padding-top: 1em;
 }
 
 tr {
-  height: 1.5em;
+  border-bottom: 1px dotted #ccc;
+  margin-bottom: 0.2em;
 }
 
-tr:hover {
-  cursor: pointer;
+.answers:hover {
+  cursor: grab;
 }
 
-.movable:hover, .matchAn:hover {
+
+
+tr:hover, .movable:hover, .matchAn:hover {
   cursor: grab;
 }
 
@@ -160,14 +161,11 @@ tr:hover {
 }
 
 td {
-  padding-left: 1em;
-  padding-right: 1em;
-  
+  padding: 1em;
+  padding-right: 0.5em;
+  padding-left: 0.5em;  
 }
 
-.ans {
-  border-bottom: 1px dotted #ccc;
-}
 
 hr {
   margin-left: 3em;
@@ -180,49 +178,16 @@ hr {
   float: right;
 }
 
-#back, .next, .nextMoved, #finish {
-  position: absolute;
-  width: 4em;
-  height: 1.6em;
-}
-
-#back {
-  left: 6em;
-  bottom: 1.5em;
-}
-
-#back:hover {
-  left: 5.6em;
-  bottom: 1.2em;
-}
-
-.next {
-  right: 6em;
-  bottom: 1.5em;
-}
-
-.next:hover {
-  right: 5.6em;
-  bottom: 1.2em;
-}
-
-#finish {
-  right: 3em;
-  bottom: -3em;
-}
-
-#finish:hover {
-  right: 2.6em;
-  bottom: -2.7em;
+#controls {
+  width: 100%;
 }
 
 #ruller {
-  position: absolute;
   display: flex;
   width: 100%;
   height: 0.8em;
   flex-direction: row;
-  bottom: 0;
+  margin-top: 2em;
 }
 
 .bar {
@@ -245,74 +210,156 @@ hr {
   background: rgb(235, 141, 87);
 }
 
+#pickHolder {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.pickTurn {
+  flex-direction: column;
+}
+
+.pict {
+  height: auto;
+  width: 70%;
+}
+
 #topDiv, #botDiv {
-  position: absolute;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
+
+}
+
+.divNorm {
+  width: 0%;
+}
+
+.divTurn {
   width: 100%;
-  height: 1.2em;
-
-}
-
-#topDiv{
-  top: 0;
-}
-
-#botDiv {
-  bottom: 0;
 }
 
 #leftDiv, #rightDiv {
-  position: absolute;
+  width: 15%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  width: 8em;
-  height: 100%;
-}
-
-#leftDiv {
-  padding-top: 0.5em;
-  left: -2em;
-}
-
-#rightDiv {
-  padding-top: 0.8em;
-  right: -2em;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .answerDiv {
-  flex: auto;
-  width: 4em;
-  height: 1.2em;
+  width: 100%;
+  height: 1.3em;
+  font-size: 1em;
   border-style: solid;
   border-color: rgb(233,42,38);
-  background:white;
-  margin-right: 0.2em;
-  margin-left: 0.2em;
+  border-width: 1px;
+  background: white;
   z-index: 5;
   overflow: hidden;
+}
+
+.answerTurn {
+  width: 4.5em;
+  min-height: 0.8em;
 }
 
 .answerDiv:hover {
   background:rgba(90, 127, 125);
 }
 
-#confirm {
-  position: absolute;
+#finish {
+  visibility: hidden;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+#exBack {
   visibility: hidden;
 }
 
-.wrong {
-  background: rgb(255, 173, 153);
-}
-
-.right {
-  background: rgb(153, 255, 153);
-}
-
-@media only screen and (min-height: 60em) {
-  #exercise {
-    margin-top: 12%;
+/*@media only screen and (min-width: 400px) {
+  .answerDiv {
+    font-size: 0.8em;
+    border-width: 2px;
   }
+}*/
+
+@media only screen and (min-width: 500px) {
+
+  #exercise {
+    font-size: 1.2em;
+  }
+
+  .answerDiv {
+    border-width: 3px;
+  }
+
+  td {
+    padding: 0.6em;
+    padding-right: 1em;
+    padding-left: 0.5em;  
+  }
+
+  .back, .sub, .next {
+  width: 4em;
+  height: 1.4em;
+}
+
+}
+
+@media only screen and (min-width: 650px) {
+
+  .pict {
+    width: 60%
+  }
+
+  #leftDiv, #rightDiv {
+    width: 20%;
+  }
+
+  .sub, .next {
+    margin-right: 2em;
+  }
+
+  .back {
+    margin-left: 2em;
+  }
+
+  .answerDiv {
+    font-size: 1em;
+  }
+
+  .answerTurn {
+    width: 6.2em;
+  }
+}
+
+@media only screen and (min-width: 950px) {
+  #exercise {
+    font-size: 1.3em;
+  }
+
+  .sub, .next {
+    margin-right: 3em;
+  }
+
+  .back {
+    margin-left: 3em;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  .picHolder {
+    max-width: 800px;
+  }
+}
+
+@media only screen and (min-height: 1400px) {
+}
+
+
+.pictureTurn {
+  width: 100%;
 }

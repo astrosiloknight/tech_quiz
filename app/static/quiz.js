@@ -1,5 +1,7 @@
 
 
+//document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
+
 function startGame(){
 	var name = document.getElementById('name').value;
   var surname = document.getElementById('surname').value;
@@ -37,3 +39,8 @@ function fetchPost(address, message){
   	console.log(error);
   })
 }
+
+// console.log('dpi', window.devicePixelRatio);
+// var dpi = window.devicePixelRatio;
+
+// document.getElementById('testing').innerText = 'dpi: ' + dpi;

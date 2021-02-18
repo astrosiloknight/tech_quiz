@@ -1,24 +1,25 @@
 
+#slogan{
+  width: 100%;
+  margin-bottom: 2em;
+}
+
 #quoute {
   margin-top: 2em;
-  display: inline-block;
   font-family: 'Great Vibes', serif;
   font-size: 2.3em;
-  background: rgb(255,255,255,0.3);
+  min-width: 100%;
 }
 
 #start {
-  position: fixed;
+  position: relative;
   z-index: 20;
-  top: 60%;
-  left: 50%;
-  border-radius: 0.3em;
-  margin-top: -10em;
-  margin-left: -20em;
-  width: 40em;
-  height: 16em;
+  margin: auto;
+  min-height: 16em;
   text-align: center;
   background: rgba(220, 240, 216, 0.5);
+  width: 98%;
+  max-width: 40em;
 }
 
 #head {
@@ -26,15 +27,24 @@
   background: rgba(143, 40, 40, 0.6);
   border-top-left-radius: 0.3em;
   border-top-right-radius: 0.3em;
+  padding-right: 2.7em;
 }
 
 #head2 {
   font-size: 1.05em;
   /*font-family: 'Potta One', cursive;*/
   background: rgba(143, 40, 40, 0.4);
-  height: 1.5em;
-  padding-top: 0.5em;
   vertical-align: bottom;
+}
+
+#inputHolder {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+  margin: auto;
+  height: 8em;
+  max-width: 35em;
 }
 
 #yoda {
@@ -43,17 +53,17 @@
   top: -2.9em;
 }
 
-#t-left, #t-right {
-  position: absolute;
-  top: -4em;
-} 
-
-#t-left {
-  left: -25em;
+img { 
+  width: 100%; 
+  height: auto; 
 }
 
-#t-right {
-  right: -25em;
+#t-left, #t-right {
+  width: 45%;
+  object-fit: cover;
+  flex-shrink: 1;
+  min-width: 0;
+  margin: 2.5%;
 }
 
 .startInput {
@@ -62,11 +72,15 @@
   font-size: 1.3em;
 	height: 1.5em;
   width: 7em;
-  margin-top: 3.5em;
-  margin-left: 2em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 #noName {
   visibility: hidden;
   color: red;
+}
+
+#startGame {
+  width: 6em;
 }
