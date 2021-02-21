@@ -27,6 +27,18 @@ function makeRuller() {
 }
 
 function display_exercise(){
+  if(num < len - 1){
+    document.getElementById('next').style.display = 'inline-block';
+    document.getElementById('finish').style.visibility = 'hidden';
+  } else {
+    document.getElementById('next').style.display = 'none';
+    document.getElementById('finish').style.visibility = 'visible';
+  }
+  if(num > 0){
+    document.getElementById('exBack').style.visibility = 'visible';
+  } else {
+    document.getElementById('exBack').style.visibility = 'hidden';
+  }
   if(document.getElementById('matchAns')){
     document.getElementById('matchAns').remove();
   }
@@ -37,7 +49,8 @@ function display_exercise(){
     console.log('Removing');
     document.getElementById('picHold').remove();
   }
-	document.getElementById('question').innerText = exercises[num][0];
+	document.getElementById('pickHolder').innerText = ""
+  document.getElementById('question').innerText = exercises[num][0];
   document.getElementById('tbl').innerHTML = '';
   doing = document.getElementById('bar' + num.toString());
   doing.classList.add("doing");
@@ -50,13 +63,11 @@ function display_exercise(){
     var matchAnswers = document.createElement('div');
     matchAnswers.id = 'matchAns';
 
-    var picHold = document.createElement('div');
-    picHold.id = 'picHold';
+    var picHold = document.getElementById('pickHolder');
+    console.log('picHold', picHold);
     var pic = document.createElement('img');
-    pic.classList.add('picture');
+    pic.classList.add('pict');
     pic.src = exercises[num][3];
-    picHold.append(pic);
-    document.getElementById('exercise').insertBefore(picHold, document.getElementById('question'));
     let topDiv = document.createElement('div');
     topDiv.id = 'topDiv';
     let botDiv = document.createElement('div');
@@ -65,7 +76,9 @@ function display_exercise(){
     leftDiv.id = 'leftDiv';
     let rightDiv = document.createElement('div');
     rightDiv.id = 'rightDiv';
-    picHold.append(topDiv, botDiv, rightDiv, leftDiv);
+    picHold.append(topDiv, leftDiv);
+    picHold.append(pic);
+    picHold.append(botDiv, rightDiv);
   }  else if(exercises[num][2] == 'positional' && selected[num]){
     to_iterate = selected[num];
   } 
@@ -78,12 +91,23 @@ function display_exercise(){
       d.classList.add('answerDiv');
       if(answer[2] == 'left'){
         document.getElementById('leftDiv').append(d);
+        document.getElementById('pickHolder').classList.remove('pickTurn');
+        document.getElementById('topDiv').classList.remove('divTurn');
+        document.getElementById('botDiv').classList.remove('divTurn');
+        document.getElementsByClassName("pict")[0].classList.remove('pictureTurn');
+        
       } else if(answer[2] == 'right'){
         document.getElementById('rightDiv').append(d);
       } else if(answer[2] == 'top'){
         document.getElementById('topDiv').append(d);
+        document.getElementById('pickHolder').classList.add('pickTurn');
+        document.getElementById('topDiv').classList.add('divTurn');
+        document.getElementById('botDiv').classList.add('divTurn');
+        document.getElementsByClassName("pict")[0].classList.add('pictureTurn');
+        d.classList.add('answerTurn');
       } else if(answer[2] == 'bottom'){
         document.getElementById('botDiv').append(d);
+        d.classList.add('answerTurn');
       }
       ans.innerText = answer[0];
       ans.classList.add('matchAn');
