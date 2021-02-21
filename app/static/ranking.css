@@ -1,4 +1,7 @@
 
+h1 {
+  width: 100%;
+}
 
 table {
   margin: auto;
@@ -23,7 +26,7 @@ tr {
   animation: 8000ms ease-in-out color-change;
 }
 
-.but, .but:hover {
+#viewBut, .viewBut:hover {
   height:1.2em;
   width: 4.5em;
   font-size: 1em;
