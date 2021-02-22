@@ -7,11 +7,6 @@ var sorted = [];
 
 document.getElementById('timer').innerText = timePrinter(time);
 
-console.log('time', time);
-
-
-console.log('exercises, time, selected, state', exercises, time, selected, state);
-
 function makeRuller() {
   var ruller = document.getElementById('ruller')
   for(i=0;i<len;i++){
@@ -64,7 +59,6 @@ function display_exercise(){
     matchAnswers.id = 'matchAns';
 
     var picHold = document.getElementById('pickHolder');
-    console.log('picHold', picHold);
     var pic = document.createElement('img');
     pic.classList.add('pict');
     pic.src = exercises[num][3];
@@ -129,8 +123,6 @@ function display_exercise(){
       if(exercises[num][2] == 'question'){
         if(answer[1] == 'true'){
           row.classList.add('right');
-        } else if(answer[11] == 'false') {
-          row.classList.add('wrong');
         }
         let checkBox = document.createElement('input');
         checkBox.type = 'checkbox';
@@ -157,22 +149,25 @@ function display_exercise(){
     if(selected[num]){
       document.getElementById(selected[num]).checked = true;
       document.getElementById(selected[num]).parentNode.parentNode.classList.add('rowCh');
-      document.getElementById(selected[num]).parentNode.parentNode.classList.add('wrong');
+      if(exercises[num][1][selected[num]-1][1] != 'true'){
+        document.getElementById(selected[num]).parentNode.parentNode.classList.add('wrong');
+      }
     }
   } else if(exercises[num][2] == 'match'){
     document.getElementById('answers').append(matchAnswers);
     for (const [key, value] of Object.entries(selected[num])){
       if(value != 'empty-empty'){
         let valSplit = value.split('-')[1];
-        console.log('valSplit', valSplit);
-        console.log('key, value', key, value);
         document.getElementById(key).classList.add('answered');
         document.getElementById(value).append(document.getElementById(key));
         if(key == valSplit){
           document.getElementById(key).classList.add('right');
+        } else {
+          document.getElementById(key).classList.add('wrong');
         }
+      } else {
+        document.getElementById(key).classList.add('wrong');
       }
-      document.getElementById(key).classList.add('wrong');
     }
   }
 }

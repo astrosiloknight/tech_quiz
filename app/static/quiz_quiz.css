@@ -279,13 +279,13 @@ hr {
   visibility: hidden;
 }
 
-/*@media only screen and (min-width: 400px) {
-  .answerDiv {
-    font-size: 0.8em;
-    border-width: 2px;
-  }
-}*/
+.right {
+  background: rgb(141, 240, 134);
+}
 
+.wrong {
+  background: rgb(240, 101, 79);
+}
 @media only screen and (min-width: 500px) {
 
   #exercise {
@@ -356,7 +356,10 @@ hr {
   }
 }
 
-@media only screen and (min-height: 1400px) {
+@media only screen and (min-height: 900px) {
+  #exercise {
+    margin-top: 20%;
+  }
 }
 
 
