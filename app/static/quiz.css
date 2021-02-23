@@ -84,3 +84,9 @@ img {
 #startGame {
   width: 6em;
 }
+
+@media only screen and (min-height: 900px) {
+  #start {
+    margin-top: 16%;
+  }
+}
