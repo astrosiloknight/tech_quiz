@@ -85,8 +85,8 @@ img {
   width: 6em;
 }
 
-@media only screen and (min-height: 900px) {
-  #start {
-    margin-top: 16%;
+@media only screen and (min-height: 1000px) {
+  #slogan {
+    margin-bottom: 17%;
   }
 }
