@@ -6,23 +6,7 @@ import os
 #'from flask_sqlalchemy import SQLAlchemy
 import json
 from datetime import datetime
-#from flask import Flask
 
-
-#database_name = "games"
-#database_path = 'postgres://fwkpnotv:1wvhldt6f766_VfD2ighEipij_Q9xQJL@rogue.db.elephantsql.com:5432/fwkpnotv'
-# FOR REPL
-#database_path = 'postgres://fwkpnotv:1wvhldt6f766_VfD2ighEipij_Q9xQJL@rogue.db.elephantsql.com:5432/fwkpnotv'
-# FOR HOME POSTGRES
-# database_path = 'postgresql://postgres_user:9Krokodilai@localhost:5432/games'
-# HEROKU
-#DATABASE_URL = os.environ['DATABASE_URL']
-#database_path = DATABASE_URL
-
-#app = Flask(__name__)
-
-
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://fwkpnotv:1wvhldt6f766_VfD2ighEipij_Q9xQJL@rogue.db.elephantsql.com:5432/fwkpnotv'
 
 def time_printer(tot_sec):
   hours = False
@@ -58,6 +42,9 @@ class Quiz(db.Model):
   answers = db.Column(db.JSON)
   duration = db.Column(db.Integer)
   state = db.Column(db.Integer, default=0)
+  comments = db.Column(db.String(500))
+  commentator =  db.Column(db.String(30))
+  ip = db.Column(db.String(30))
 
   def insert(self):
     db.session.add(self)
@@ -80,7 +67,54 @@ class Quiz(db.Model):
       'questions': self.questions,
       'answers': self.answers,
       'duration': time_printer(self.duration),
-      'state':self.state
+      'state':self.state,
+      'comment': self.comments,
+      'ip': self.ip,
+      'commentator': self.commentator
+    }
+
+class Delete(db.Model):
+  __tablename__ = 'deletes'
+  id = db.Column(db.Integer, primary_key=True)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  participant = db.Column(db.String(60))
+  score = db.Column(db.Float)
+  finished = db.Column(db.Boolean, default=False) 
+  questions = db.Column(db.JSON)
+  answers = db.Column(db.JSON)
+  duration = db.Column(db.Integer)
+  state = db.Column(db.Integer, default=0)
+  comments = db.Column(db.String(500))
+  commentator =  db.Column(db.String(30))
+  ip = db.Column(db.String(30))
+  terminator = db.Column(db.String(30))
+
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+  
+  def update(self):
+    db.session.commit()
+
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
+  def format(self):
+    return {
+      'id': self.id,
+      'date': str(self.date.date()),
+      'participant': self.participant,
+      'score': self.score,
+      'finished': self.finished,
+      'questions': self.questions,
+      'answers': self.answers,
+      'duration': time_printer(self.duration),
+      'state':self.state,
+      'comment': self.comments,
+      'ip': self.ip,
+      'commentator': self.commentator,
+      'terminator': self.terminator
     }
 
 class Question(db.Model):

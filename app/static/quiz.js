@@ -39,8 +39,3 @@ function fetchPost(address, message){
   	console.log(error);
   })
 }
-
-// console.log('dpi', window.devicePixelRatio);
-// var dpi = window.devicePixelRatio;
-
-// document.getElementById('testing').innerText = 'dpi: ' + dpi;

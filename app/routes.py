@@ -9,7 +9,7 @@ import hashlib
 import string
 
 from app.models import db, Question, Account
-from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment
 
 salt = 'to_be_changed'
 
@@ -41,13 +41,20 @@ def login():
 	finally:
 		db.session.close()
 	if error:
-		return json.dumps({'success': False, 'error': error})
+		return json.dumps({'success': False, 'error': h})
 	else:
 		return json.dumps({'success': True})
 
 @app.route('/')
 def hello_world():
 	return redirect('quiz');
+
+@app.route('/comment', methods=['POST'])
+def comment():
+  content = json.loads(request.data)
+  quiz_id = content.get('quizId', None)
+  comment = content.get('comment', None)
+  return make_comment(quiz_id, comment)
 
 @app.route('/update', methods=['POST'])
 def update():
@@ -63,19 +70,23 @@ def update():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
-	if request.method == 'POST':
-		content = json.loads(request.data)
-		name = content.get('name', None)
-		if name:
-			return make_quiz(name)
-	else:
-		return render_template('quiz.html')
+  if request.method == 'POST':
+    content = json.loads(request.data)
+    name = content.get('name', None)
+    ip = request.remote_addr
+    if name:
+      return make_quiz(name, ip)
+  else:
+    return render_template('quiz.html')
 
 @app.route('/quiz/<int:quiz_id>')
 def quiz_instance(quiz_id):
-	obj = get_quiz(quiz_id)
-	return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
-		exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
+  obj = get_quiz(quiz_id)
+  if obj['success']:
+    return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
+      exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
+  else:
+    return render_template('quiz_quiz.html', error=obj['error'])
 
 @app.route('/view/<int:quiz_id>')
 def view(quiz_id):

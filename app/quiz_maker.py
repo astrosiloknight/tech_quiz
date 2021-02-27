@@ -8,7 +8,7 @@ import json
 
 from app.models import db, Quiz, Question
 
-def make_quiz(name):
+def make_quiz(name, ip):
   bulk = []
   error = False
   try:
@@ -32,7 +32,7 @@ def make_quiz(name):
     app.logger.info(sys.exc_info())
   if not error:
     try:
-      quiz = Quiz(participant=name, questions=bulk, answers={})
+      quiz = Quiz(participant=name, questions=bulk, answers={}, ip=ip)
       Quiz.insert(quiz)
       quiz_id = quiz.id
     except:
@@ -47,6 +47,8 @@ def get_quiz(quiz_id):
   error = False
   try:
     quiz = Quiz.query.filter_by(id=quiz_id).first()
+    if quiz.finished == True:
+      error = True
     nice_obj = quiz.format()
     date = quiz.date
     questions = quiz.questions
@@ -62,7 +64,7 @@ def get_quiz(quiz_id):
   if error:
     return {'success': False, 'error': sys.exc_info()}
   else:
-    return {'name': nice_obj['participant'], 'time': date, 'questions': questions, 'answers':nice_obj['answers'], 
+    return {'success': True, 'name': nice_obj['participant'], 'time': date, 'questions': questions, 'answers':nice_obj['answers'], 
     'state': nice_obj['state']}
 
 def update_quiz(quiz_id, answers, state):
@@ -176,3 +178,19 @@ def get_quiz_view(quiz_id):
   else:
     return {'name': nice_obj['participant'], 'time': duration, 'questions': nice_obj['questions'], 'answers':nice_obj['answers'], 
     'state': nice_obj['state']}
+
+def make_comment(quiz_id, comment):
+  error = False
+  try:
+    quiz = Quiz.query.filter_by(id=quiz_id).first()
+    quiz.comments = comment
+    quiz.update()
+  except:
+    error = True
+    app.logger.info(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    return {'success': False, 'error': sys.exc_info()}
+  else:
+    return {'success': True}

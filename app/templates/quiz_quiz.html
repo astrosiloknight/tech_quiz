@@ -10,7 +10,9 @@
 
 {% block content %}
 
-
+{% if error %}
+Error: {{error}}
+{% else %}
 <div id="exercise">
   <div id='exNav'>
     <div id='name'>
@@ -39,5 +41,5 @@
   var state = '{{state}}';
 </script>
 <script src="{{ url_for('static', filename='quiz_quiz.js') }}"></script>
-
+{% endif %}
 {% endblock %}

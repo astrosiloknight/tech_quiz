@@ -26,10 +26,20 @@ tr {
   animation: 8000ms ease-in-out color-change;
 }
 
-#viewBut, .viewBut:hover {
+#viewBut, #commBut, #viewBut:hover, #commBut:hover  {
   height:1.2em;
   width: 4.5em;
   font-size: 1em;
+}
+
+#commBut, #commBut:hover {
+  width: 7em;
+}
+
+#commentArea {
+  width: 100%;
+  height: 6em;
+  margin-bottom: 4em;
 }
 
 

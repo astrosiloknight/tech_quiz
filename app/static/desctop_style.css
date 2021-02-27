@@ -2,7 +2,6 @@
 
 #slogan {
 	order: 1;
-	margin-bottom: 5em;
 }
 
 #t-left {
@@ -22,15 +21,3 @@
 	width: 25%;
 	margin: 0;
 }
-
-/*#start {
-  position: relative;
-  z-index: 20;
-  margin: auto;
-  border-radius: 0.3em;
-  margin-top: 5em;
-  
-  height: 16em;
-  text-align: center;
-  background: rgba(220, 240, 216, 0.5);
-}*/

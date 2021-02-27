@@ -20,6 +20,10 @@
     <th>Date</th>
     <th>Time</th>
     <th>Score</th>
+    {% if manage %}
+    <th>Comment</th>
+    <th>View</th>
+    {% endif %}
   </tr>
   {% for item in ranking %}
   <tr class='rankTr' id={{item['id']}}>
@@ -29,6 +33,11 @@
     <td>{{item['duration']}}</td>
     <td>{{item['score']}}</td>
     {% if manage %}
+      {% if item['comment'] %}
+      <td><div class="comment">{{item['comment']}}</div></td>
+      {% else %}
+      <td><button class="but" id="commBut" onclick="comment(this)">add comment</button></td>
+      {% endif %}
     <td><button class="but" id="viewBut" onclick="view(this)">view</button></td>
     {% endif %}
   </tr>
@@ -37,6 +46,8 @@
 {% else %}
 <div id='nothingToShow'>Nothing to show here yet.</div>
 {% endif %}
+
+<div id="rankPops">{% include "pops_comm.html" %}</div>
 
 <script>
   var rankId = '{{rank_id}}';
