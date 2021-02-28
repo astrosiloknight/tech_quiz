@@ -54,7 +54,9 @@ def comment():
   content = json.loads(request.data)
   quiz_id = content.get('quizId', None)
   comment = content.get('comment', None)
-  return make_comment(quiz_id, comment)
+  name = content.get('name', None)
+  ip = request.remote_addr
+  return make_comment(quiz_id, comment, name, ip)
 
 @app.route('/update', methods=['POST'])
 def update():
@@ -90,22 +92,22 @@ def quiz_instance(quiz_id):
 
 @app.route('/view/<int:quiz_id>')
 def view(quiz_id):
-	if session['user'] == 'manager':
-		manage = True
-	obj = get_quiz_view(quiz_id)
-	return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), 
-		answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=obj['state'])
+  if session['user'] == 'manager':
+    obj = get_quiz_view(quiz_id)
+    return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=0)
+  else:
+    return json.dumps({'Aurhentication error': 'Login Please!'})
 
 @app.route('/submit', methods=['POST'])
 def submit():
-	app.logger.info('submitting')
-	content = json.loads(request.data)
-	quiz_id = content.get('quizId', None)
-	answers = content.get('selected', None)
-	if quiz_id and answers:
-		return submit_quiz(quiz_id, answers)
-	else:
-		return json.dumps({'success in submit': False})
+  app.logger.info('submitting')
+  content = json.loads(request.data)
+  quiz_id = content.get('quizId', None)
+  answers = content.get('selected', None)
+  if quiz_id and answers:
+    return submit_quiz(quiz_id, answers)
+  else:
+    return json.dumps({'success in submit': False})
 
 @app.route('/power_ranking')
 def power_ranking():

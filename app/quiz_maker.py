@@ -6,7 +6,7 @@ import random
 import sys
 import json
 
-from app.models import db, Quiz, Question
+from app.models import db, Quiz, Question, Comment
 
 def make_quiz(name, ip):
   bulk = []
@@ -45,6 +45,7 @@ def make_quiz(name, ip):
 
 def get_quiz(quiz_id):
   error = False
+  error_msg = False
   try:
     quiz = Quiz.query.filter_by(id=quiz_id).first()
     if quiz.finished == True:
@@ -59,10 +60,11 @@ def get_quiz(quiz_id):
   except:
     error = True
     app.logger.info(sys.exc_info())
+    error_msg = sys.exc_info()
   finally:
     db.session.close()
   if error:
-    return {'success': False, 'error': sys.exc_info()}
+    return {'success': False, 'error': error_msg}
   else:
     return {'success': True, 'name': nice_obj['participant'], 'time': date, 'questions': questions, 'answers':nice_obj['answers'], 
     'state': nice_obj['state']}
@@ -148,7 +150,7 @@ def submit_quiz(quiz_id, answers):
 def ranking():
   power = False
   try:
-    ranks = Quiz.query.filter_by(finished = True).order_by(Quiz.score.desc(), Quiz.duration.asc()).all()
+    ranks = Quiz.query.filter_by(finished = True, deleted = False).order_by(Quiz.score.desc(), Quiz.duration.asc()).all()
     if ranks:
       power = []
       for rank in ranks:
@@ -166,7 +168,6 @@ def get_quiz_view(quiz_id):
   try:
     quiz = Quiz.query.filter_by(id=quiz_id).first()
     nice_obj = quiz.format()
-    date = quiz.date
     duration = quiz.duration
   except:
     error = True
@@ -179,12 +180,11 @@ def get_quiz_view(quiz_id):
     return {'name': nice_obj['participant'], 'time': duration, 'questions': nice_obj['questions'], 'answers':nice_obj['answers'], 
     'state': nice_obj['state']}
 
-def make_comment(quiz_id, comment):
+def make_comment(quiz_id, comment, name, ip):
   error = False
   try:
-    quiz = Quiz.query.filter_by(id=quiz_id).first()
-    quiz.comments = comment
-    quiz.update()
+    comment = Comment(quiz_id=quiz_id, name=name, comment=comment, ip=ip)
+    Comment.insert(comment)
   except:
     error = True
     app.logger.info(sys.exc_info())

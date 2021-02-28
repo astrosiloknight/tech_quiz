@@ -27,7 +27,6 @@ function display_exercise(){
     document.getElementById('finish').style.visibility = 'hidden';
   } else {
     document.getElementById('next').style.display = 'none';
-    document.getElementById('finish').style.visibility = 'visible';
   }
   if(num > 0){
     document.getElementById('exBack').style.visibility = 'visible';

@@ -26,7 +26,8 @@ function comment(inp){
 }
 
 function subComm(){
-  val = document.getElementById('commentArea').value;
+  var val = document.getElementById('commentArea').value;
+  var name = document.getElementById('commName').value;
   console.log(val);
   fetchPost('/comment', {'quizId': commenting, 'comment': val}).then(function(response){
     console.log('response', response);

@@ -42,9 +42,11 @@ class Quiz(db.Model):
   answers = db.Column(db.JSON)
   duration = db.Column(db.Integer)
   state = db.Column(db.Integer, default=0)
-  comments = db.Column(db.String(500))
-  commentator =  db.Column(db.String(30))
   ip = db.Column(db.String(30))
+  deleted = db.Column(db.Boolean, default=False)
+  delete_date = db.Column(db.DateTime)
+  terminator = db.Column(db.String(30))
+  comments = db.relationship("Comment", backref=db.backref('state'))
 
   def insert(self):
     db.session.add(self)
@@ -68,26 +70,21 @@ class Quiz(db.Model):
       'answers': self.answers,
       'duration': time_printer(self.duration),
       'state':self.state,
-      'comment': self.comments,
       'ip': self.ip,
-      'commentator': self.commentator
+      'deleted': self.deleted,
+      # 'delete_date': str(self.delete_date.date()),
+      'terminator': self.terminator,
+      'comments': self.comments
     }
 
-class Delete(db.Model):
-  __tablename__ = 'deletes'
+class Comment(db.Model):
+  __tablename__ = 'comments'
   id = db.Column(db.Integer, primary_key=True)
   date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-  participant = db.Column(db.String(60))
-  score = db.Column(db.Float)
-  finished = db.Column(db.Boolean, default=False) 
-  questions = db.Column(db.JSON)
-  answers = db.Column(db.JSON)
-  duration = db.Column(db.Integer)
-  state = db.Column(db.Integer, default=0)
-  comments = db.Column(db.String(500))
-  commentator =  db.Column(db.String(30))
+  name = db.Column(db.String(40))
   ip = db.Column(db.String(30))
-  terminator = db.Column(db.String(30))
+  comment = db.Column(db.String(500))
+  quiz_id = db.Column(db.Integer, db.ForeignKey('quizes.id',  onupdate="CASCADE", ondelete="CASCADE"))
 
   def insert(self):
     db.session.add(self)
@@ -103,18 +100,12 @@ class Delete(db.Model):
   def format(self):
     return {
       'id': self.id,
-      'date': str(self.date.date()),
-      'participant': self.participant,
-      'score': self.score,
-      'finished': self.finished,
-      'questions': self.questions,
-      'answers': self.answers,
-      'duration': time_printer(self.duration),
-      'state':self.state,
+      'date': str(self.date),
       'comment': self.comments,
       'ip': self.ip,
-      'commentator': self.commentator,
-      'terminator': self.terminator
+      'name': self.name,
+      'deleted': self.deleted,
+      'quiz_id': self.quiz_id
     }
 
 class Question(db.Model):
