@@ -34,11 +34,12 @@
     <td>{{item['score']}}</td>
     {% if manage %}
       {% if item['comments'] %}
-      <td>
-        <div class="comment" onclick="open(this)">
+      <td class="commTd">
+        <div class="comment"  onclick="openComm(this)">
         {% for comm in item['comments'] %}
-        <div class="comm"> {{comm['comment']}}</div>
-        <div class="commName">{{comm['name']}}</div>
+        <div class="comm"> {{comm['comment']}} 
+          <p class='commName'>{{comm['name']}}</p>
+        </div>
         {% endfor %}
         </div>
       </td>
@@ -54,15 +55,8 @@
 <div id='nothingToShow'>Nothing to show here yet.</div>
 {% endif %}
 
-<div class='pop2' id='viewComm'>
-    <button class='x' onclick="closeDialog()"><div class='printx'>&#10005;</div></button>
-    <div class="commHolder">
-    </div>
-      <button class="but" id='addComm'  onclick="manage()">Add Commentar</button>
-    </div>
-</div>
-
 <div id="rankPops">{% include "pops_comm.html" %}</div>
+<div id="rankPops">{% include "pops_comm_view.html" %}</div>
 
 <script>
   var rankId = '{{rank_id}}';

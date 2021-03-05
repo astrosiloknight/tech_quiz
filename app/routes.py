@@ -45,6 +45,11 @@ def login():
 	else:
 		return json.dumps({'success': True})
 
+@app.route('/logout')
+def logout():
+  session.clear()
+  return redirect('quiz');
+
 @app.route('/')
 def hello_world():
 	return redirect('quiz');
@@ -72,6 +77,7 @@ def update():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
+  manage = False
   if request.method == 'POST':
     content = json.loads(request.data)
     name = content.get('name', None)
@@ -79,7 +85,10 @@ def quiz():
     if name:
       return make_quiz(name, ip)
   else:
-    return render_template('quiz.html')
+    manager = session.get('manager', None)
+    if manager == 'manager':
+      manage = True
+    return render_template('quiz.html', manage=manage)
 
 @app.route('/quiz/<int:quiz_id>')
 def quiz_instance(quiz_id):

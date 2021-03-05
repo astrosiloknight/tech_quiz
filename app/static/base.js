@@ -54,6 +54,10 @@ function manage() {
   })
 }
 
+function logOut() {
+  window.location.href = "/logout";
+}
+
 
 
 function fetchPost(address, message){

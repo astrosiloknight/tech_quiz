@@ -11,25 +11,21 @@
 <body>
   <div id="page-container">
     <div id='cover'></div>
-      {% if user %}
       <div class='menuHolder' onclick="openSlide()">
-        <div id='User'>{{ user }}</div>
+        <div class="menu"></div>
       </div>
+      {% if manage %}
       <div id='sideBar'>
         <div class='slide'>
           <div class='sideBut'>
             <div class="sideTop"></div>
-            <button>Log out</button>
-            <button>My Profile</button>
-            <button>Settings</button>
-            <button>Contact us</button>
+            <button><a href={{url_for('quiz')}}>Start Quiz</a></button>
+            <button><a href={{url_for('power_ranking')}}>Ranking</a></button>
+            <button onclick="logOut()">Log out</button>
           </div>
         </div>
       </div>
       {% else %}
-      <div class='menuHolder' onclick="openSlide()">
-        <div class="menu"></div>
-      </div>
       <div id='sideBar'>
         <div class='slide'>
           <div class='sideBut'>

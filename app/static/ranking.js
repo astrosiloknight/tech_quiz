@@ -1,4 +1,4 @@
-var commenting;
+var commenting, commentingFromView;
 
 var ranks = document.getElementsByClassName('rankTr');
 var i = 0;
@@ -29,17 +29,46 @@ function subComm(){
   var val = document.getElementById('commentArea').value;
   var name = document.getElementById('commName').value;
   console.log(val);
-  fetchPost('/comment', {'quizId': commenting, 'comment': val}).then(function(response){
+  fetchPost('/comment', {'quizId': commenting, 'comment': val, 'name': name}).then(function(response){
     console.log('response', response);
-    // if(response.quizId){
-    //   window.location.href = '/quiz/' + response.quizId;
-    // }
+    location.reload();
   })
 }
 
 function closeComm() {
   document.getElementById('cover').style.visibility = "hidden";
   document.getElementById('commentPop').style.visibility = "hidden";
+}
+
+
+function addMouseOver() {
+  var comments = document.querySelectorAll('.comment');
+  comments.forEach(function(comment) {
+    comment.addEventListener("mouseenter", e => {
+      event.target.classList.add('visible');
+      event.target.addEventListener('mouseleave', e => {
+        event.target.classList.remove('visible');
+      })
+    })
+  })
+}
+
+function openComm(what) {
+  console.log('what', what.parentNode.parentNode.id);
+  commentingFromView = what;
+  document.getElementById('cover').style.visibility = "visible";
+  document.getElementById('viewComm').style.visibility = 'visible';
+  document.getElementById('commHolder').innerHTML = what.innerHTML;
+}
+
+function closeViewComm() {
+  document.getElementById('viewComm').style.visibility = 'hidden';
+  document.getElementById('cover').style.visibility = "hidden";
+}
+
+function addComm() {
+  document.getElementById('viewComm').style.visibility = 'hidden';
+  comment(commentingFromView);
 }
 
 function fetchPost(address, message){
@@ -56,3 +85,5 @@ function fetchPost(address, message){
   	console.log(error);
   })
 }
+
+addMouseOver();
