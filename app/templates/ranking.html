@@ -23,6 +23,7 @@
     {% if manage %}
     <th>Comment</th>
     <th>View</th>
+    <th>Delete</th>
     {% endif %}
   </tr>
   {% for item in ranking %}
@@ -47,6 +48,7 @@
       <td><button class="but" id="commBut" onclick="comment(this)">add comment</button></td>
       {% endif %}
     <td><button class="but" id="viewBut" onclick="view(this)">view</button></td>
+    <td><button class="but" id="delBut" onclick="del(this)">delete</button></td>
     {% endif %}
   </tr>
   {% endfor %}
@@ -55,8 +57,9 @@
 <div id='nothingToShow'>Nothing to show here yet.</div>
 {% endif %}
 
-<div id="rankPops">{% include "pops_comm.html" %}</div>
-<div id="rankPops">{% include "pops_comm_view.html" %}</div>
+<div>{% include "pops_comm.html" %}</div>
+<div>{% include "pops_comm_view.html" %}</div>
+<div>{% include "pops_del.html" %}</div>
 
 <script>
   var rankId = '{{rank_id}}';

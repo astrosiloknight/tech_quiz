@@ -9,13 +9,13 @@ import hashlib
 import string
 
 from app.models import db, Question, Account
-from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment, delete_quiz
 
 salt = 'to_be_changed'
 
 def Random(n):
-  res = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(n))
-  return res
+	res = ''.join(secrets.choice(string.ascii_uppercase + string.digits) for i in range(n))
+	return res
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -47,21 +47,34 @@ def login():
 
 @app.route('/logout')
 def logout():
-  session.clear()
-  return redirect('quiz');
+	session.clear()
+	return redirect('quiz');
 
 @app.route('/')
 def hello_world():
 	return redirect('quiz');
 
+@app.route('/del', methods=['POST'])
+def delete_entry():
+	content = json.loads(request.data)
+	quiz_id = content.get('quizId', None)
+	manager = session.get('user', None)
+	ip = request.remote_addr
+	if manager == 'manager':
+		return delete_quiz(quiz_id, ip)
+	else:
+		return {'success': False, 'reason': 'no meneger'}
+
+
+
 @app.route('/comment', methods=['POST'])
 def comment():
-  content = json.loads(request.data)
-  quiz_id = content.get('quizId', None)
-  comment = content.get('comment', None)
-  name = content.get('name', None)
-  ip = request.remote_addr
-  return make_comment(quiz_id, comment, name, ip)
+	content = json.loads(request.data)
+	quiz_id = content.get('quizId', None)
+	comment = content.get('comment', None)
+	name = content.get('name', None)
+	ip = request.remote_addr
+	return make_comment(quiz_id, comment, name, ip)
 
 @app.route('/update', methods=['POST'])
 def update():
@@ -77,46 +90,46 @@ def update():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def quiz():
-  manage = False
-  if request.method == 'POST':
-    content = json.loads(request.data)
-    name = content.get('name', None)
-    ip = request.remote_addr
-    if name:
-      return make_quiz(name, ip)
-  else:
-    manager = session.get('manager', None)
-    if manager == 'manager':
-      manage = True
-    return render_template('quiz.html', manage=manage)
+	manage = False
+	if request.method == 'POST':
+		content = json.loads(request.data)
+		name = content.get('name', None)
+		ip = request.remote_addr
+		if name:
+			return make_quiz(name, ip)
+	else:
+		manager = session.get('manager', None)
+		if manager == 'manager':
+			manage = True
+		return render_template('quiz.html', manage=manage)
 
 @app.route('/quiz/<int:quiz_id>')
 def quiz_instance(quiz_id):
-  obj = get_quiz(quiz_id)
-  if obj['success']:
-    return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
-      exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
-  else:
-    return render_template('quiz_quiz.html', error=obj['error'])
+	obj = get_quiz(quiz_id)
+	if obj['success']:
+		return render_template('quiz_quiz.html', name=obj['name'], time=obj['time'],
+			exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']), quiz_id=quiz_id, state=obj['state']) 
+	else:
+		return render_template('quiz_quiz.html', error=obj['error'])
 
 @app.route('/view/<int:quiz_id>')
 def view(quiz_id):
-  if session['user'] == 'manager':
-    obj = get_quiz_view(quiz_id)
-    return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=0)
-  else:
-    return json.dumps({'Aurhentication error': 'Login Please!'})
+	if session['user'] == 'manager':
+		obj = get_quiz_view(quiz_id)
+		return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=0)
+	else:
+		return json.dumps({'Aurhentication error': 'Login Please!'})
 
 @app.route('/submit', methods=['POST'])
 def submit():
-  app.logger.info('submitting')
-  content = json.loads(request.data)
-  quiz_id = content.get('quizId', None)
-  answers = content.get('selected', None)
-  if quiz_id and answers:
-    return submit_quiz(quiz_id, answers)
-  else:
-    return json.dumps({'success in submit': False})
+	app.logger.info('submitting')
+	content = json.loads(request.data)
+	quiz_id = content.get('quizId', None)
+	answers = content.get('selected', None)
+	if quiz_id and answers:
+		return submit_quiz(quiz_id, answers)
+	else:
+		return json.dumps({'success in submit': False})
 
 @app.route('/power_ranking')
 def power_ranking():

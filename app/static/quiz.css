@@ -1,7 +1,7 @@
 
 #slogan{
   width: 100%;
-  margin-bottom: 2em;
+  margin-bottom: 4em;
 }
 
 #quoute {
@@ -85,7 +85,7 @@ img {
   width: 6em;
 }
 
-@media only screen and (min-height: 600px) {
+@media only screen and (min-height: 800px) {
   #slogan {
     margin-bottom: 13em;
   }

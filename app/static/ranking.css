@@ -31,13 +31,13 @@ tr {
   animation: 8000ms ease-in-out color-change;
 }
 
-#viewBut, #commBut, #viewBut:hover, #commBut:hover  {
+#viewBut, #commBut, #viewBut:hover, #commBut:hover, #delBut, #delBut:hover  {
   height:1.2em;
   width: 4.5em;
   font-size: 1em;
 }
 
-#commBut, #commBut:hover {
+#commBut, #commBut:hover, , #delBut, #delBut:hover  {
   width: 7em;
 }
 
@@ -125,6 +125,13 @@ tr {
 }
 
 @media only screen and (min-width: 800px) {
+  td {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
   td {
     padding-left: 2em;
     padding-right: 2em;

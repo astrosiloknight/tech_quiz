@@ -1,4 +1,4 @@
-var commenting, commentingFromView;
+var commenting, commentingFromView, deleting;
 
 var ranks = document.getElementsByClassName('rankTr');
 var i = 0;
@@ -35,9 +35,22 @@ function subComm(){
   })
 }
 
+function del(toDel){
+  deleting = toDel.parentNode.parentNode.id;
+  document.getElementById('delPop').style.visibility = "visible";
+}
+
+function proceed(){
+  fetchPost('/del', {'quizId': deleting}).then(function(response){
+    console.log('response', response);
+    location.reload();
+  })
+}
+
 function closeComm() {
   document.getElementById('cover').style.visibility = "hidden";
   document.getElementById('commentPop').style.visibility = "hidden";
+  document.getElementById('delPop').style.visibility = "hidden";
 }
 
 
