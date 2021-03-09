@@ -22,6 +22,7 @@
             <button><a href={{url_for('quiz')}}>Start Quiz</a></button>
             <button><a href={{url_for('power_ranking')}}>Ranking</a></button>
             <button onclick="logOut()">Log out</button>
+            <button onclick="contact()">Contact us</button>
           </div>
         </div>
       </div>
@@ -33,6 +34,7 @@
             <button><a href={{url_for('quiz')}}>Start Quiz</a></button>
             <button><a href={{url_for('power_ranking')}}>Ranking</a></button>
             <button onclick="SignIn()">Manage</button>
+            <button onclick="contact()">Contact us</button>
           </div>
         </div>
       </div>
@@ -41,12 +43,13 @@
     <div id="content">{% block content %}{% endblock %}</div>
     
     <div id="pops">{% include "pops.html" %}</div>
-    <div id="footer">
-      {% block footer %}
-        <div id="copy">&copy; Copyright 2020 by <a href="http://domain.invalid/">Hardware Tech Team UK 269</a>.</div>
-      {% endblock %}
-    </div>
+    <div>{% include "pops_contact.html" %}</div>
     <script src="{{ url_for('static', filename='base.js') }}"></script>
+  </div>
+  <div id="footer">
+    {% block footer %}
+      <div id="copy">&copy; Copyright 2020 by <a href="http://domain.invalid/">Hardware Tech Team UK 269</a>.</div>
+    {% endblock %}
   </div>
 </body>
 </html>

@@ -37,7 +37,7 @@ tr {
   font-size: 1em;
 }
 
-#commBut, #commBut:hover, , #delBut, #delBut:hover  {
+#commBut, #commBut:hover  {
   width: 7em;
 }
 
@@ -66,26 +66,12 @@ tr {
   border-width: 1px;
 }
 
-#commentArea {
-  font-size: 1.3em;
-  width: 100%;
-  height: 6em;
-  margin-top: 1.5em;
-  margin-bottom: 1em;
-  background-color: rgba(90, 127, 145);
-}
-
 #comImpHolder {
   width: 100%;
 }
 
-.startInput {
+#commName {
   float: right;
-  background-color: rgba(90, 127, 145);
-  font-size: 1.3em;
-  height: 1.5em;
-  width: 7em;
-  margin-right: 1em;
 }
 
 #addComm {
@@ -101,6 +87,7 @@ tr {
 
 .commName {
   color: #983253;
+  
 }
 
 
@@ -131,10 +118,5 @@ tr {
   }
 }
 
-@media only screen and (min-width: 1400px) {
-  td {
-    padding-left: 2em;
-    padding-right: 2em;
-  }
-}
+
 

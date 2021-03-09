@@ -20,6 +20,7 @@
   background: rgba(220, 240, 216, 0.5);
   width: 98%;
   max-width: 40em;
+  border-radius: 0.3em;
 }
 
 #head {
@@ -64,16 +65,6 @@ img {
   flex-shrink: 1;
   min-width: 0;
   margin: 2.5%;
-}
-
-.startInput {
-  background-color: rgba(90, 127, 145);
-	margin: auto;
-  font-size: 1.3em;
-	height: 1.5em;
-  width: 7em;
-  margin-left: 1em;
-  margin-right: 1em;
 }
 
 #noName {

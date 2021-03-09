@@ -19,31 +19,32 @@ def Random(n):
 
 @app.route('/login', methods=['POST'])
 def login():
-	error = False
-	content = json.loads(request.data)
-	password = content.get('password')
-	pa = password.encode()
-	sa = salt.encode()
-	h = hashlib.sha256(pa + sa).hexdigest()
-	try:
-		manager = Account.query.filter_by(name='manager').first()
-		if manager.so_secret == h:
-			random = Random(10)
-			manager.token = random
-			db.session.commit()
-			session['user'] = 'manager'
-			session['info'] = random
-		else:
-			error = True
-	except:
-		error = True
-		app.logger.info(sys.exc_info())
-	finally:
-		db.session.close()
-	if error:
-		return json.dumps({'success': False, 'error': h})
-	else:
-		return json.dumps({'success': True})
+  error = False
+  content = json.loads(request.data)
+  password = content.get('password')
+  pa = password.encode()
+  sa = salt.encode()
+  h = hashlib.sha256(pa + sa).hexdigest()
+  try:
+    manager = Account.query.filter_by(name='manager').first()
+    if manager.so_secret == h:
+      random = Random(10)
+      manager.token = random
+      db.session.commit()
+      session['user'] = 'manager'
+      session['info'] = random
+    else:
+      error = True
+      password_msg = 'Wrong password'
+  except:
+    error = True
+    app.logger.info(sys.exc_info())
+  finally:
+    db.session.close()
+  if error:
+    return json.dumps({'success': False, 'passwordMsg': password_msg})
+  else:
+    return json.dumps({'success': True})
 
 @app.route('/logout')
 def logout():
@@ -53,6 +54,18 @@ def logout():
 @app.route('/')
 def hello_world():
 	return redirect('quiz');
+
+@app.route('/contact')
+def contact():
+  content = json.loads(request.data)
+  name = content.get('name')
+  email = content.get('email')
+  subject = content.get('subject')
+  msg = content.get('msg')
+  if email and msg:
+    return {'success': True}
+  else:
+    return {'success': False}
 
 @app.route('/del', methods=['POST'])
 def delete_entry():

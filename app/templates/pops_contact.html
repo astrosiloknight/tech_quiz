@@ -1,0 +1,15 @@
+<div class='pop2' id='contactPop'>
+    <button class='x' onclick="closeDialog()"><div class='printx'>&#10005;</div></button>
+    <input class='startInput cont' id="contName" placeholder="Name">
+    <input type='email' class='startInput cont' id="contEmail" placeholder="Email">
+    <div class='errorMsg hid' id='wrongEmail'>Please enter valid email address.</div>
+    <input class='startInput cont' id="contSubject" placeholder="Subject">
+    <div class="commInput">
+      <textarea class="commentArea" id='contactArea' placeholder='Please enter your comment or question. If it requires a reply we will do our best to contact you as soon as posible.'></textarea>
+    </div>
+    <div class='errorMsg hid' id='noMsg'>Please enter a question or comment.</div>
+    <div id="popButHolder">
+      <button class="but cancel" onclick="closeDialog()">Cancel</button>
+      <button class="but" id='subContact'  onclick="subContact()">Submit</button>
+    </div>
+</div>

@@ -14,10 +14,7 @@ body {
   -ms-user-select: none;
   user-select: none;
   text-align: center;
-
-
 }
-
 
 #cover {
   visibility: hidden;
@@ -47,6 +44,32 @@ body {
   background: rgba(193, 228, 202);
 }
 
+.startInput {
+  background-color: rgba(90, 127, 145);
+	margin: auto;
+  font-size: 1.3em;
+	height: 1.5em;
+  width: 7em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.commentArea {
+  font-size: 1.3em;
+  width: 100%;
+  height: 6em;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+  background-color: rgba(90, 127, 145);
+}
+
+.cont {
+  margin: 1em;
+  font-size: 1.1em;
+	height: 1.2em;
+  width: 12em;
+}
+
 #popButHolder {
   display: flex;
   justify-content: space-around;
@@ -54,6 +77,18 @@ body {
   margin: auto;
   margin-top: 2em;
   /* margin-bottom: 1em; */
+}
+
+.errorMsg {
+  color: red;
+}
+
+#manageError {
+  margin: 0.5em;
+}
+
+.hid {
+  visibility: hidden;
 }
 
 #password {
@@ -80,9 +115,7 @@ body {
 }
 
 #manBut {
-  position: absolute;
-  bottom: 2em;
-  right: 2em;
+  float: right;
 }
 
 .x:hover, .but:hover {
@@ -272,7 +305,8 @@ body {
 
 #page-container {
   position: relative;
-  min-height: 100vh;
+  min-height: 96vh;
+  
 }
 
 #content{
