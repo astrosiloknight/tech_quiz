@@ -156,12 +156,10 @@ def power_ranking():
 
 @app.route('/messaging')
 def messaging():
-	manage = False
-	messages = get_messages()
-	if 'user' in session:
-		if session['user'] == 'manager':
-			manage = True
-	return render_template('messages.html', messages=messages)
+  messages = get_messages()
+  if 'user' in session:
+    if session['user'] == 'manager':
+      return render_template('messages.html', messages=messages)
 
 @app.route('/power_ranking/<int:rank_id>')
 def power_ranking_one(rank_id):

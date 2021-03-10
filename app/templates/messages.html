@@ -3,25 +3,28 @@
 {% block head %}
 {{ super() }}
 <head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='ranking.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='messages.css') }}">
 </head>
 {% endblock %}
 
 {% block content %}
-<h1>Hardware technician messaging service</h1>
+<div id='msgTitle'><h1>Hardware technician messaging service</h1></div>
 
 
 {% if messages %}
-<ul>
+<div id='messageHolder'>
   {% for item in messages %}
-    <li>
-      <div>{{item.name}}</div>
-      <div>{{item.email}}</div>
-      <div>{{item.subject}}</div>
-      <div>{{item.message}}</div>
-    </li>
+    <div id="message" class='open'>
+      <div id='nameField'>
+        <div id='msgName'>Name: {{item.name}}</div>
+        <div id="msgEmail">Email: {{item.email}}</div>
+        <div id="msgDate">{{item.date}}</div>
+      </div>
+      <div id='msgSubject'>Subject: {{item.subject}}</div>
+      <div id='msgText'>{{item.message}}</div>
+    </div>
   {% endfor %}
-</ul>
+</div>
 {% else %}
   <div id='nothingToShow'>Nothing to show here yet.</div>
 {% endif %}
