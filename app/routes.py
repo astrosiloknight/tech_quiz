@@ -9,7 +9,7 @@ import hashlib
 import string
 
 from app.models import db, Question, Account
-from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment, delete_quiz
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment, delete_quiz, make_contact, get_messages
 
 salt = 'to_be_changed'
 
@@ -55,15 +55,16 @@ def logout():
 def hello_world():
 	return redirect('quiz');
 
-@app.route('/contact')
+@app.route('/contact', methods=['POST'])
 def contact():
   content = json.loads(request.data)
   name = content.get('name')
   email = content.get('email')
   subject = content.get('subject')
   msg = content.get('msg')
+  ip = request.remote_addr
   if email and msg:
-    return {'success': True}
+    return make_contact(name, email, subject, msg, ip)
   else:
     return {'success': False}
 
@@ -152,6 +153,15 @@ def power_ranking():
 		if session['user'] == 'manager':
 			manage = True
 	return render_template('ranking.html', ranking=power, manage=manage)
+
+@app.route('/messaging')
+def messaging():
+	manage = False
+	messages = get_messages()
+	if 'user' in session:
+		if session['user'] == 'manager':
+			manage = True
+	return render_template('messages.html', messages=messages)
 
 @app.route('/power_ranking/<int:rank_id>')
 def power_ranking_one(rank_id):

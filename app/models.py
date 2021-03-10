@@ -104,8 +104,39 @@ class Comment(db.Model):
       'comment': self.comments,
       'ip': self.ip,
       'name': self.name,
-      'deleted': self.deleted,
       'quiz_id': self.quiz_id
+    }
+
+class Contact(db.Model):
+  __tablename__ = 'contacts'
+  id = db.Column(db.Integer, primary_key=True)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  name = db.Column(db.String(40))
+  email = db.Column(db.String(40))
+  subject = db.Column(db.String(200))
+  ip = db.Column(db.String(30))
+  message = db.Column(db.String(1000))
+
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+  
+  def update(self):
+    db.session.commit()
+
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
+  def format(self):
+    return {
+      'id': self.id,
+      'date': str(self.date),
+      'subject': self.subject,
+      'ip': self.ip,
+      'name': self.name,
+      'message': self.message,
+      'email': self.email
     }
 
 class Question(db.Model):

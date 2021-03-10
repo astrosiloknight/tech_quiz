@@ -44,6 +44,10 @@ body {
   background: rgba(193, 228, 202);
 }
 
+#contactPop {
+  margin-top: -14em;
+}
+
 .startInput {
   background-color: rgba(90, 127, 145);
 	margin: auto;

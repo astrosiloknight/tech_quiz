@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='ranking.css') }}">
+</head>
+{% endblock %}
+
+{% block content %}
+<h1>Hardware technician messaging service</h1>
+
+
+{% if messages %}
+<ul>
+  {% for item in messages %}
+    <li>
+      <div>{{item.name}}</div>
+      <div>{{item.email}}</div>
+      <div>{{item.subject}}</div>
+      <div>{{item.message}}</div>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <div id='nothingToShow'>Nothing to show here yet.</div>
+{% endif %}
+
+
+<script src="{{ url_for('static', filename='ranking.js') }}"></script>
+
+{% endblock %}

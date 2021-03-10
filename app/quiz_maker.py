@@ -6,7 +6,7 @@ import random
 import sys
 import json
 
-from app.models import db, Quiz, Question, Comment
+from app.models import db, Quiz, Question, Comment, Contact
 
 def make_quiz(name, ip):
 	bulk = []
@@ -163,6 +163,21 @@ def ranking():
 		return power
 
 
+def get_messages():
+	messages = False
+	try:
+		contacts = Contact.query.all()
+		if contacts:
+			messages = []
+			for msg in contacts:
+				messages.append(msg.format())
+	except:
+		app.logger.info(sys.exc_info())
+	finally:
+		db.session.close()
+	if messages:
+		return messages
+
 def get_quiz_view(quiz_id):
 	error = False
 	try:
@@ -185,6 +200,21 @@ def make_comment(quiz_id, comment, name, ip):
 	try:
 		comment = Comment(quiz_id=quiz_id, name=name, comment=comment, ip=ip)
 		Comment.insert(comment)
+	except:
+		error = True
+		app.logger.info(sys.exc_info())
+	finally:
+		db.session.close()
+	if error:
+		return {'success': False, 'error': sys.exc_info()}
+	else:
+		return {'success': True}
+
+def make_contact(name, email, subject, msg, ip):
+	error = False
+	try:
+		contact = Contact(name=name, email=email, subject=subject, message=msg, ip=ip)
+		Contact.insert(contact)
 	except:
 		error = True
 		app.logger.info(sys.exc_info())
