@@ -97,6 +97,13 @@ function subContact() {
     console.log('response', res);
     if(res.success){
       console.log('success');
+      closeDialog();
+      document.getElementById('success').style.visibility = 'visible';
+      document.getElementById('success').classList.add('successGone');
+      setTimeout(function(){
+        document.getElementById('success').style.visibility = 'hidden';
+        document.getElementById('success').classList.remove('successGone');
+      }, 3000)
     } else {
       console.log('not');
     }

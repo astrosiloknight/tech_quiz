@@ -116,6 +116,7 @@ class Contact(db.Model):
   subject = db.Column(db.String(200))
   ip = db.Column(db.String(30))
   message = db.Column(db.String(1000))
+  replied = db.Column(db.Boolean, default=False)
 
   def insert(self):
     db.session.add(self)
@@ -136,7 +137,8 @@ class Contact(db.Model):
       'ip': self.ip,
       'name': self.name,
       'message': self.message,
-      'email': self.email
+      'email': self.email,
+      'replied': self.replied
     }
 
 class Question(db.Model):

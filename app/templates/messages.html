@@ -14,7 +14,7 @@
 {% if messages %}
 <div id='messageHolder'>
   {% for item in messages %}
-    <div id="message" class='open'>
+    <div id="message" class='openMsg'>
       <div id='nameField'>
         <div id='msgName'>Name: {{item.name}}</div>
         <div id="msgEmail">Email: {{item.email}}</div>
@@ -22,6 +22,9 @@
       </div>
       <div id='msgSubject'>Subject: {{item.subject}}</div>
       <div id='msgText'>{{item.message}}</div>
+      <div id='msgButHolder'>
+        <button class='but' id="msgBut">Replied</button>
+      </div>
     </div>
   {% endfor %}
 </div>
