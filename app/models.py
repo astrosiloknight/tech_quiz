@@ -110,7 +110,7 @@ class Comment(db.Model):
 class Contact(db.Model):
   __tablename__ = 'contacts'
   id = db.Column(db.Integer, primary_key=True)
-  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
   name = db.Column(db.String(40))
   email = db.Column(db.String(40))
   subject = db.Column(db.String(200))
@@ -132,7 +132,7 @@ class Contact(db.Model):
   def format(self):
     return {
       'id': self.id,
-      'date': str(self.date),
+      'date': str(self.date.strftime("%c")),
       'subject': self.subject,
       'ip': self.ip,
       'name': self.name,

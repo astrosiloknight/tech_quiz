@@ -30,13 +30,8 @@ function success() {
 }
 
 function submit(){
-	if(document.getElementById('questionType').value == 'match'){
-		var message = {'questionType': document.getElementById('questionType').value, 
-		'question': document.getElementById('question').value, 'url': document.getElementById('picUrl').value, 'answers': answers}
-	} else{
-		var message = {'questionType': document.getElementById('questionType').value, 
-		'question': document.getElementById('question').value, 'answers': answers}
-	}
+	var message = {'questionType': document.getElementById('questionType').value, 
+  'question': document.getElementById('question').value, 'url': document.getElementById('picUrl').value, 'answers': answers}
 	fetchPost('/add_question', message).then(function(response){
     if(response.success){
       document.getElementById('question').value = '';
@@ -71,8 +66,8 @@ function changeType(){
   if(document.getElementById('newSel')){
     document.getElementById('newSel').remove();
   }
-  document.getElementById('pictureUrl').style.visibility = 'hidden';
   if(document.getElementById('questionType').value == 'positional'){
+    document.getElementById('pictureUrl').style.visibility = 'hidden';
   	document.getElementById('scoreLabel').innerText = 'Answer Position';
   	newIn = document.createElement('input');
   	newIn.id = 'score';

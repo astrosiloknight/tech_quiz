@@ -22,7 +22,7 @@ def make_quiz(name, ip):
 				random.shuffle(temp_answers)
 			temp.append(temp_answers)
 			temp.append(question.question_type)
-			if question.question_type == 'match':
+			if question.pic:
 				temp.append(question.pic)
 			bulk.append(temp)
 		random.shuffle(bulk)
@@ -166,7 +166,7 @@ def ranking():
 def get_messages():
 	messages = False
 	try:
-		contacts = Contact.query.all()
+		contacts = Contact.query.order_by(Contact.replied, Contact.date.asc()).all()
 		if contacts:
 			messages = []
 			for msg in contacts:
@@ -177,6 +177,25 @@ def get_messages():
 		db.session.close()
 	if messages:
 		return messages
+
+def make_replied(msg_id):
+	error = False
+	try:
+		msg = Contact.query.filter_by(id=msg_id).first()
+		if msg.replied == True:
+			msg.replied = False
+		else:
+			msg.replied = True
+		msg.update()
+	except:
+		error = True
+		app.logger.info(sys.exc_info())
+	finally:
+		db.session.close()
+	if error:
+		return {'success': False, 'error': sys.exc_info()}
+	else:
+		return {'success': True}
 
 def get_quiz_view(quiz_id):
 	error = False

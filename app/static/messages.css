@@ -28,6 +28,10 @@
   background: rgb(252, 252, 78, 0.2);
 }
 
+.replied {
+  background: rgb(76, 163, 26, 0.2);
+}
+
 #message {
   border: solid;
   border-width: 1px;
@@ -53,7 +57,7 @@
   padding: 0.8em;
 }
 
-#msgButHolder {
+.msgButHolder {
   display: inline-block;
   width: 100%;
 }

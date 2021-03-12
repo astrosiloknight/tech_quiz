@@ -9,7 +9,7 @@ import hashlib
 import string
 
 from app.models import db, Question, Account
-from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment, delete_quiz, make_contact, get_messages
+from app.quiz_maker import make_quiz, get_quiz, update_quiz, submit_quiz, ranking, get_quiz_view, make_comment, delete_quiz, make_contact, get_messages, make_replied
 
 salt = 'to_be_changed'
 
@@ -79,6 +79,11 @@ def delete_entry():
 	else:
 		return {'success': False, 'reason': 'no meneger'}
 
+@app.route('/replied', methods=['POST'])
+def replied():
+	content = json.loads(request.data)
+	msg_id = content.get('msgId', None)
+	return make_replied(msg_id)
 
 
 @app.route('/comment', methods=['POST'])

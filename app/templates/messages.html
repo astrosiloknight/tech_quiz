@@ -14,7 +14,7 @@
 {% if messages %}
 <div id='messageHolder'>
   {% for item in messages %}
-    <div id="message" class='openMsg'>
+    <div id="message" class = "{{ 'replied' if item.replied else 'openMsg' }}">
       <div id='nameField'>
         <div id='msgName'>Name: {{item.name}}</div>
         <div id="msgEmail">Email: {{item.email}}</div>
@@ -22,8 +22,12 @@
       </div>
       <div id='msgSubject'>Subject: {{item.subject}}</div>
       <div id='msgText'>{{item.message}}</div>
-      <div id='msgButHolder'>
-        <button class='but' id="msgBut">Replied</button>
+      <div class='msgButHolder' id='{{item.id}}'>
+        {% if item.replied %}
+          <button class='but' id="msgBut" onclick='replied(this)'>Unreply</button>
+        {% else %}
+          <button class='but' id="msgBut" onclick='replied(this)'>Replied</button>
+        {% endif %}
       </div>
     </div>
   {% endfor %}
@@ -33,6 +37,6 @@
 {% endif %}
 
 
-<script src="{{ url_for('static', filename='ranking.js') }}"></script>
+<script src="{{ url_for('static', filename='messages.js') }}"></script>
 
 {% endblock %}

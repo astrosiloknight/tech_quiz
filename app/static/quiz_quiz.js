@@ -37,6 +37,7 @@ function makeRuller() {
 }
 
 function display_exercise(){
+  console.log('exercises[num', exercises[num]);
   sorted = [];
   document.getElementById('answers').classList.remove('nontouch');
   if(num < len - 1){
@@ -102,6 +103,11 @@ function display_exercise(){
     console.log('bingo');
     exercises[num][1] = selected[num];
     document.getElementById('answers').classList.add('nontouch');
+  } else if(exercises[num][2] == 'question' && exercises[num][3]){
+    let questImg = document.createElement('img'); 
+    questImg.classList.add('questImg');
+    questImg.src = exercises[num][3];
+    document.getElementById('question').prepend(questImg);
   } 
   for (answer of exercises[num][1]){
     if(exercises[num][2] == 'match'){

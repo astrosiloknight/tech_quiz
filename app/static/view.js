@@ -74,6 +74,11 @@ function display_exercise(){
     picHold.append(botDiv, rightDiv);
   }  else if(exercises[num][2] == 'positional' && selected[num]){
     to_iterate = selected[num];
+  }  else if(exercises[num][2] == 'question' && exercises[num][3]){
+    let questImg = document.createElement('img'); 
+    questImg.classList.add('questImg');
+    questImg.src = '/' + exercises[num][3];
+    document.getElementById('question').prepend(questImg);
   } 
   for (answer of to_iterate){
     if(exercises[num][2] == 'match'){
