@@ -37,7 +37,6 @@ function makeRuller() {
 }
 
 function display_exercise(){
-  console.log('exercises[num', exercises[num]);
   sorted = [];
   document.getElementById('answers').classList.remove('nontouch');
   if(num < len - 1){
@@ -100,7 +99,6 @@ function display_exercise(){
     picHold.append(pic);
     picHold.append(botDiv, rightDiv);
   }  else if(exercises[num][2] == 'positional' && selected[num]){
-    console.log('bingo');
     exercises[num][1] = selected[num];
     document.getElementById('answers').classList.add('nontouch');
   } else if(exercises[num][2] == 'question' && exercises[num][3]){
@@ -121,7 +119,6 @@ function display_exercise(){
         const data = event.dataTransfer.getData("text");
         if(this.hasChildNodes()){
           this.firstChild.classList.remove('answered');
-          console.log('selected', selected);
           document.getElementById('matchAns').append(this.firstChild);
         }
         this.appendChild(document.getElementById(data));
@@ -179,7 +176,6 @@ function display_exercise(){
       
       ans.setAttribute('draggable', "true");
       ans.ondragstart = function(event){
-        console.log('setting id', event.target.id)
         event.dataTransfer.setData("text/plain", event.target.id);
         event.dataTransfer.dropEffect = "move";
       };
@@ -227,7 +223,7 @@ function display_exercise(){
   } else{
     document.getElementById('answers').append(matchAnswers);
     for (const [key, value] of Object.entries(selected[num])){
-      if(value != 'empty-empty'){
+      if(value != 'empty-empty' && value != 'empty'){
         console.log('key, value', key, value);
         document.getElementById(key).classList.add('answered');
         document.getElementById(value).append(document.getElementById(key));

@@ -133,9 +133,11 @@ def quiz_instance(quiz_id):
 
 @app.route('/view/<int:quiz_id>')
 def view(quiz_id):
+	manage = False
 	if session['user'] == 'manager':
 		obj = get_quiz_view(quiz_id)
-		return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=0)
+		manage = True
+		return render_template('view.html', name=obj['name'], exercises=json.dumps(obj['questions']), answers=json.dumps(obj['answers']),time=obj['time'], quiz_id=quiz_id, state=0, manage=manage)
 	else:
 		return json.dumps({'Aurhentication error': 'Login Please!'})
 
@@ -164,7 +166,7 @@ def messaging():
   messages = get_messages()
   if 'user' in session:
     if session['user'] == 'manager':
-      return render_template('messages.html', messages=messages)
+      return render_template('messages.html', messages=messages, manage=True)
 
 @app.route('/power_ranking/<int:rank_id>')
 def power_ranking_one(rank_id):
