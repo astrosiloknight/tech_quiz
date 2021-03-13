@@ -77,7 +77,7 @@ function display_exercise(){
   }  else if(exercises[num][2] == 'question' && exercises[num][3]){
     let questImg = document.createElement('img'); 
     questImg.classList.add('questImg');
-    questImg.src = '/' + exercises[num][3];
+    questImg.src = exercises[num][3];
     document.getElementById('question').prepend(questImg);
   } 
   for (answer of to_iterate){

@@ -98,6 +98,7 @@ input[type=checkbox] {
 
 #answers {
   width: 100%;
+  padding-top: 0.5em;
   padding-bottom: 3em;
 }
 
@@ -137,9 +138,12 @@ table {
 #question {
   width: 100%;
 	font-size: 1.3em;
-  padding-bottom: 1em;
+  padding-bottom: 0.5em;
   padding-top: 1em;
+  font-weight: bolder;
   text-align: center;
+  border-bottom: solid;
+  color: rgb(82, 103, 135);
 }
 
 .questImg {

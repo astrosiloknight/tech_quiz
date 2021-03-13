@@ -35,9 +35,17 @@ function closeSlide() {
   slideOpen = false;
 }
 
+function managePress(){
+  if (event.keyCode === 13) {
+      manage();
+    }
+}
+
 function SignIn() {
   document.getElementById('cover').style.visibility = "visible";
   document.getElementById('manage').style.visibility = "visible";
+  document.getElementById('password').focus();
+  document.addEventListener("keyup", managePress, false);
 }
 
 function closeDialog() {
@@ -52,7 +60,9 @@ function closeDialog() {
   hid.forEach(function(h){
     h.style.visibility = 'hidden';
   })
-  
+  document.removeEventListener("keyup", managePress, false);
+  document.getElementById('manageError').innerText = ''; 
+  document.getElementById('password').value = '';
 }
 
 function manage() {

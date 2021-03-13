@@ -2,6 +2,8 @@
 
 //document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
 
+document.getElementById('name').focus();
+
 function startGame(){
 	var name = document.getElementById('name').value;
   var surname = document.getElementById('surname').value;
@@ -19,11 +21,13 @@ function startGame(){
   }
 }
 
-document.addEventListener("keyup", function(event) {
+var startKey = document.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
     startGame();
   }
 });
+
+
 
 function fetchPost(address, message){
   return fetch(address,{

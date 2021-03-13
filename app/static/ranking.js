@@ -19,18 +19,19 @@ function view(inp){
 }
 
 function comment(inp){
-	console.log('this', inp.parentNode.parentNode.id);
   commenting = inp.parentNode.parentNode.id;
   document.getElementById('cover').style.visibility = "visible";
 	document.getElementById('commentPop').style.visibility = 'visible';
+  document.getElementById('commAr').focus();
 }
 
 function subComm(){
-  var val = document.getElementById('commentArea').value;
-  var name = document.getElementById('commName').value;
+  var val = document.getElementById('commAr').value;
+  var name = document.getElementById('commName').value || 'Anonymous';
   console.log(val);
   fetchPost('/comment', {'quizId': commenting, 'comment': val, 'name': name}).then(function(response){
     console.log('response', response);
+    document.getElementById('success').style.visibility = 'visible';
     location.reload();
   })
 }
@@ -51,6 +52,8 @@ function closeComm() {
   document.getElementById('cover').style.visibility = "hidden";
   document.getElementById('commentPop').style.visibility = "hidden";
   document.getElementById('delPop').style.visibility = "hidden";
+  document.getElementById('commAr').value = '';
+  document.getElementById('commName').value = '';
 }
 
 

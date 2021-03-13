@@ -117,7 +117,7 @@ def quiz():
 		if name:
 			return make_quiz(name, ip)
 	else:
-		manager = session.get('manager', None)
+		manager = session.get('user', None)
 		if manager == 'manager':
 			manage = True
 		return render_template('quiz.html', manage=manage)
