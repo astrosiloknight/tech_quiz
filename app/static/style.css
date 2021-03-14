@@ -1,4 +1,9 @@
 
+@font-face {
+  font-family: 'ultra';
+  src: url('/static/ultra.ttf')  format('truetype')
+}
+
 :root {
   --butt-bac-color: rgba(90, 127, 125);
 }
@@ -14,6 +19,13 @@ body {
   -ms-user-select: none;
   user-select: none;
   text-align: center;
+}
+
+#D2 img {
+  position: absolute;
+  right: 0;
+  top: -0.5em;
+  width: 10em;
 }
 
 #cover {
@@ -347,6 +359,16 @@ body {
 
 .successGone {
   opacity: 0;  
+}
+
+#copy small {
+  color: blue;
+  text-decoration: underline;
+  font-size: 1em;
+}
+
+#copy small:hover {
+  cursor: pointer;
 }
 
 /*responsive*/

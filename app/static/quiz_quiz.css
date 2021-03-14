@@ -157,12 +157,14 @@ tr {
 }
 
 .answers:hover {
-  cursor: grab;
+  cursor: poiner;
 }
 
+tr:hover {
+  cursor: pointer;
+}
 
-
-tr:hover, .movable:hover, .matchAn:hover {
+.movable:hover, .matchAn:hover {
   cursor: grab;
 }
 

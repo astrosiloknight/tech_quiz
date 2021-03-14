@@ -39,7 +39,6 @@
         </div>
       </div>
     {% endif %}
-    <div id='brand'>Hardware Quiz</div>
     <div id="content">{% block content %}{% endblock %}</div>
     
     <div id="pops">{% include "pops.html" %}</div>
@@ -49,7 +48,7 @@
   </div>
   <div id="footer">
     {% block footer %}
-      <div id="copy">&copy; Copyright 2020 by <a href="http://domain.invalid/">Hardware Tech Team UK 269</a>.</div>
+      <div id="copy">&copy; Copyright 2020 by <small onclick="contact()">Hardware Tech Team UK 269</small>.</div>
     {% endblock %}
   </div>
 </body>

@@ -1,4 +1,5 @@
 
+
 #slogan{
   width: 100%;
   margin-bottom: 4em;
@@ -33,7 +34,7 @@
 
 #head2 {
   font-size: 1.05em;
-  /*font-family: 'Potta One', cursive;*/
+  font-family: cursive;
   background: rgba(143, 40, 40, 0.4);
   vertical-align: bottom;
 }
@@ -78,6 +79,7 @@ img {
 
 @media only screen and (min-height: 800px) {
   #slogan {
-    margin-bottom: 13em;
+    font-size: 1.4em;
+    margin-bottom: 10em;
   }
 }
