@@ -53,9 +53,11 @@ function closeDialog() {
   document.getElementById('manage').style.visibility = "hidden";
   document.getElementById('contactPop').style.visibility = 'hidden';
   var toDel = document.querySelectorAll('.startInput');
+  console.log('toDel');
   var hid = document.querySelectorAll('.hid');
   toDel.forEach(function(inp){
     inp.value = '';
+    document.getElementById('contactArea').value = '';
   })
   hid.forEach(function(h){
     h.style.visibility = 'hidden';
