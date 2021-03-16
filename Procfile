@@ -1,1 +1,1 @@
-web: flask db upgrade; gunicorn quiz:app --log-file -
+web: gunicorn quiz:app --log-file -
