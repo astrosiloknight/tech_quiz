@@ -77,6 +77,10 @@ img {
   width: 6em;
 }
 
+#ikea {
+  font-family: Ikea sans-serif, Arial;
+}
+
 @media only screen and (min-height: 800px) {
   #slogan {
     font-size: 1.4em;
